@@ -29,6 +29,10 @@
     gap: 8px;
 }
 
+.board-list-item-top:hover{
+    cursor: pointer;
+}
+
 .board-list-item-profile-box{
     width: 32px;
     height: 32px;
