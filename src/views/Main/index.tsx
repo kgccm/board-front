@@ -29,13 +29,13 @@ export default function Main() {
           <a href="" className="item-link">
             <div className="main-item-photo-box"></div>
             <div className="main-item-description">
-              <h2 className="item-title">{'에어팟'}</h2>
+              <h2 className="item-title">{'에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟'}</h2>
               <div className="item-price">{'30,000원'}</div>
               <div className="item-region-name">{'인천광역시 부평구 부평동'}</div>
               <div className="item-counts">
-                <span className="item-favotie-counts">{'12'}</span>
-                {'•'}
-                <span className="item-comment-counts">{'4'}</span>
+                <span className="item-favotie-counts">{'관심 12'}</span>
+                {'   •   '}
+                <span className="item-comment-counts">{'댓글 4'}</span>
               </div>
             </div>
           </a>
@@ -44,13 +44,13 @@ export default function Main() {
           <a href="" className="item-link">
             <div className="main-item-photo-box"></div>
             <div className="main-item-description">
-              <h2 className="item-title">{'에어팟'}</h2>
+              <h2 className="item-title">{'에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟'}</h2>
               <div className="item-price">{'30,000원'}</div>
               <div className="item-region-name">{'인천광역시 부평구 부평동'}</div>
               <div className="item-counts">
-                <span className="item-favotie-counts">{'12'}</span>
-                {'•'}
-                <span className="item-comment-counts">{'4'}</span>
+                <span className="item-favotie-counts">{'관심 12'}</span>
+                {'   •   '}
+                <span className="item-comment-counts">{'댓글 4'}</span>
               </div>
             </div>
           </a>
@@ -59,13 +59,13 @@ export default function Main() {
           <a href="" className="item-link">
             <div className="main-item-photo-box"></div>
             <div className="main-item-description">
-              <h2 className="item-title">{'에어팟'}</h2>
+              <h2 className="item-title">{'에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟'}</h2>
               <div className="item-price">{'30,000원'}</div>
               <div className="item-region-name">{'인천광역시 부평구 부평동'}</div>
               <div className="item-counts">
-                <span className="item-favotie-counts">{'12'}</span>
-                {'•'}
-                <span className="item-comment-counts">{'4'}</span>
+                <span className="item-favotie-counts">{'관심 12'}</span>
+                {'   •   '}
+                <span className="item-comment-counts">{'댓글 4'}</span>
               </div>
             </div>
           </a>
@@ -74,13 +74,13 @@ export default function Main() {
           <a href="" className="item-link">
             <div className="main-item-photo-box"></div>
             <div className="main-item-description">
-              <h2 className="item-title">{'에어팟'}</h2>
+              <h2 className="item-title">{'에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟'}</h2>
               <div className="item-price">{'30,000원'}</div>
               <div className="item-region-name">{'인천광역시 부평구 부평동'}</div>
               <div className="item-counts">
-                <span className="item-favotie-counts">{'12'}</span>
-                {'•'}
-                <span className="item-comment-counts">{'4'}</span>
+                <span className="item-favotie-counts">{'관심 12'}</span>
+                {'   •   '}
+                <span className="item-comment-counts">{'댓글 4'}</span>
               </div>
             </div>
           </a>
@@ -89,13 +89,13 @@ export default function Main() {
           <a href="" className="item-link">
             <div className="main-item-photo-box"></div>
             <div className="main-item-description">
-              <h2 className="item-title">{'에어팟'}</h2>
+              <h2 className="item-title">{'에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟'}</h2>
               <div className="item-price">{'30,000원'}</div>
               <div className="item-region-name">{'인천광역시 부평구 부평동'}</div>
               <div className="item-counts">
-                <span className="item-favotie-counts">{'12'}</span>
-                {'•'}
-                <span className="item-comment-counts">{'4'}</span>
+                <span className="item-favotie-counts">{'관심 12'}</span>
+                {'   •   '}
+                <span className="item-comment-counts">{'댓글 4'}</span>
               </div>
             </div>
           </a>
@@ -104,13 +104,13 @@ export default function Main() {
           <a href="" className="item-link">
             <div className="main-item-photo-box"></div>
             <div className="main-item-description">
-              <h2 className="item-title">{'에어팟'}</h2>
+              <h2 className="item-title">{'에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟'}</h2>
               <div className="item-price">{'30,000원'}</div>
               <div className="item-region-name">{'인천광역시 부평구 부평동'}</div>
               <div className="item-counts">
-                <span className="item-favotie-counts">{'12'}</span>
-                {'•'}
-                <span className="item-comment-counts">{'4'}</span>
+                <span className="item-favotie-counts">{'관심 12'}</span>
+                {'   •   '}
+                <span className="item-comment-counts">{'댓글 4'}</span>
               </div>
             </div>
           </a>
@@ -119,13 +119,13 @@ export default function Main() {
           <a href="" className="item-link">
             <div className="main-item-photo-box"></div>
             <div className="main-item-description">
-              <h2 className="item-title">{'에어팟'}</h2>
+              <h2 className="item-title">{'에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟'}</h2>
               <div className="item-price">{'30,000원'}</div>
               <div className="item-region-name">{'인천광역시 부평구 부평동'}</div>
               <div className="item-counts">
-                <span className="item-favotie-counts">{'12'}</span>
-                {'•'}
-                <span className="item-comment-counts">{'4'}</span>
+                <span className="item-favotie-counts">{'관심 12'}</span>
+                {'   •   '}
+                <span className="item-comment-counts">{'댓글 4'}</span>
               </div>
             </div>
           </a>
@@ -134,13 +134,13 @@ export default function Main() {
           <a href="" className="item-link">
             <div className="main-item-photo-box"></div>
             <div className="main-item-description">
-              <h2 className="item-title">{'에어팟'}</h2>
+              <h2 className="item-title">{'에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟'}</h2>
               <div className="item-price">{'30,000원'}</div>
               <div className="item-region-name">{'인천광역시 부평구 부평동'}</div>
               <div className="item-counts">
-                <span className="item-favotie-counts">{'12'}</span>
-                {'•'}
-                <span className="item-comment-counts">{'4'}</span>
+                <span className="item-favotie-counts">{'관심 12'}</span>
+                {'   •   '}
+                <span className="item-comment-counts">{'댓글 4'}</span>
               </div>
             </div>
           </a>
@@ -149,13 +149,13 @@ export default function Main() {
           <a href="" className="item-link">
             <div className="main-item-photo-box"></div>
             <div className="main-item-description">
-              <h2 className="item-title">{'에어팟'}</h2>
+              <h2 className="item-title">{'에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟'}</h2>
               <div className="item-price">{'30,000원'}</div>
               <div className="item-region-name">{'인천광역시 부평구 부평동'}</div>
               <div className="item-counts">
-                <span className="item-favotie-counts">{'12'}</span>
-                {'•'}
-                <span className="item-comment-counts">{'4'}</span>
+                <span className="item-favotie-counts">{'관심 12'}</span>
+                {'   •   '}
+                <span className="item-comment-counts">{'댓글 4'}</span>
               </div>
             </div>
           </a>
@@ -164,13 +164,13 @@ export default function Main() {
           <a href="" className="item-link">
             <div className="main-item-photo-box"></div>
             <div className="main-item-description">
-              <h2 className="item-title">{'에어팟'}</h2>
+              <h2 className="item-title">{'에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟'}</h2>
               <div className="item-price">{'30,000원'}</div>
               <div className="item-region-name">{'인천광역시 부평구 부평동'}</div>
               <div className="item-counts">
-                <span className="item-favotie-counts">{'12'}</span>
-                {'•'}
-                <span className="item-comment-counts">{'4'}</span>
+                <span className="item-favotie-counts">{'관심 12'}</span>
+                {'   •   '}
+                <span className="item-comment-counts">{'댓글 4'}</span>
               </div>
             </div>
           </a>
@@ -179,13 +179,13 @@ export default function Main() {
           <a href="" className="item-link">
             <div className="main-item-photo-box"></div>
             <div className="main-item-description">
-              <h2 className="item-title">{'에어팟'}</h2>
+              <h2 className="item-title">{'에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟'}</h2>
               <div className="item-price">{'30,000원'}</div>
               <div className="item-region-name">{'인천광역시 부평구 부평동'}</div>
               <div className="item-counts">
-                <span className="item-favotie-counts">{'12'}</span>
-                {'•'}
-                <span className="item-comment-counts">{'4'}</span>
+                <span className="item-favotie-counts">{'관심 12'}</span>
+                {'   •   '}
+                <span className="item-comment-counts">{'댓글 4'}</span>
               </div>
             </div>
           </a>
