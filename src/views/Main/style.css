@@ -1,0 +1,146 @@
+#main-wrapper {
+  padding: 0px;
+  margin-top: 72px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  min-width: 1440px;
+  height: calc(100vh - 68px - 100px - 150px);
+  min-height: 960px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  background-color: rgba(181, 214, 146, 0.8);
+}
+
+.main-top-text-box {
+  display: block;
+  justify-content: center;
+  align-items: center;
+  width: 1079px;
+}
+.main-top-text {
+  text-align: center;
+  font-size: 32px;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 1);
+  line-height: 140%;
+  letter-spacing: -0.6px;
+  margin-block-end: 40px;
+  margin-top: 128px;
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-bottom: 0px;
+}
+
+.main-item-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 0px 58.5px;
+  padding: 0px;
+  width: 980px;
+  font-size: 10px;
+}
+
+.main-item-box {
+  display: block;
+
+  width: 223px;
+  margin-bottom: 56px;
+}
+
+.item-link {
+  cursor: pointer;
+
+  text-decoration: none;
+  text-decoration-color: rgb(33, 37, 41);
+}
+
+.main-item-photo-box {
+  background-image: url(assets/image/auth-logo.png);
+  background-position: 50% 50%;
+  background-size: 100% 100%;
+  width: 223px;
+  height: calc(223px - 29.5px - 56px);
+}
+
+.main-item-description {
+  font-size: 10px;
+
+  margin-top: 12px;
+  margin-bottom: 0px;
+  margin-right: 0px;
+  margin-left: 0px;
+
+  padding: 0px;
+}
+
+.item-title {
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: -0.02px;
+  line-height: 24px;
+
+  margin-block-end: 4px;
+  margin-block-start: 0px;
+  margin-bottom: 4px;
+
+  margin-top: 0px;
+  margin-right: 0px;
+  margin-left: 0px;
+
+  padding: 0px;
+
+  overflow-x: hidden;
+  overflow-y: hidden;
+
+  text-overflow: ellipsis;
+  text-wrap: nowrap;
+  white-space-collapse: collapse;
+}
+
+.item-price {
+  font-size: 15px;
+  font-weight: 700;
+
+  line-height: 22.5px;
+
+  margin-bottom: 4px;
+  margin-top: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+
+  padding: 0px;
+}
+
+.item-region-name {
+  font-size: 13px;
+
+  line-height: 19.5px;
+
+  margin-bottom: 4px;
+  margin-top: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+
+  padding: 0px;
+
+  overflow-x: hidden;
+  overflow-y: hidden;
+
+  text-overflow: ellipsis;
+  text-wrap: nowrap;
+  white-space-collapse: collapse;
+}
+
+.item-counts {
+  font-size: 13px;
+
+  margin: 0px;
+
+  padding: 0px;
+}

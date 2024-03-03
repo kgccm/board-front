@@ -156,8 +156,10 @@ export default function Authentication() {
           <div className='auth-jumbotron-contents'>
             <div className='auth-logo-icon'></div>
             <div className='auth-jumbotron-text-box'>
-              <div className='auth-jumbotron-text'>{'환영합니노'}</div>
-              <div className='auth-jumbotron-text'>{'HOONS BOARD 입니다.'}</div>
+              <div className='auth-jumbotron-text'>{'모여라 자취생들이여!'}</div>
+              <br /><br />
+              <div className='auth-jumbotron-text-descripts'>{'자취생들끼리 유용한 정보들!'}</div>
+              <div className='auth-jumbotron-text-descripts'>{'내 주변 자취러들과 함께 나눠요.'}</div>
             </div>
           </div>
         </div>
