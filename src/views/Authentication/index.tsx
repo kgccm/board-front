@@ -353,7 +353,7 @@ export default function Authentication() {
 
     //          event handler: 회원가입 버튼 클릭 이벤트 처리          //
     const onSignUpButtonClickHandler = () => {
-      const emailPattern = /^[a-zA-Z0-9]*@([-.]?[a-zA-Z0-9])*\.[a-zA-Z]{2,5}$/;
+      const emailPattern = /^[a-zA-Z0-9]*@([-.]?[a-zA-Z0-9])*\.[a-zA-Z]{2,4}$/;
       const isEmailPattern = emailPattern.test(email);
       if (!isEmailPattern) {
         setEmailError(true);

@@ -1,9 +1,7 @@
-import { response } from "express";
 import { SignInRequestDto, SignUpRequestDto } from "./request/auth";
 import axios from 'axios';
 import { SignInResponseDto, SignUpResponseDto } from "./response/auth";
 import { ResponseDto } from "./response";
-import { error } from "console";
 import { GetSignInUserResponseDto } from "./response/user";
 
 const DOMAIN = 'http://localhost:4000';
