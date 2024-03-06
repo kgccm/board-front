@@ -21,11 +21,10 @@ import { useEffect } from 'react';
 import { useCookies } from 'react-cookie';
 import { useLoginUserStore } from 'stores';
 import { getSignInUserRequest } from 'apis';
-import { response } from 'express';
 import { GetSignInUserResponseDto } from 'apis/response/user';
 import { ResponseDto } from 'apis/response';
 import { User } from 'types/interface';
-import { log } from 'console';
+
 
 //           component: Application 컴포넌트           //
 function App() {
