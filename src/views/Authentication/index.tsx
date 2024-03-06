@@ -9,8 +9,6 @@ import { useCookies } from 'react-cookie';
 import { MAIN_PATH } from 'constant';
 import { useNavigate } from 'react-router-dom';
 import { Address, useDaumPostcodePopup } from 'react-daum-postcode';
-import { response } from 'express';
-
 //          component: 인증 화면 컴포넌트          //
 export default function Authentication() {
 
@@ -119,8 +117,8 @@ export default function Authentication() {
             <div className='auth-card-title-box'>
               <div className='auth-card-title'>{'로그인'}</div>
             </div>
-            <InputBox ref={emailRef} label='이메일 주소 *' type='text' placeholder='이메일 주소를 입력해주세요' error={error} value={email} onChange={onEmailChangeHandler} onKeyDown={onEmailKeyDownHandler} />
-            <InputBox ref={passwordRef} label='패스워드 *' type={passwordType} placeholder='비밀번호를 입력해주세요' error={error} value={password} onChange={onPasswordChangeHandler} icon={passwordButtonIcon} onButtonClick={onPasswordButtonClickHandler} onKeyDown={onPasswordKeyDownHandler} />
+            <InputBox ref={emailRef} label='이메일 주소' type='text' placeholder='이메일 주소를 입력해주세요' error={error} value={email}  onChange={onEmailChangeHandler} onKeyDown={onEmailKeyDownHandler} />
+            <InputBox ref={passwordRef} label='패스워드' type={passwordType} placeholder='비밀번호를 입력해주세요' error={error} value={password}  onChange={onPasswordChangeHandler} icon={passwordButtonIcon} onButtonClick={onPasswordButtonClickHandler} onKeyDown={onPasswordKeyDownHandler} />
           </div>
           <div className='auth-card-bottom'>
             {error &&
