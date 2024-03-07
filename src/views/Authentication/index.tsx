@@ -1,4 +1,4 @@
-import React, { useState, KeyboardEvent, useRef, ChangeEvent, useEffect } from 'react'
+import { useState, KeyboardEvent, useRef, ChangeEvent, useEffect } from 'react'
 import './style.css';
 import InputBox from 'components/InputBox';
 import { SignInRequestDto, SignUpRequestDto } from 'apis/request/auth';
@@ -389,7 +389,7 @@ export default function Authentication() {
       }
       if (!agreedPersonal) setAgreedPersonalError(true);
 
-      if (!hasNickname || isTelNumberPattern || !agreedPersonal) return;
+      if (!hasNickname || !isTelNumberPattern || !agreedPersonal) return;
 
       const requestBody: SignUpRequestDto = {
         email, password, nickname, telNumber, address, addressDetail, agreedPersonal

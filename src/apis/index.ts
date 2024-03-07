@@ -1,5 +1,5 @@
-import { SignInRequestDto, SignUpRequestDto } from './request/auth';
 import axios from 'axios';
+import { SignInRequestDto, SignUpRequestDto } from './request/auth';
 import { SignInResponseDto, SignUpResponseDto } from './response/auth';
 import { ResponseDto } from "./response";
 import { GetSignInUserResponseDto } from './response/user';
@@ -22,7 +22,7 @@ export const signInRequest = async (requestBody: SignInRequestDto) => {
             return responseBody;
         })
         .catch(error => {
-            if (!error.response.data) return null;
+            if (!error.response) return null;
             const responseBody: ResponseDto = error.response.data;
             return responseBody;
         })
