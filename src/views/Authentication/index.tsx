@@ -75,7 +75,8 @@ export default function Authentication() {
     //          event handler: 로그인 버튼 클릭 이벤트 처리          //
     const onSignInButtonClickHandler = () => {
       const requestBody: SignInRequestDto = { email, password };
-      signInRequest(requestBody).then(signInResponse);
+      signInRequest(requestBody)
+      .then(signInResponse);      
     }
 
     //          event handler: 회원가입 링크 클릭 이벤트 처리          //
@@ -117,8 +118,8 @@ export default function Authentication() {
             <div className='auth-card-title-box'>
               <div className='auth-card-title'>{'로그인'}</div>
             </div>
-            <InputBox ref={emailRef} label='이메일 주소' type='text' placeholder='이메일 주소를 입력해주세요' error={error} value={email}  onChange={onEmailChangeHandler} onKeyDown={onEmailKeyDownHandler} />
-            <InputBox ref={passwordRef} label='패스워드' type={passwordType} placeholder='비밀번호를 입력해주세요' error={error} value={password}  onChange={onPasswordChangeHandler} icon={passwordButtonIcon} onButtonClick={onPasswordButtonClickHandler} onKeyDown={onPasswordKeyDownHandler} />
+            <InputBox ref={emailRef} label='이메일 주소' type='text' placeholder='이메일 주소를 입력해주세요' error={error} value={email} onChange={onEmailChangeHandler} onKeyDown={onEmailKeyDownHandler} />
+            <InputBox ref={passwordRef} label='패스워드' type={passwordType} placeholder='비밀번호를 입력해주세요' error={error} value={password} onChange={onPasswordChangeHandler} icon={passwordButtonIcon} onButtonClick={onPasswordButtonClickHandler} onKeyDown={onPasswordKeyDownHandler} />
           </div>
           <div className='auth-card-bottom'>
             {error &&
@@ -216,7 +217,7 @@ export default function Authentication() {
     const open = useDaumPostcodePopup();
 
     //          function: sign up response 처리 함수          //
-    const signUpResponse = (responseBody: SignUpResponseDto | ResponseDto | null) => {
+    const signUpResponse = async(responseBody: SignUpResponseDto | ResponseDto | null) => {
       if (!responseBody) {
         alert('네트워크 이상입니다.');
         return;
