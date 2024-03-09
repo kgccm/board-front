@@ -3,9 +3,11 @@ import { SignInRequestDto, SignUpRequestDto } from './request/auth';
 import { SignInResponseDto, SignUpResponseDto } from './response/auth';
 import { ResponseDto } from "./response";
 import { GetSignInUserResponseDto } from './response/user';
+import {error} from "console";
 
+const DOMAIN = 'http://localhost:4000';
 
-const API_DOMAIN = '/api/v1';
+const API_DOMAIN = `${DOMAIN}/api/v1`;
 
 const authorization = (accessToken: string) => {
     return { headers: { Authorization: `Bearer ${accessToken}` } }
