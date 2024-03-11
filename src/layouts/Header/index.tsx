@@ -178,9 +178,9 @@ export default function Header() {
       <div className='header-container'>
         <div className='header-left-box' onClick={onLogoClickHandler}>
           <div className='icon-box'>
-            <div className='icon logo-dark-icon'></div>
+            <div className='icon logo-cap-icon'></div>
           </div>
-          <div className='header-logo'>{'Hoons Board'}</div>
+          <div className='header-logo'>{'(주) 모자들'}</div>
         </div>
         <div className='header-right-box'>
           {(isAuthPage || isMainPage || isSearchPage || isBoardDetailPage) && <SearchButton />}

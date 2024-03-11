@@ -143,6 +143,13 @@
     background-image: url(assets/image/logo-light.png);
 }
 
+.logo-cap-icon{
+    background-image: url(assets/image/cap-icon.png);
+}
+
+.logo-cap-white-icon{
+    background-image: url(assets/image/cap-white-icon.png);
+}
 .insta-icon {
     background-image: url(assets/image/insta.png);
 }
@@ -170,4 +177,10 @@
 }
 .close-icon{
     background-image: url(assets/image/close.png);
+}
+.kakao-talk-icon{
+    background-image: url(assets/image/kakao-talk-icon.png);
+}
+.github-icon{
+    background-image: url(assets/image/github-icon.png);
 }
