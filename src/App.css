@@ -107,6 +107,15 @@
     justify-content: center;
 }
 
+.icon-box-small {
+    width: 16px;
+    height: 16px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .icon-button {
     border-radius: 50% 50%;
     width: 24px;
@@ -232,4 +241,13 @@
 
 .comment-icon {
     background-image: url(assets/image/chat-light.png);
+}
+.expand-left-icon{
+    background-image: url(assets/image/expand-left.png);
+}
+.expand-right-icon{
+    background-image: url(assets/image/expand-right.png);
+}
+.expand-left-light-icon{
+    background-image: url(assets/image/expand-left-light.png);
 }
