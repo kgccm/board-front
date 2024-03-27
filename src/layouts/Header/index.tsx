@@ -239,9 +239,9 @@ export default function Header() {
       <div className='header-container'>
         <div className='header-left-box' onClick={onLogoClickHandler}>
           <div className='icon-box'>
-            <div className='icon logo-cap-icon'></div>
+            <div className='icon logo-house-icon'></div>
           </div>
-          <div className='header-logo'>{'모자들'}</div>
+          <div className='header-logo'>{'How?se'}</div>
         </div>
         <div className='header-right-box'>
           {(isAuthPage || isMainPage || isSearchPage || isBoardDetailPage) && <SearchButton />}

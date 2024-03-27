@@ -21,9 +21,9 @@ export default function Footer() {
                 <div className='footer-top'>
                     <div className='footer-logo-box'>
                         <div className='icon-box'>
-                            <div className='icon logo-cap-icon'></div>
+                            <div className='icon logo-house-icon'></div>
                         </div>
-                        <div className='footer-logo-text'>{'(주) 모자들'}</div>
+                        <div className='footer-logo-text'>{'How?se'}</div>
                     </div>
                     <div className='footer-link-box'>
                         <div className='footer-email-link'>{'990720wlgns@naver.com'}</div>
@@ -36,7 +36,7 @@ export default function Footer() {
                     </div>
                 </div>
                 <div className='footer-bottom'>
-                    <div className='footer-copyright'>{'Copyright © 2024 kgccm. All Rights Reserved.'}</div>
+                    <div className='footer-copyright'>{'Copyright © 2024 모자들. All Rights Reserved.'}</div>
                 </div>
             </div>
         </div>

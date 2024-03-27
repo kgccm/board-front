@@ -1,154 +1,103 @@
-import React from "react";
-import "./style.css";
+import React, { useEffect, useState } from 'react';
+import './style.css';
+import Top3Item from 'components/Top3Item';
+import { BoardListItem } from 'types/interface';
+import { latestBoardListMock, top3BoardListMock } from 'mocks';
+import BoardItem from 'components/BoardItem';
+import Pagination from 'components/Pagination';
+import { useNavigate } from 'react-router-dom';
+import { SEARCH_PATH } from 'constant';
 
 //          component: 메인 화면 컴포넌트          //
 export default function Main() {
-  //          render: 메인 화면(중고거래) 컴포넌트 렌더링          //
+
+  //          function: 내비게이트 함수          //
+  const navigate = useNavigate();
+
+  //          component: 메인 화면 상단 컴포넌트          //
+  const MainTop = () => {
+    //          state: 주간 Top3 게시물 리스트 상태          //
+    const [top3list, setTop3List] = useState<BoardListItem[]>([]);
+
+    //          effect: 첫 마운트 시 실행될 함수          //
+    useEffect(() => {
+      setTop3List(top3BoardListMock);
+    }, []);
+
+    //          render: 메인 화면 상단 컴포넌트 렌더링          //
+    return (
+      <div id='main-top-wrapper'>
+        <div className='main-top-container'>
+          <div className='main-top-title'>
+            {'자취러들의 노하우를 \n How?se에서!'}
+          </div>
+          <div className='main-top-content-box'>
+            <div className='main-top-contents-title'>{'주간 Top 3 게시물'}</div>
+            <div className='main-top-contents'>
+              {top3list.map((top3ListItem) => (
+                <Top3Item top3ListItem={top3ListItem} />
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  //          component: 메인 화면 하단 컴포넌트          //
+  const MainBottom = () => {
+
+    //          state: 최신 게시물 리스트 상태(임시)          //
+    const [currentBoardList, setCurrentBoardList] = useState<BoardListItem[]>([]);
+    //          state: 인기 검색어 리스트 상태          //
+    const [popularWordList, setPopularWordList] = useState<string[]>([]);
+
+    //          event handler: 인기 검색어 클릭 이벤트 처리          //
+    const onPopularWordClickHandler = (word: string) => {
+      navigate(SEARCH_PATH(word));
+    }
+
+    //          effect: 첫 마운트 시 실행될 함수          //
+    useEffect(() => {
+      setCurrentBoardList(latestBoardListMock);
+      setPopularWordList(['안녕', '잘가', '또봐']);
+    }, []);
+
+    //          render: 메인 화면 하단 컴포넌트 렌더링          //
+    return (
+      <div id='main-bottom-wrapper'>
+        <div className='main-bottom-container'>
+          <div className='main-bottom-title'>{'최신 게시물'}</div>
+          <div className='main-bottom-contents-box'>
+            <div className='main-bottom-current-contents'>
+              {currentBoardList.map(boardListItem => <BoardItem boardListItem={boardListItem} />)}
+
+            </div>
+            <div className='main-bottom-popular-box'>
+              <div className='main-bottom-popular-card'>
+                <div className='main-bottom-popular-card-container'>
+                  <div className='main-bottom-popular-card-title'>{'인기 검색어'}</div>
+                  <div className='main-bottom-popular-card-contents'>
+                    {popularWordList.map(word => <div className='word-badge' onClick={() => onPopularWordClickHandler(word)}>{word}</div>)}
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className='main-bottom-pagination-box'>
+            {/* <Pagination/> */}
+          </div>
+        </div>
+      </div>
+    )
+  };
+
+  //          render: 메인 화면 컴포넌트 렌더링          //
   return (
-    <div id="main-wrapper">
-      <div className="main-top-text-box">
-        <h1 className="main-top-text">{'믿을만한 자취러들과의 중고거래!'}</h1>
-      </div>
-      <div className="main-item-container">
-        <div className="main-item-box">
-          <a href="" className="item-link">
-            <div className="main-item-photo-box"></div>
-            <div className="main-item-description">
-              <h2 className="item-title">{'에어팟에어팟에어팟'}</h2>
-              <div className="item-price">{'30,000원'}</div>
-              <div className="item-region-name">{'인천광역시 부평구 부평동'}</div>
-              <div className="item-counts">
-                <span className="item-favotie-counts">{'관심 12'}</span>
-                {'   •   '}
-                <span className="item-comment-counts">{'댓글 4'}</span>
-              </div>
-            </div>
-          </a>
-        </div>
-        <div className="main-item-box">
-          <a href="" className="item-link">
-            <div className="main-item-photo-box"></div>
-            <div className="main-item-description">
-              <h2 className="item-title">{'에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟'}</h2>
-              <div className="item-price">{'30,000원'}</div>
-              <div className="item-region-name">{'인천광역시 부평구 부평동'}</div>
-              <div className="item-counts">
-                <span className="item-favotie-counts">{'관심 12'}</span>
-                {'   •   '}
-                <span className="item-comment-counts">{'댓글 4'}</span>
-              </div>
-            </div>
-          </a>
-        </div>
-        <div className="main-item-box">
-          <a href="" className="item-link">
-            <div className="main-item-photo-box"></div>
-            <div className="main-item-description">
-              <h2 className="item-title">{'에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟'}</h2>
-              <div className="item-price">{'30,000원'}</div>
-              <div className="item-region-name">{'인천광역시 부평구 부평동'}</div>
-              <div className="item-counts">
-                <span className="item-favotie-counts">{'관심 12'}</span>
-                {'   •   '}
-                <span className="item-comment-counts">{'댓글 4'}</span>
-              </div>
-            </div>
-          </a>
-        </div>
-        <div className="main-item-box">
-          <a href="" className="item-link">
-            <div className="main-item-photo-box"></div>
-            <div className="main-item-description">
-              <h2 className="item-title">{'에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟'}</h2>
-              <div className="item-price">{'30,000원'}</div>
-              <div className="item-region-name">{'인천광역시 부평구 부평동'}</div>
-              <div className="item-counts">
-                <span className="item-favotie-counts">{'관심 12'}</span>
-                {'   •   '}
-                <span className="item-comment-counts">{'댓글 4'}</span>
-              </div>
-            </div>
-          </a>
-        </div>
-        <div className="main-item-box">
-          <a href="" className="item-link">
-            <div className="main-item-photo-box"></div>
-            <div className="main-item-description">
-              <h2 className="item-title">{'에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟'}</h2>
-              <div className="item-price">{'30,000원'}</div>
-              <div className="item-region-name">{'인천광역시 부평구 부평동'}</div>
-              <div className="item-counts">
-                <span className="item-favotie-counts">{'관심 12'}</span>
-                {'   •   '}
-                <span className="item-comment-counts">{'댓글 4'}</span>
-              </div>
-            </div>
-          </a>
-        </div>
-        <div className="main-item-box">
-          <a href="" className="item-link">
-            <div className="main-item-photo-box"></div>
-            <div className="main-item-description">
-              <h2 className="item-title">{'에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟'}</h2>
-              <div className="item-price">{'30,000원'}</div>
-              <div className="item-region-name">{'인천광역시 부평구 부평동'}</div>
-              <div className="item-counts">
-                <span className="item-favotie-counts">{'관심 12'}</span>
-                {'   •   '}
-                <span className="item-comment-counts">{'댓글 4'}</span>
-              </div>
-            </div>
-          </a>
-        </div>
-        <div className="main-item-box">
-          <a href="" className="item-link">
-            <div className="main-item-photo-box"></div>
-            <div className="main-item-description">
-              <h2 className="item-title">{'에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟'}</h2>
-              <div className="item-price">{'30,000원'}</div>
-              <div className="item-region-name">{'인천광역시 부평구 부평동'}</div>
-              <div className="item-counts">
-                <span className="item-favotie-counts">{'관심 12'}</span>
-                {'   •   '}
-                <span className="item-comment-counts">{'댓글 4'}</span>
-              </div>
-            </div>
-          </a>
-        </div>
-        <div className="main-item-box">
-          <a href="" className="item-link">
-            <div className="main-item-photo-box"></div>
-            <div className="main-item-description">
-              <h2 className="item-title">{'에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟'}</h2>
-              <div className="item-price">{'30,000원'}</div>
-              <div className="item-region-name">{'인천광역시 부평구 부평동'}</div>
-              <div className="item-counts">
-                <span className="item-favotie-counts">{'관심 12'}</span>
-                {'   •   '}
-                <span className="item-comment-counts">{'댓글 4'}</span>
-              </div>
-            </div>
-          </a>
-        </div>
-        <div className="main-item-box">
-          <a href="" className="item-link">
-            <div className="main-item-photo-box"></div>
-            <div className="main-item-description">
-              <h2 className="item-title">{'에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟에어팟'}</h2>
-              <div className="item-price">{'30,000원'}</div>
-              <div className="item-region-name">{'인천광역시 부평구 부평동'}</div>
-              <div className="item-counts">
-                <span className="item-favotie-counts">{'관심 12'}</span>
-                {'   •   '}
-                <span className="item-comment-counts">{'댓글 4'}</span>
-              </div>
-            </div>
-          </a>
-        </div>
-      </div>
-      <div className="item-more-button">
-        <div className="item-more-button-text">{'인기매물 더보기'}</div>
-      </div>
-    </div>
+    <>
+      <MainTop />
+      <MainBottom />
+    </>
   );
 }

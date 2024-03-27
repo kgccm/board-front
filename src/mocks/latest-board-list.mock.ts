@@ -1,4 +1,3 @@
-import exp from "constants";
 import { BoardListItem } from "types/interface";
 
 const latestBoardListMock: BoardListItem[] = [
@@ -6,7 +5,7 @@ const latestBoardListMock: BoardListItem[] = [
         "boardNumber": 1,
         "title": "오늘 점심 뭐먹지 맛있는 거 먹고 싶은데 추천 부탁 오늘 점심 뭐먹지 맛있는 거 먹고 싶은데",
         "content": "오늘 점심을 뭐먹을 지 너무 고민이 되는 데 뭐 먹을까? 나 점심때 오늘 점심을 뭐먹을 지 너무 고민이 되는 데 뭐 먹을까? 오늘 점심을 뭐먹을 지 너무 고민이 되는 오늘 점심을 뭐먹을 지 너무 고민이 되는 데 뭐 먹을까? 나 점심때 ...",
-        "boardTitleImage": 'https://www.sisaon.co.kr/news/photo/202302/147321_173869_555.jpg',
+        "boardTitleImage": null,
         "favoriteCount": 0,
         "commentCount": 0,
         "viewCount": 0,

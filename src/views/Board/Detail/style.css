@@ -150,8 +150,8 @@
 }
 
 .board-detail-main-image {
-    width: 100%;
-    height: 100%;
+    width: 75%;
+    height: 75%;
     object-fit: cover;
 }
 

@@ -3,7 +3,7 @@
 
     display: flex;
     justify-content: center;
-    background-color: rgba(25, 219, 138, 0.7);
+    background-color: rgba(25, 219, 138, 0.7); 
     font-family: 'NPSfontBold';
 }
 
@@ -58,7 +58,7 @@
     gap: 5px;
 }
 .header-search-input-box:hover{
-    background-color: beige;
+    background-color: white;
 }
 
 .header-search-input{

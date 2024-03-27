@@ -27,7 +27,8 @@
 }
 
 .black-button:hover {
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: white;
+    color: black;
 }
 
 .black-large-full-button {
@@ -95,7 +96,8 @@
 }
 
 .white-button:hover {
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: rgba(0, 0, 0, 1);
+    color: white;
 }
 
 .icon-box {
@@ -175,6 +177,10 @@
     background-image: url(assets/image/cap-icon.png);
 }
 
+.logo-house-icon{
+    background-image: url(assets/image/house-icon2.png);
+}
+
 .logo-cap-white-icon {
     background-image: url(assets/image/cap-white-icon.png);
 }
@@ -250,4 +256,21 @@
 }
 .expand-left-light-icon{
     background-image: url(assets/image/expand-left-light.png);
+}
+
+.word-badge{
+    border-radius: 30px;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    padding: 6px 20px;
+
+    color: rgba(0, 0, 0, 0.5);
+
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 140%;
+}
+
+.word-badge:hover{
+    background-color: rgba(0, 0, 0, 0.1);
+    cursor: pointer;
 }
