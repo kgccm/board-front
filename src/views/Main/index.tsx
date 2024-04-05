@@ -34,6 +34,7 @@ export default function Main() {
 
       const { top3List } = responseBody as GetTop3BoardListResponseDto;
       setTop3BoardList(top3List);
+      // console.log(top3List);
     }
 
 
@@ -41,6 +42,7 @@ export default function Main() {
     useEffect(() => {
       getTop3BoardListRequest().then(getTop3BoardListResponse);
     }, []);
+
 
 
     //          render: 메인 화면 상단 컴포넌트 렌더링          //
@@ -53,7 +55,7 @@ export default function Main() {
           <div className='main-top-content-box'>
             <div className='main-top-contents-title'>{'주간 Top 3 게시물'}</div>
             <div className='main-top-contents'>
-              {top3BoardList && top3BoardList.map(top3ListItem => <Top3Item top3ListItem={top3ListItem} />)}
+              {top3BoardList.map(top3ListItem => <Top3Item top3ListItem={top3ListItem} />)}
             </div>
           </div>
         </div>
