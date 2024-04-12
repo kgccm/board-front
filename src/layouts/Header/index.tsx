@@ -65,7 +65,7 @@ export default function Header() {
     const onSearchWordKeyDownHandler = (event: KeyboardEvent<HTMLInputElement>) => {
       if (event.key !== 'Enter') return;
       if (!searchButtonRef.current) return;
-      searchButtonRef.current?.click();
+      searchButtonRef.current.click();
     };
     //          event handler: 검색 버튼 클림 이벤트 처리 함수          //
     const onSearchbuttonClickHandler = () => {
@@ -93,7 +93,7 @@ export default function Header() {
     //          render: 검색 버튼 컴포넌트 렌더링 (클릭 true 상태)          //
     return (
       <div className='header-search-input-box'>
-        <input className='header-search-input' type='text' placeholder='검색어를 입력해주세요.' value={searchWord} onChange={onSearchWordChangeHandler} onKeyDown={onSearchWordKeyDownHandler} />
+        <input className='header-search-input' type='text' placeholder='검색어를 입력해주세요.' value={word} onChange={onSearchWordChangeHandler} onKeyDown={onSearchWordKeyDownHandler} />
         <div ref={searchButtonRef} className='icon-button' onClick={onSearchbuttonClickHandler}>
           <div className='icon search-light-icon'></div>
         </div>
@@ -165,7 +165,7 @@ export default function Header() {
       if (code === 'VF') alert('제목과 내용은 필수입니다.');
       if (code !== 'SU') return;
 
-      if(!boardNumber) return;
+      if (!boardNumber) return;
       navigate(BOARD_PATH() + '/' + BOARD_DETAIL_PATH(boardNumber));
 
     }
