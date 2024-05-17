@@ -20,8 +20,9 @@
 .trade,
 .group-buy {
     cursor: pointer;
-    border-radius: 10px; /* 약간 둥글게 */
+    border-radius: 25px; /* 약간 둥글게 */
     padding: 10px 20px;
+    font-size: 20px;
 }
 
 /* Hover 효과 */
