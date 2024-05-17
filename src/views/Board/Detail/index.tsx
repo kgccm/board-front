@@ -17,7 +17,6 @@ import dayjs from 'dayjs';
 import { useCookies } from 'react-cookie';
 import { PostCommentRequestDto } from 'apis/request/board';
 import { usePagination } from 'hooks';
-import { stringify } from 'querystring';
 
 //          component: 게시물 상세 화면 컴포넌트          //
 export default function BoardDetail() {

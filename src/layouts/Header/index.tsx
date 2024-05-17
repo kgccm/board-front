@@ -5,7 +5,7 @@ import { AUTH_PATH, BOARD_DETAIL_PATH, BOARD_PATH, BOARD_UPDATE_PATH, BOARD_WRIT
 import { useCookies } from 'react-cookie';
 import { useBoardStore, useLoginUserStore, useBoardTypeStore } from 'stores';
 import BoardDetail from 'views/Board/Detail';
-import { fileUploadRequest, patchBoardRequest, patchRecipeBoardRequest, postBoardRequest, postRecipeBoardRequest } from 'apis';
+import { fileUploadRequest, patchBoardRequest, patchRecipeRequest, postBoardRequest, postRecipeRequest } from 'apis';
 import { PatchBoardRequestDto, PostBoardRequestDto } from 'apis/request/board';
 import { PatchBoardResponseDto, PostBoardResponseDto } from 'apis/response/board';
 import { ResponseDto } from 'apis/response';
@@ -24,7 +24,9 @@ export default function Header() {
   //          state: 인증 페이지 상태          //
   const [isAuthPage, setAuthPage] = useState<boolean>(false);
   //          state: 메인 페이지 상태          //
-  const [isMainPage, setMaingPage] = useState<boolean>(false);
+  const [isMainPage, setMainPage] = useState<boolean>(false);
+  //          state: 레시피 페이지 상태          //
+  const [isRecipePage, setRecipePage] = useState<boolean>(false);
   //          state: 검색 페이지 상태          //
   const [isSearchPage, setSearchPage] = useState<boolean>(false);
   //          state: 게시물 상세 페이지 상태          //
@@ -220,7 +222,7 @@ export default function Header() {
         };
         if (boardType === 'recipe') {
           // 레시피 게시판에 업로드
-          postRecipeBoardRequest(requestBody, accessToken).then(postRecipeBoardResponse);
+          postRecipeRequest(requestBody, accessToken).then(postRecipeBoardResponse);
         } else if (boardType === 'community') {
           // 커뮤니티 게시판에 업로드
           postBoardRequest(requestBody, accessToken).then(postBoardResponse);
@@ -232,7 +234,7 @@ export default function Header() {
         };
         if (boardType === 'recipe') {
           // 레시피 게시판 수정
-          patchRecipeBoardRequest(boardNumber, requestBody, accessToken).then(patchRecipeBoardResponse);
+          patchRecipeRequest(boardNumber, requestBody, accessToken).then(patchRecipeBoardResponse);
         } else if (boardType === 'community') {
           // 커뮤니티 게시판 수정
           patchBoardRequest(boardNumber, requestBody, accessToken).then(patchBoardResponse);
@@ -254,7 +256,9 @@ export default function Header() {
     const isAuthPage = pathname.startsWith(AUTH_PATH());
     setAuthPage(isAuthPage);
     const isMainPage = pathname === MAIN_PATH();
-    setMaingPage(isMainPage);
+    setMainPage(isMainPage);
+    const isRecipePage = pathname === RECIPE_PATH();
+    setRecipePage(isRecipePage);
     const isSearchPage = pathname.startsWith(SEARCH_PATH(''));
     setSearchPage(isSearchPage);
     const isBoardDetailPage = pathname.startsWith(BOARD_PATH() + '/' + BOARD_DETAIL_PATH(''));
@@ -284,8 +288,8 @@ export default function Header() {
           <div className='header-logo'>{'How?se'}</div>
         </div>
         <div className='header-right-box'>
-          {(isAuthPage || isMainPage || isSearchPage || isBoardDetailPage) && <SearchButton />}
-          {(isMainPage || isSearchPage || isBoardDetailPage || isUserPage) && <MyPageButton />}
+          {(isAuthPage || isMainPage || isSearchPage || isBoardDetailPage || isRecipePage ) && <SearchButton />}
+          {(isMainPage || isRecipePage || isSearchPage || isBoardDetailPage || isUserPage) && <MyPageButton />}
           {(isBoardWritePage || isBoardUpdatePage) && <UploadButton />}
 
         </div>

@@ -9,7 +9,7 @@ import BoardDetail from 'views/Board/Detail';
 import BoardWrite from 'views/Board/Write';
 import BoardUpdate from 'views/Board/Update';
 import Container from 'layouts/Container';
-import { MAIN_PATH, AUTH_PATH, SEARCH_PATH, USER_PATH, BOARD_PATH, BOARD_WRITE_PATH, BOARD_DETAIL_PATH, BOARD_UPDATE_PATH } from 'constant';
+import { MAIN_PATH, AUTH_PATH, SEARCH_PATH, USER_PATH, BOARD_PATH, BOARD_WRITE_PATH, BOARD_DETAIL_PATH, BOARD_UPDATE_PATH, RECIPE_PATH } from 'constant';
 import { useEffect } from 'react';
 import { useCookies } from 'react-cookie';
 import { useLoginUserStore } from 'stores';
@@ -17,6 +17,7 @@ import { getSignInUserRequest } from 'apis';
 import { GetSignInUserResponseDto } from 'apis/response/user';
 import { ResponseDto } from 'apis/response';
 import { User } from 'types/interface';
+import Recipe from 'views/Recipe';
 
 
 //           component: Application 컴포넌트           //
@@ -61,6 +62,7 @@ function App() {
     <Routes>
       <Route element={<Container />}>
         <Route path={MAIN_PATH()} element={<Main />} />
+        <Route path={RECIPE_PATH()} element={<Recipe />} />
         <Route path={AUTH_PATH()} element={<Authentication />} />
         <Route path={SEARCH_PATH(':searchWord')} element={<Search />} />
         <Route path={USER_PATH(':userEmail')} element={<UserP />} />

@@ -113,8 +113,8 @@ export default function BoardWrite() {
       <div className='board-write-container'>
         <div className='board-select-box'>
           <select className='board-select' value={boardType} onChange={onBoardTypeChangeHandler}>
-            <option value="recipe">{'레시피'}</option>
             <option value="community">{'커뮤니티'}</option>
+            <option value="recipe">{'레시피'}</option>
           </select>
         </div>
         <div className='board-write-box'>

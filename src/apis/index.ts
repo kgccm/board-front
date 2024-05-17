@@ -7,6 +7,7 @@ import { PostBoardResponseDto, GetBoardResponseDto, IncreaseViewCountResponseDto
 import axios from 'axios';
 import { GetPopularListResponseDto, GetRelationListResponseDto } from './response/search';
 import { PatchNicknameRequestDto, PatchProfileImageRequestDto } from './request/user';
+import { DeleteRecipeResponseDto, GetLatestRecipeListResponseDto, GetRecipeCommentListResponseDto, GetRecipeFavoriteListResponseDto, GetRecipeResponseDto, GetTop3RecipeListResponseDto, GetUserRecipeListResponseDto, IncreaseViewCountRecipeResponseDto, PatchRecipeResponseDto, PostRecipeCommentResponseDto, PostRecipeResponseDto, PutRecipeFavoriteResponseDto } from './response/recipe';
 
 const DOMAIN = 'http://localhost:4000';
 
@@ -248,7 +249,7 @@ export const deleteBoardRequest = async (boardNumber: number | string, accessTok
 }
 
 //          state: recipe end point          //
-const GET_BOARD_RECIPE_URL = (boardNumber: number | string) => `${API_DOMAIN}/recipe/${boardNumber}`;
+const GET_RECIPE_URL = (boardNumber: number | string) => `${API_DOMAIN}/recipe/${boardNumber}`;
 const GET_LATEST_RECIPE_LIST_URL = () => `${API_DOMAIN}/recipe/latest-list`;
 const GET_TOP_3_RECIPE_LIST_URL = () => `${API_DOMAIN}/recipe/top-3`;
 const GET_USER_RECIPE_LIST_URL = (email: string) => `${API_DOMAIN}/recipe/user-board-list/${email}`;
@@ -261,10 +262,10 @@ const PATCH_RECIPE_URL = (boardNumber: number | string) => `${API_DOMAIN}/recipe
 const PUT_FAVORITE_RECIPE_URL = (boardNumber: number | string) => `${API_DOMAIN}/recipe/${boardNumber}/favorite`;
 const DELETE_RECIPE_URL = (boardNumber: number | string) => `${API_DOMAIN}/recipe/${boardNumber}`;
 
-export const getBoardRecipeRequest = async (boardNumber: number | string) => {
-    const result = await axios.get(GET_BOARD_RECIPE_URL(boardNumber))
+export const getRecipeRequest = async (boardNumber: number | string) => {
+    const result = await axios.get(GET_RECIPE_URL(boardNumber))
         .then(response => {
-            const responseBody: GetBoardResponseDto = response.data;
+            const responseBody: GetRecipeResponseDto = response.data;
             return responseBody;
         })
         .catch(error => {
@@ -278,7 +279,7 @@ export const getBoardRecipeRequest = async (boardNumber: number | string) => {
 export const getLatestRecipeListRequest = async () => {
     const result = await axios.get(GET_LATEST_RECIPE_LIST_URL())
         .then(response => {
-            const responseBody: GetLatestBoardListResponseDto = response.data;
+            const responseBody: GetLatestRecipeListResponseDto = response.data;
             return responseBody;
         })
         .catch(error => {
@@ -292,7 +293,7 @@ export const getLatestRecipeListRequest = async () => {
 export const getTop3RecipeListRequest = async () => {
     const result = await axios.get(GET_TOP_3_RECIPE_LIST_URL())
         .then(response => {
-            const responseBody: GetTop3BoardListResponseDto = response.data;
+            const responseBody: GetTop3RecipeListResponseDto = response.data;
             return responseBody;
         })
         .catch(error => {
@@ -306,7 +307,7 @@ export const getTop3RecipeListRequest = async () => {
 export const getUserRecipeListRequest = async (email: string) => {
     const result = await axios.get(GET_USER_RECIPE_LIST_URL(email))
         .then(response => {
-            const responseBody: GetUserBoardListResponseDto = response.data;
+            const responseBody: GetUserRecipeListResponseDto = response.data;
             return responseBody;
         })
         .catch(error => {
@@ -321,7 +322,7 @@ export const getUserRecipeListRequest = async (email: string) => {
 export const increaseViewCountRecipeRequest = async (boardNumber: number | string) => {
     const result = await axios.get(INCREASE_VIEW_COUNT_RECIPE_URL(boardNumber))
         .then(response => {
-            const responseBody: IncreaseViewCountResponseDto = response.data;
+            const responseBody: IncreaseViewCountRecipeResponseDto = response.data;
             return responseBody;
         })
         .catch(error => {
@@ -335,7 +336,7 @@ export const increaseViewCountRecipeRequest = async (boardNumber: number | strin
 export const getFavoriteRecipeListRequest = async (boardNumber: number | string) => {
     const result = await axios.get(GET_FAVORITE_LIST_RECIPE_URL(boardNumber))
         .then(response => {
-            const responseBody: GetFavoriteListResponseDto = response.data;
+            const responseBody: GetRecipeFavoriteListResponseDto = response.data;
             return responseBody;
         })
         .catch(error => {
@@ -350,7 +351,7 @@ export const getFavoriteRecipeListRequest = async (boardNumber: number | string)
 export const getCommentRecipeListRequest = async (boardNumber: number | string) => {
     const result = await axios.get(GET_COMMENT_LIST_RECIPE_URL(boardNumber))
         .then(response => {
-            const responseBody: GetCommentListResponseDto = response.data;
+            const responseBody: GetRecipeCommentListResponseDto = response.data;
             return responseBody;
         })
         .catch(error => {
@@ -362,10 +363,10 @@ export const getCommentRecipeListRequest = async (boardNumber: number | string) 
 }
 
 
-export const postRecipeBoardRequest = async (requestBody: PostBoardRequestDto, accessToken: string) => {
+export const postRecipeRequest = async (requestBody: PostBoardRequestDto, accessToken: string) => {
     const result = await axios.post(POST_RECIPE_URL(), requestBody, authorization(accessToken))
         .then(response => {
-            const responseBody: PostBoardResponseDto = response.data;
+            const responseBody: PostRecipeResponseDto = response.data;
             return responseBody;
         })
         .catch(error => {
@@ -379,7 +380,7 @@ export const postRecipeBoardRequest = async (requestBody: PostBoardRequestDto, a
 export const postRecipeCommentRequest = async (boardNumber: number | string, requestBody: PostCommentRequestDto, accessToken: string) => {
     const result = await axios.post(POST_COMMENT_RECIPE_URL(boardNumber), requestBody, authorization(accessToken))
         .then(response => {
-            const responseBody: PostCommentResponseDto = response.data;
+            const responseBody: PostRecipeCommentResponseDto = response.data;
             return responseBody;
         })
         .catch(error => {
@@ -390,10 +391,10 @@ export const postRecipeCommentRequest = async (boardNumber: number | string, req
     return result;
 }
 
-export const patchRecipeBoardRequest = async (boardNumber: number | string, requestBody: PatchBoardRequestDto, accessToken: string) => {
+export const patchRecipeRequest = async (boardNumber: number | string, requestBody: PatchBoardRequestDto, accessToken: string) => {
     const result = await axios.patch(PATCH_RECIPE_URL(boardNumber), requestBody, authorization(accessToken))
         .then(response => {
-            const responseBody: PatchBoardResponseDto = response.data;
+            const responseBody: PatchRecipeResponseDto = response.data;
             return responseBody;
         })
         .catch(error => {
@@ -408,7 +409,7 @@ export const patchRecipeBoardRequest = async (boardNumber: number | string, requ
 export const putRecipeFavoriteRequest = async (boardNumber: number | string, accessToken: string) => {
     const result = await axios.put(PUT_FAVORITE_RECIPE_URL(boardNumber), {}, authorization(accessToken))
         .then(response => {
-            const responseBody: PutFavoriteResponseDto = response.data;
+            const responseBody: PutRecipeFavoriteResponseDto = response.data;
             return responseBody;
         })
         .catch(error => {
@@ -419,10 +420,10 @@ export const putRecipeFavoriteRequest = async (boardNumber: number | string, acc
     return result;
 }
 
-export const deleteRecipeBoardRequest = async (boardNumber: number | string, accessToken: string) => {
+export const deleteRecipeRequest = async (boardNumber: number | string, accessToken: string) => {
     const result = await axios.delete(DELETE_RECIPE_URL(boardNumber), authorization(accessToken))
         .then(response => {
-            const responseBody: DeleteBoardResponseDto = response.data;
+            const responseBody: DeleteRecipeResponseDto = response.data;
             return responseBody;
         })
         .catch(error => {
