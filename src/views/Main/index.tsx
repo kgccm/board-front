@@ -34,7 +34,6 @@ export default function Main() {
 
       const { top3List } = responseBody as GetTop3BoardListResponseDto;
       setTop3BoardList(top3List);
-      // console.log(top3List);
     }
 
 

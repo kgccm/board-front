@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react'
 import './style.css';
-import { useBoardStore, useLoginUserStore } from 'stores';
+import { useBoardStore, useLoginUserStore, useBoardTypeStore } from 'stores';
 import { useNavigate } from 'react-router-dom';
 import { MAIN_PATH } from 'constant';
 import { useCookies } from 'react-cookie';
@@ -15,11 +15,15 @@ export default function BoardWrite() {
   //          state: 이미지 입력 요소 참조 상태          //
   const imageInputRef = useRef<HTMLInputElement | null>(null);
 
+
   //          state: 게시물 상태          //
   const { title, setTitle } = useBoardStore();
   const { content, setContent } = useBoardStore();
   const { boardImageFileList, setBoardImageFileList } = useBoardStore();
   const { resetBoard } = useBoardStore();
+
+  //          state: board type 상태          //
+  const { boardType, setBoardType } = useBoardTypeStore();
 
   //          state: 쿠키 상태          //
   const [cookies, setCookies] = useCookies();
@@ -88,11 +92,15 @@ export default function BoardWrite() {
     if (!imageInputRef.current) return;
     imageInputRef.current.value = '';
   }
+  //          event handler: board type 클릭 이벤트 처리          //
+  const onBoardTypeChangeHandler = (event: ChangeEvent<HTMLSelectElement>) => {
+    setBoardType(event.target.value);
+  };
 
   //          effect: 마운트 시 실행할 함수          //
   useEffect(() => {
     const accessToken = cookies.accessToken;
-    if (!accessToken){
+    if (!accessToken) {
       navigate(MAIN_PATH());
       return;
     }
@@ -103,6 +111,12 @@ export default function BoardWrite() {
   return (
     <div id='board-write-wrapper'>
       <div className='board-write-container'>
+        <div className='board-select-box'>
+          <select className='board-select' value={boardType} onChange={onBoardTypeChangeHandler}>
+            <option value="recipe">{'레시피'}</option>
+            <option value="community">{'커뮤니티'}</option>
+          </select>
+        </div>
         <div className='board-write-box'>
           <div className='board-write-title-box'>
             <textarea ref={titleRef} className='board-write-title-textarea' rows={1} placeholder='제목을 작성해주세요.' value={title} onChange={onTitleChangeHandler} />

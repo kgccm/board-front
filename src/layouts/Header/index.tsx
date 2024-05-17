@@ -1,11 +1,11 @@
 import { ChangeEvent, useRef, useState, KeyboardEvent, useEffect } from 'react';
 import './style.css';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { AUTH_PATH, BOARD_DETAIL_PATH, BOARD_PATH, BOARD_UPDATE_PATH, BOARD_WRITE_PATH, MAIN_PATH, SEARCH_PATH, USER_PATH } from 'constant';
+import { AUTH_PATH, BOARD_DETAIL_PATH, BOARD_PATH, BOARD_UPDATE_PATH, BOARD_WRITE_PATH, MAIN_PATH, SEARCH_PATH, USER_PATH, RECIPE_PATH, RECIPE_DETAIL_PATH, RECIPE_UPDATE_PATH, RECIPE_WRITE_PATH } from 'constant';
 import { useCookies } from 'react-cookie';
-import { useBoardStore, useLoginUserStore } from 'stores';
+import { useBoardStore, useLoginUserStore, useBoardTypeStore } from 'stores';
 import BoardDetail from 'views/Board/Detail';
-import { fileUploadRequest, patchBoardRequest, postBoardRequest } from 'apis';
+import { fileUploadRequest, patchBoardRequest, patchRecipeBoardRequest, postBoardRequest, postRecipeBoardRequest } from 'apis';
 import { PatchBoardRequestDto, PostBoardRequestDto } from 'apis/request/board';
 import { PatchBoardResponseDto, PostBoardResponseDto } from 'apis/response/board';
 import { ResponseDto } from 'apis/response';
@@ -140,7 +140,7 @@ export default function Header() {
     const { boardNumber } = useParams();
     //          state: 게시물 상태          //
     const { title, content, boardImageFileList, resetBoard } = useBoardStore();
-
+    const { boardType } = useBoardTypeStore();
     //          function: post board response 처리 함수          //
     const postBoardResponse = (responseBody: PostBoardResponseDto | ResponseDto | null) => {
       if (!responseBody) return;
@@ -169,6 +169,34 @@ export default function Header() {
       navigate(BOARD_PATH() + '/' + BOARD_DETAIL_PATH(boardNumber));
 
     }
+    //          function: post Recipe Board Response 처리 함수          //
+    const postRecipeBoardResponse = (responseBody: PostBoardResponseDto | ResponseDto | null) => {
+      if (!responseBody) return;
+      const { code } = responseBody;
+      if (code === 'DBE') alert('데이터 베이스 오류입니다.');
+      if (code === 'AF' || code === 'NU') navigate(AUTH_PATH());
+      if (code === 'VF') alert('제목과 내용은 필수입니다.');
+      if (code !== 'SU') return;
+
+      resetBoard();
+      if (!loginUser) return;
+      const { email } = loginUser;
+      navigate(USER_PATH(email));
+    }
+
+    //          function: patch Recipe Board Response 처리 함수          //
+    const patchRecipeBoardResponse = (responseBody: PatchBoardResponseDto | ResponseDto | null) => {
+      if (!responseBody) return;
+      const { code } = responseBody;
+      if (code === 'DBE') alert('데이터 베이스 오류입니다.');
+      if (code === 'AF' || code === 'NU' || code === 'NB' || code === 'NP') navigate(AUTH_PATH());
+      if (code === 'VF') alert('제목과 내용은 필수입니다.');
+      if (code !== 'SU') return;
+
+      if (!boardNumber) return;
+      navigate(RECIPE_PATH() + '/' + RECIPE_DETAIL_PATH(boardNumber));
+    }
+
 
     //          event handler: 업로드 버튼 클릭 이벤트 처리 함수          //
     const onUploadButtonClickHandler = async () => {
@@ -188,15 +216,27 @@ export default function Header() {
       const isWriterPage = pathname === BOARD_PATH() + '/' + BOARD_WRITE_PATH();
       if (isWriterPage) {
         const requestBody: PostBoardRequestDto = {
-          title, content, boardImageList
+          title, content, boardImageList, boardType
+        };
+        if (boardType === 'recipe') {
+          // 레시피 게시판에 업로드
+          postRecipeBoardRequest(requestBody, accessToken).then(postRecipeBoardResponse);
+        } else if (boardType === 'community') {
+          // 커뮤니티 게시판에 업로드
+          postBoardRequest(requestBody, accessToken).then(postBoardResponse);
         }
-        postBoardRequest(requestBody, accessToken).then(postBoardResponse);
       } else {
         if (!boardNumber) return;
         const requestBody: PatchBoardRequestDto = {
-          title, content, boardImageList
+          title, content, boardImageList, boardType
+        };
+        if (boardType === 'recipe') {
+          // 레시피 게시판 수정
+          patchRecipeBoardRequest(boardNumber, requestBody, accessToken).then(patchRecipeBoardResponse);
+        } else if (boardType === 'community') {
+          // 커뮤니티 게시판 수정
+          patchBoardRequest(boardNumber, requestBody, accessToken).then(patchBoardResponse);
         }
-        patchBoardRequest(boardNumber, requestBody, accessToken).then(patchBoardResponse);
       }
 
     }

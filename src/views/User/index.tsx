@@ -118,7 +118,7 @@ export default function User() {
         nickname: changeNickname
       };
       patchNicknameRequest(requestBody, cookies.accessToken).then(patchNicknameResponse);
-    }
+    };
     //          event handler: 프로필 이미지 변경 이벤트 처리          //
     const onProfileImageChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
       if (!event.target.files || !event.target.files.length) return;
@@ -134,8 +134,6 @@ export default function User() {
       const { value } = event.target;
       setChangeNickname(value);
     }
-
-
 
     //          Effect: user email path variable 변경시 실행할 함수          //
     useEffect(() => {
@@ -164,7 +162,7 @@ export default function User() {
               {isMyPage ?
                 <>
                   {isNicknameChange ?
-                    <input className='user-top-info-nickname-input' type='text' size={changeNickname.length + 2} value={changeNickname} onChange={onNicknameChangeHandler} /> :
+                    <input className='user-top-info-nickname-input' type='text' value={changeNickname} onChange={onNicknameChangeHandler} /> :
                     <div className='user-top-info-nickname'>{nickname}</div>
                   }
                   <div className='icon-button' onClick={onNicknameEditButtonClickHandler}>

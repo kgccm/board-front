@@ -218,6 +218,7 @@ export const patchBoardRequest = async (boardNumber: number | string, requestBod
     return result;
 }
 
+
 export const putFavoriteRequest = async (boardNumber: number | string, accessToken: string) => {
     const result = await axios.put(PUT_FAVORITE_URL(boardNumber), {}, authorization(accessToken))
         .then(response => {
@@ -234,6 +235,192 @@ export const putFavoriteRequest = async (boardNumber: number | string, accessTok
 
 export const deleteBoardRequest = async (boardNumber: number | string, accessToken: string) => {
     const result = await axios.delete(DELETE_BOARD_URL(boardNumber), authorization(accessToken))
+        .then(response => {
+            const responseBody: DeleteBoardResponseDto = response.data;
+            return responseBody;
+        })
+        .catch(error => {
+            if (!error.response) return null;
+            const responseBody: ResponseDto = error.response.data;
+            return responseBody;
+        })
+    return result;
+}
+
+//          state: recipe end point          //
+const GET_BOARD_RECIPE_URL = (boardNumber: number | string) => `${API_DOMAIN}/recipe/${boardNumber}`;
+const GET_LATEST_RECIPE_LIST_URL = () => `${API_DOMAIN}/recipe/latest-list`;
+const GET_TOP_3_RECIPE_LIST_URL = () => `${API_DOMAIN}/recipe/top-3`;
+const GET_USER_RECIPE_LIST_URL = (email: string) => `${API_DOMAIN}/recipe/user-board-list/${email}`;
+const POST_RECIPE_URL = () => `${API_DOMAIN}/recipe`;
+const INCREASE_VIEW_COUNT_RECIPE_URL = (boardNumber: number | string) => `${API_DOMAIN}/recipe/${boardNumber}/increase-view-count`;
+const GET_FAVORITE_LIST_RECIPE_URL = (boardNumber: number | string) => `${API_DOMAIN}/recipe/${boardNumber}/favorite-list`;
+const GET_COMMENT_LIST_RECIPE_URL = (boardNumber: number | string) => `${API_DOMAIN}/recipe/${boardNumber}/comment-list`;
+const POST_COMMENT_RECIPE_URL = (boardNumber: number | string) => `${API_DOMAIN}/recipe/${boardNumber}/comment`;
+const PATCH_RECIPE_URL = (boardNumber: number | string) => `${API_DOMAIN}/recipe/${boardNumber}`;
+const PUT_FAVORITE_RECIPE_URL = (boardNumber: number | string) => `${API_DOMAIN}/recipe/${boardNumber}/favorite`;
+const DELETE_RECIPE_URL = (boardNumber: number | string) => `${API_DOMAIN}/recipe/${boardNumber}`;
+
+export const getBoardRecipeRequest = async (boardNumber: number | string) => {
+    const result = await axios.get(GET_BOARD_RECIPE_URL(boardNumber))
+        .then(response => {
+            const responseBody: GetBoardResponseDto = response.data;
+            return responseBody;
+        })
+        .catch(error => {
+            if (!error.response) return null;
+            const responseBody: ResponseDto = error.response.data;
+            return responseBody;
+        })
+    return result;
+}
+
+export const getLatestRecipeListRequest = async () => {
+    const result = await axios.get(GET_LATEST_RECIPE_LIST_URL())
+        .then(response => {
+            const responseBody: GetLatestBoardListResponseDto = response.data;
+            return responseBody;
+        })
+        .catch(error => {
+            if (!error.response) return null;
+            const responseBody: ResponseDto = error.response.data;
+            return responseBody;
+        })
+    return result;
+}
+
+export const getTop3RecipeListRequest = async () => {
+    const result = await axios.get(GET_TOP_3_RECIPE_LIST_URL())
+        .then(response => {
+            const responseBody: GetTop3BoardListResponseDto = response.data;
+            return responseBody;
+        })
+        .catch(error => {
+            if (!error.response) return null;
+            const responseBody: ResponseDto = error.response.data;
+            return responseBody;
+        })
+    return result;
+}
+
+export const getUserRecipeListRequest = async (email: string) => {
+    const result = await axios.get(GET_USER_RECIPE_LIST_URL(email))
+        .then(response => {
+            const responseBody: GetUserBoardListResponseDto = response.data;
+            return responseBody;
+        })
+        .catch(error => {
+            if (!error.response) return null;
+            const responseBody: ResponseDto = error.response.data;
+            return responseBody;
+        })
+    return result;
+}
+
+
+export const increaseViewCountRecipeRequest = async (boardNumber: number | string) => {
+    const result = await axios.get(INCREASE_VIEW_COUNT_RECIPE_URL(boardNumber))
+        .then(response => {
+            const responseBody: IncreaseViewCountResponseDto = response.data;
+            return responseBody;
+        })
+        .catch(error => {
+            if (!error.response) return null;
+            const responseBody: ResponseDto = error.response.data;
+            return responseBody;
+        })
+    return result;
+}
+
+export const getFavoriteRecipeListRequest = async (boardNumber: number | string) => {
+    const result = await axios.get(GET_FAVORITE_LIST_RECIPE_URL(boardNumber))
+        .then(response => {
+            const responseBody: GetFavoriteListResponseDto = response.data;
+            return responseBody;
+        })
+        .catch(error => {
+            if (!error.response) return null;
+            const responseBody: ResponseDto = error.response.data;
+            return responseBody
+        });
+    return result;
+}
+
+
+export const getCommentRecipeListRequest = async (boardNumber: number | string) => {
+    const result = await axios.get(GET_COMMENT_LIST_RECIPE_URL(boardNumber))
+        .then(response => {
+            const responseBody: GetCommentListResponseDto = response.data;
+            return responseBody;
+        })
+        .catch(error => {
+            if (!error.response) return null;
+            const responseBody: ResponseDto = error.response.data;
+            return responseBody
+        });
+    return result;
+}
+
+
+export const postRecipeBoardRequest = async (requestBody: PostBoardRequestDto, accessToken: string) => {
+    const result = await axios.post(POST_RECIPE_URL(), requestBody, authorization(accessToken))
+        .then(response => {
+            const responseBody: PostBoardResponseDto = response.data;
+            return responseBody;
+        })
+        .catch(error => {
+            if (!error.response) return null;
+            const responseBody: ResponseDto = error.response.data;
+            return responseBody;
+        })
+    return result;
+}
+
+export const postRecipeCommentRequest = async (boardNumber: number | string, requestBody: PostCommentRequestDto, accessToken: string) => {
+    const result = await axios.post(POST_COMMENT_RECIPE_URL(boardNumber), requestBody, authorization(accessToken))
+        .then(response => {
+            const responseBody: PostCommentResponseDto = response.data;
+            return responseBody;
+        })
+        .catch(error => {
+            if (!error.response) return null;
+            const responseBody: ResponseDto = error.response.data;
+            return responseBody;
+        })
+    return result;
+}
+
+export const patchRecipeBoardRequest = async (boardNumber: number | string, requestBody: PatchBoardRequestDto, accessToken: string) => {
+    const result = await axios.patch(PATCH_RECIPE_URL(boardNumber), requestBody, authorization(accessToken))
+        .then(response => {
+            const responseBody: PatchBoardResponseDto = response.data;
+            return responseBody;
+        })
+        .catch(error => {
+            if (!error.response) return null;
+            const responseBody: ResponseDto = error.response.data;
+            return responseBody;
+        })
+    return result;
+}
+
+
+export const putRecipeFavoriteRequest = async (boardNumber: number | string, accessToken: string) => {
+    const result = await axios.put(PUT_FAVORITE_RECIPE_URL(boardNumber), {}, authorization(accessToken))
+        .then(response => {
+            const responseBody: PutFavoriteResponseDto = response.data;
+            return responseBody;
+        })
+        .catch(error => {
+            if (!error.response) return null;
+            const responseBody: ResponseDto = error.response.data;
+            return responseBody;
+        })
+    return result;
+}
+
+export const deleteRecipeBoardRequest = async (boardNumber: number | string, accessToken: string) => {
+    const result = await axios.delete(DELETE_RECIPE_URL(boardNumber), authorization(accessToken))
         .then(response => {
             const responseBody: DeleteBoardResponseDto = response.data;
             return responseBody;
