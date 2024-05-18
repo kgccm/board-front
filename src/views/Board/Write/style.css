@@ -22,6 +22,95 @@
 
 .board-write-title-box{
     width: 100%;
+    margin-top: 20px; /* 제목 입력칸 위쪽 간격 추가 */
+}
+
+.board-write-title-textarea{
+    width: 100%;
+    
+    border: none;
+    outline: none;
+    background: none;
+    resize: none;
+
+    color: rgba(0, 0, 0, 1);
+
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 140%;
+    margin-top: 10px; 
+}
+
+.board-write-content-box{
+    width: 100%;
+
+    display: flex;
+    gap: 16px;
+}
+
+.board-write-content-textarea{
+    flex: 1;
+
+    border: none;
+    outline: none;
+    background: none;
+    resize: none;
+    
+    color: rgba(0, 0, 0, 0.8);
+    
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 150%;
+}
+
+.board-write-images-box{
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;   
+}
+
+.board-write-image-box{
+    width: 100%; 
+    position: relative;
+}
+
+.board-write-image{
+    width: 100%;
+}
+
+.image-close{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+#board-write-wrapper{
+    border-top: 1px solid rgba(0, 0, 0, 0.3);
+
+    display: flex;
+    justify-content: center;
+
+    background-color: rgba(181, 214, 146, 0.3);
+}
+
+.board-write-container{
+    padding: 100px 24px;
+    width: 996px;
+    min-height: 960px;
+    background-color: rgba(255, 255, 255, 1);
+}
+
+.board-write-box{
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.board-write-title-box{
+    width: 100%;
+    
 }
 
 .board-write-title-textarea{
@@ -84,11 +173,30 @@
     right: 20px;
 }
 
-.board-select-box{
+.board-select-box {
     display: flex;
-    width: 50%;
-    color: black;
-    padding-bottom: 50px;
-    padding-top: 0px;
+    align-items: center;
+    gap: 30px; /* 라벨과 select 사이의 간격 추가 */
+    margin-bottom: 20px;
+  }
+  
+  .board-select {
+    padding: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    font-size: 20px;
+    background-color: white;
+    color: rgba(0, 0, 0, 0.8);
+    outline: none;
+    transition: border-color 0.3s;
+    flex-grow: 1; /* 가능한 최대 너비 차지 */
+    min-width: 100px; /* 최소 너비 지정 */
+  }
+  
+  .category-label {
+    font-size: 24px;
+    font-weight: bold;
+    margin-left: 5px;
+    margin-right: 20px; /* 카테고리와 select 박스 사이 간격 늘림 */
 }
-
+  

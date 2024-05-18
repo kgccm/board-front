@@ -112,6 +112,7 @@ export default function BoardWrite() {
     <div id='board-write-wrapper'>
       <div className='board-write-container'>
         <div className='board-select-box'>
+        <div className="category-label">{'카테고리'}</div>
           <select className='board-select' value={boardType} onChange={onBoardTypeChangeHandler}>
             <option value="community">{'커뮤니티'}</option>
             <option value="recipe">{'레시피'}</option>
