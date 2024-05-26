@@ -249,18 +249,18 @@ export const deleteBoardRequest = async (boardNumber: number | string, accessTok
 }
 
 //          state: recipe end point          //
-const GET_RECIPE_URL = (boardNumber: number | string) => `${API_DOMAIN}/recipe/${boardNumber}`;
-const GET_LATEST_RECIPE_LIST_URL = () => `${API_DOMAIN}/recipe/latest-list`;
-const GET_TOP_3_RECIPE_LIST_URL = () => `${API_DOMAIN}/recipe/top-3`;
-const GET_USER_RECIPE_LIST_URL = (email: string) => `${API_DOMAIN}/recipe/user-board-list/${email}`;
-const POST_RECIPE_URL = () => `${API_DOMAIN}/recipe`;
-const INCREASE_VIEW_COUNT_RECIPE_URL = (boardNumber: number | string) => `${API_DOMAIN}/recipe/${boardNumber}/increase-view-count`;
-const GET_FAVORITE_LIST_RECIPE_URL = (boardNumber: number | string) => `${API_DOMAIN}/recipe/${boardNumber}/favorite-list`;
-const GET_COMMENT_LIST_RECIPE_URL = (boardNumber: number | string) => `${API_DOMAIN}/recipe/${boardNumber}/comment-list`;
-const POST_COMMENT_RECIPE_URL = (boardNumber: number | string) => `${API_DOMAIN}/recipe/${boardNumber}/comment`;
-const PATCH_RECIPE_URL = (boardNumber: number | string) => `${API_DOMAIN}/recipe/${boardNumber}`;
-const PUT_FAVORITE_RECIPE_URL = (boardNumber: number | string) => `${API_DOMAIN}/recipe/${boardNumber}/favorite`;
-const DELETE_RECIPE_URL = (boardNumber: number | string) => `${API_DOMAIN}/recipe/${boardNumber}`;
+const GET_RECIPE_URL = (boardNumber: number | string) => `${API_DOMAIN}/recipe/recipe-board/${boardNumber}`;
+const GET_LATEST_RECIPE_LIST_URL = () => `${API_DOMAIN}/recipe/recipe-board/latest-list`;
+const GET_TOP_3_RECIPE_LIST_URL = () => `${API_DOMAIN}/recipe/recipe-board/top-3`;
+const GET_USER_RECIPE_LIST_URL = (email: string) => `${API_DOMAIN}/recipe/recipe-board/user-board-list/${email}`;
+const POST_RECIPE_URL = () => `${API_DOMAIN}/recipe/recipe-board/`;
+const INCREASE_VIEW_COUNT_RECIPE_URL = (boardNumber: number | string) => `${API_DOMAIN}/recipe/recipe-board/${boardNumber}/increase-view-count`;
+const GET_FAVORITE_LIST_RECIPE_URL = (boardNumber: number | string) => `${API_DOMAIN}/recipe/recipe-board/${boardNumber}/favorite-list`;
+const GET_COMMENT_LIST_RECIPE_URL = (boardNumber: number | string) => `${API_DOMAIN}/recipe/recipe-board/${boardNumber}/comment-list`;
+const POST_COMMENT_RECIPE_URL = (boardNumber: number | string) => `${API_DOMAIN}/recipe/recipe-board/${boardNumber}/comment`;
+const PATCH_RECIPE_URL = (boardNumber: number | string) => `${API_DOMAIN}/recipe/recipe-board/${boardNumber}`;
+const PUT_FAVORITE_RECIPE_URL = (boardNumber: number | string) => `${API_DOMAIN}/recipe/recipe-board/${boardNumber}/favorite`;
+const DELETE_RECIPE_URL = (boardNumber: number | string) => `${API_DOMAIN}/recipe/recipe-board/${boardNumber}`;
 
 export const getRecipeRequest = async (boardNumber: number | string) => {
     const result = await axios.get(GET_RECIPE_URL(boardNumber))

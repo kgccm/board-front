@@ -1,7 +1,7 @@
 import { ChangeEvent, useRef, useState, KeyboardEvent, useEffect } from 'react';
 import './style.css';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { AUTH_PATH, BOARD_DETAIL_PATH, BOARD_PATH, BOARD_UPDATE_PATH, BOARD_WRITE_PATH, MAIN_PATH, SEARCH_PATH, USER_PATH, RECIPE_PATH, RECIPE_DETAIL_PATH, RECIPE_UPDATE_PATH, RECIPE_WRITE_PATH } from 'constant';
+import { AUTH_PATH, BOARD_DETAIL_PATH, BOARD_PATH, BOARD_UPDATE_PATH, BOARD_WRITE_PATH, MAIN_PATH, SEARCH_PATH, USER_PATH, RECIPE_PATH, RECIPE_BOARD_DETAIL_PATH, RECIPE_BOARD_PATH } from 'constant';
 import { useCookies } from 'react-cookie';
 import { useBoardStore, useLoginUserStore, useBoardTypeStore } from 'stores';
 import BoardDetail from 'views/Board/Detail';
@@ -196,7 +196,7 @@ export default function Header() {
       if (code !== 'SU') return;
 
       if (!boardNumber) return;
-      navigate(RECIPE_PATH() + '/' + RECIPE_DETAIL_PATH(boardNumber));
+      navigate( RECIPE_BOARD_PATH + '/' + RECIPE_BOARD_DETAIL_PATH(boardNumber));
     }
 
 

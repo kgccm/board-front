@@ -8,8 +8,9 @@ import UserP from 'views/User';
 import BoardDetail from 'views/Board/Detail';
 import BoardWrite from 'views/Board/Write';
 import BoardUpdate from 'views/Board/Update';
+import Recipe from 'views/Recipe';
 import Container from 'layouts/Container';
-import { MAIN_PATH, AUTH_PATH, SEARCH_PATH, USER_PATH, BOARD_PATH, BOARD_WRITE_PATH, BOARD_DETAIL_PATH, BOARD_UPDATE_PATH, RECIPE_PATH } from 'constant';
+import { MAIN_PATH, AUTH_PATH, SEARCH_PATH, USER_PATH, BOARD_PATH, BOARD_WRITE_PATH, BOARD_DETAIL_PATH, BOARD_UPDATE_PATH, RECIPE_PATH, RECIPE_BOARD_DETAIL_PATH, RECIPE_BOARD_PATH } from 'constant';
 import { useEffect } from 'react';
 import { useCookies } from 'react-cookie';
 import { useLoginUserStore } from 'stores';
@@ -17,7 +18,7 @@ import { getSignInUserRequest } from 'apis';
 import { GetSignInUserResponseDto } from 'apis/response/user';
 import { ResponseDto } from 'apis/response';
 import { User } from 'types/interface';
-import Recipe from 'views/Recipe';
+import RecipeDetail from 'views/Recipes/Detail';
 
 
 //           component: Application 컴포넌트           //
@@ -58,11 +59,16 @@ function App() {
   //          description: 게시물 상세보기 : '/board/detail/:boardNumber' - BoardDetail          //
   //          description: 게시물 작성하기 : '/board/write' - BoardWrite          //
   //          description: 게시물 수정하기 : '/board/update/:boardNumber' - BoardUpdate          //
+  //          description: 레시피 게시판 화면 : '/recipe' - Recipe        //
+  //          description: 레시피 게시물 상세보기 : '/recipe/recipe-board/detail/:boardNumber' - RecipeDetail          //
   return (
     <Routes>
       <Route element={<Container />}>
         <Route path={MAIN_PATH()} element={<Main />} />
         <Route path={RECIPE_PATH()} element={<Recipe />} />
+        <Route path={RECIPE_BOARD_PATH()}>
+          <Route path={RECIPE_BOARD_DETAIL_PATH(':boardNumber')} element={<RecipeDetail />} />
+        </Route>
         <Route path={AUTH_PATH()} element={<Authentication />} />
         <Route path={SEARCH_PATH(':searchWord')} element={<Search />} />
         <Route path={USER_PATH(':userEmail')} element={<UserP />} />

@@ -20,7 +20,7 @@ export default function Recipe() {
   //          component: 메인 화면 상단 컴포넌트          //
   const RecipeTop = () => {
 
-    //          state: 주간 Top3 게시물 리스트 상태          //
+    //          state: 주간 Top3 레시피 리스트 상태          //
     const [top3recipeList, setTop3recipeList] = useState<RecipeListItem[]>([]);
 
     //          function: get Top3 recipe List Response 처리 함수          //
