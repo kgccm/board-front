@@ -11,7 +11,7 @@ import { GetLatestRecipeListResponseDto, GetTop3RecipeListResponseDto } from 'ap
 import { ResponseDto } from 'apis/response';
 import { usePagination } from 'hooks';
 import { GetPopularListResponseDto } from 'apis/response/search';
-//          component: 메인 화면 컴포넌트          //
+//          component: 레시피 화면 컴포넌트          //
 export default function Recipe() {
 
   //          function: 내비게이트 함수          //

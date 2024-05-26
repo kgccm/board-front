@@ -253,7 +253,7 @@ const GET_RECIPE_URL = (boardNumber: number | string) => `${API_DOMAIN}/recipe/r
 const GET_LATEST_RECIPE_LIST_URL = () => `${API_DOMAIN}/recipe/recipe-board/latest-list`;
 const GET_TOP_3_RECIPE_LIST_URL = () => `${API_DOMAIN}/recipe/recipe-board/top-3`;
 const GET_USER_RECIPE_LIST_URL = (email: string) => `${API_DOMAIN}/recipe/recipe-board/user-board-list/${email}`;
-const POST_RECIPE_URL = () => `${API_DOMAIN}/recipe/recipe-board/`;
+const POST_RECIPE_URL = () => `${API_DOMAIN}/recipe/recipe-board`;
 const INCREASE_VIEW_COUNT_RECIPE_URL = (boardNumber: number | string) => `${API_DOMAIN}/recipe/recipe-board/${boardNumber}/increase-view-count`;
 const GET_FAVORITE_LIST_RECIPE_URL = (boardNumber: number | string) => `${API_DOMAIN}/recipe/recipe-board/${boardNumber}/favorite-list`;
 const GET_COMMENT_LIST_RECIPE_URL = (boardNumber: number | string) => `${API_DOMAIN}/recipe/recipe-board/${boardNumber}/comment-list`;
