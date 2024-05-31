@@ -22,7 +22,9 @@ export default function RecipeTop3Item({recipetop3ListItem}: Props) {
     
     //          event Handler: 게시물 아이템 클릭 이벤트 처리 함수          //
     const onClickHandler = () => {
-        navigate(RECIPE_BOARD_PATH + '/' + RECIPE_BOARD_DETAIL_PATH(boardNumber));
+        // navigate(RECIPE_PATH() + RECIPE_BOARD_PATH() + '/' + RECIPE_BOARD_DETAIL_PATH(boardNumber));
+        // navigate(`/recipe/recipe-board/detail/${recipetop3ListItem.boardNumber}`);
+        navigate(`/recipe/recipe-board/detail/${boardNumber}`);
     }
 
     //          render: Top 3 List Item 컴포넌트 렌더링          //

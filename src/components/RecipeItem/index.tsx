@@ -3,7 +3,7 @@ import './style.css';
 import { RecipeListItem } from 'types/interface';
 import { useNavigate } from 'react-router-dom';
 import defaultProfileImage from 'assets/image/default-profile-image.png';
-import {  RECIPE_BOARD_DETAIL_PATH, RECIPE_BOARD_PATH } from 'constant';
+import {  RECIPE_BOARD_DETAIL_PATH, RECIPE_BOARD_PATH, RECIPE_PATH } from 'constant';
 
 interface Props {
     recipeListItem: RecipeListItem
@@ -21,7 +21,8 @@ export default function RecipeItem({ recipeListItem }: Props) {
 
     //          event handler: 게시물 아이템 클릭 이벤트 처리 함수          // 
     const onClickHandler = () => {
-        navigate(RECIPE_BOARD_PATH + '/' + RECIPE_BOARD_DETAIL_PATH(boardNumber));
+        // navigate(RECIPE_PATH() + RECIPE_BOARD_PATH() + '/' + RECIPE_BOARD_DETAIL_PATH(boardNumber));
+        navigate(`/recipe/recipe-board/detail/${boardNumber}`);
     };
     
 

@@ -17,7 +17,7 @@ export const BOARD_UPDATE_PATH = (boardNumber: string | number ) => `update/${bo
 // 라우팅 오류 관계로 레시피 path 변경 
 
 // 레시피 게시글 관련 // BOARD_PATH 와 동일한 로직
-export const RECIPE_BOARD_PATH = () => `/recipe-board`;
+export const RECIPE_BOARD_PATH = () => '/recipe-board';
 export const RECIPE_BOARD_DETAIL_PATH = (boardNumber: string | number) => `detail/${boardNumber}`;
 
 export const RECIPE_WRITE_PATH = () => 'write';

@@ -15,14 +15,16 @@ import { ResponseDto } from 'apis/response';
 import { DeleteRecipeResponseDto, GetRecipeCommentListResponseDto, GetRecipeFavoriteListResponseDto, IncreaseViewCountRecipeResponseDto, PostRecipeCommentResponseDto, PutRecipeFavoriteResponseDto } from 'apis/response/recipe';
 import dayjs from 'dayjs';
 import { useCookies } from 'react-cookie';
-import { PostCommentRequestDto } from 'apis/request/board';
+import { PostRecipeCommentRequestDto } from 'apis/request/recipe';
 import { usePagination } from 'hooks';
 
 //          component: 게시물 상세 화면 컴포넌트          //
 export default function RecipeDetail() {
 
   //          state: 게시물 번호 path variable 상태          //
-  const { boardNumber } = useParams();
+  // const { recipeBoardNumber } = useParams<{ recipeBoardNumber: string }>();
+  const { recipeBoardNumber } = useParams();
+  console.log('RecipeDetail boardNumber:', recipeBoardNumber); // boardNumber 로그 추가
   //          state: 로그인 유저 상태          //
   const { loginUser } = useLoginUserStore();
   //          state: 쿠키 상태          //
@@ -113,18 +115,18 @@ export default function RecipeDetail() {
 
     //          event handler: 삭제 버튼 클릭 이벤트 처리          //
     const onDeleteButtonClickHandler = () => {
-      if (!boardNumber || !recipe || !loginUser || !cookies.accessToken) return;
+      if (!recipeBoardNumber || !recipe || !loginUser || !cookies.accessToken) return;
       if (loginUser.email !== recipe.writerEmail) return;
-      deleteRecipeRequest(boardNumber, cookies.accessToken).then(deleteRecipeResponse);
+      deleteRecipeRequest(recipeBoardNumber, cookies.accessToken).then(deleteRecipeResponse);
     }
     //          effect: 게시물 번호 path variable 바뀔때마다 게시물 불러오기          //
     useEffect(() => {
-      if (!boardNumber) {
+      if (!recipeBoardNumber) {
         navigate(RECIPE_PATH());
         return;
       }
-      getRecipeRequest(boardNumber).then(getRecipeResponse);
-    }, [boardNumber]);
+      getRecipeRequest(recipeBoardNumber).then(getRecipeResponse);
+    }, [recipeBoardNumber]);
 
     //          render: 게시물 상세 상단 컴포넌트 렌더링          //
     if (!recipe) return <></>
@@ -165,7 +167,7 @@ export default function RecipeDetail() {
   const RecipeDetailBottom = () => {
 
     //          state: 댓글 TextArea 참조 상태          //
-    const commentRef = useRef<HTMLTextAreaElement | null>(null);
+    const recipecommentRef = useRef<HTMLTextAreaElement | null>(null);
 
     //          state: 페이지네이션 관련 상태          //
     const { currentPage, setCurrentPage, currentSection,
@@ -173,7 +175,7 @@ export default function RecipeDetail() {
       totalSection, setTotalList } = usePagination<RecipeCommentListItem>(5);
 
     //          state: 좋아요 리스트 상태          //
-    const [favoriteList, setFavoriteList] = useState<RecipeFavoriteListItem[]>([]);
+    const [recipefavoriteList, setRecipeFavoriteList] = useState<RecipeFavoriteListItem[]>([]);
 
     //          state: 좋아요 상태          //
     const [isFavorite, setFavorite] = useState<Boolean>(false);
@@ -188,18 +190,22 @@ export default function RecipeDetail() {
 
     //          function: get Comment List Response 처리 함수          //
     const getRecipeCommentListResponse = (responseBody: GetRecipeCommentListResponseDto | ResponseDto | null) => {
+      console.log('Response body:', responseBody); // 전체 응답 로그 추가
       if (!responseBody) return;
       const { code } = responseBody;
       if (code === 'NB') alert('존재하지 않는 게시물입니다.');
       if (code === 'DBE') alert('데이터베이스 오류입니다.');
       if (code !== 'SU') return;
 
-      const { recipecommentList } = responseBody as GetRecipeCommentListResponseDto;
-      setTotalList(recipecommentList);
-      setTotalCommentCount(recipecommentList.length);
+      const { commentList } = responseBody as GetRecipeCommentListResponseDto;
+      console.log('commentList:', commentList); // Log the value of recipecommentList
+      console.log('commentList:', commentList.length); // Log the length of recipecommentList
+      setTotalList(commentList);
+      setTotalCommentCount(commentList.length);
+
     }
 
-    //          function: get Favorite List Response 처리 함수          //
+    //          function: get Recipe Favorite List Response 처리 함수          //
     const getRecipeFavoriteListResponse = (responseBody: GetRecipeFavoriteListResponseDto | ResponseDto | null) => {
       if (!responseBody) return;
       const { code } = responseBody;
@@ -207,8 +213,8 @@ export default function RecipeDetail() {
       if (code === 'DBE') alert('데이터베이스 오류입니다.');
       if (code !== 'SU') return;
 
-      const { recipefavoriteList } = responseBody as GetRecipeFavoriteListResponseDto;
-      setFavoriteList(recipefavoriteList);
+      const { favoriteList } = responseBody as GetRecipeFavoriteListResponseDto;
+      setRecipeFavoriteList(favoriteList);
 
       if (!loginUser) {
         setFavorite(false);
@@ -228,9 +234,9 @@ export default function RecipeDetail() {
       if (code === 'AF') alert('사용자 인증에 실패했습니다.');
       if (code === 'DBE') alert('데이터베이스 오류입니다.');
       if (code !== 'SU') return;
-      if (!boardNumber) return;
+      if (!recipeBoardNumber) return;
 
-      getFavoriteRecipeListRequest(boardNumber).then(getRecipeFavoriteListResponse);
+      getFavoriteRecipeListRequest(recipeBoardNumber).then(getRecipeFavoriteListResponse);
     }
 
     //          function: post Comment Response 처리 함수          //
@@ -246,14 +252,14 @@ export default function RecipeDetail() {
 
       setComment('');
 
-      if (!boardNumber) return;
-      getCommentRecipeListRequest(boardNumber).then(getRecipeCommentListResponse);
+      if (!recipeBoardNumber) return;
+      getCommentRecipeListRequest(recipeBoardNumber).then(getRecipeCommentListResponse);
     }
 
     //          event handler: 좋아요 클릭 이벤트 처리          //
     const onFavoriteClickHandler = () => {
-      if (!loginUser || !boardNumber || !cookies.accessToken) return;
-      putRecipeFavoriteRequest(boardNumber, cookies.accessToken).then(putRecipeFavoriteResponse);
+      if (!loginUser || !recipeBoardNumber || !cookies.accessToken) return;
+      putRecipeFavoriteRequest(recipeBoardNumber, cookies.accessToken).then(putRecipeFavoriteResponse);
     }
     //          event handler: 좋아요 박스 보기 이벤트 처리          //
     const onShowFavoriteBoxClickHandler = () => {
@@ -265,24 +271,24 @@ export default function RecipeDetail() {
     }
     //          event handler: 댓글 작성 버튼 클릭 이벤트 처리          //
     const onCommentSubmitButtonClickHandler = () => {
-      if (!comment || !boardNumber || !loginUser || !cookies.accessToken) return;
-      const requestBody: PostCommentRequestDto = { content: comment };
-      postRecipeCommentRequest(boardNumber, requestBody, cookies.accessToken).then(postRecipeCommentResponse);
+      if (!comment || !recipeBoardNumber || !loginUser || !cookies.accessToken) return;
+      const requestBody: PostRecipeCommentRequestDto = { content: comment };
+      postRecipeCommentRequest(recipeBoardNumber, requestBody, cookies.accessToken).then(postRecipeCommentResponse);
     }
     //          event handler: 댓글 변경 이벤트 처리          //
     const onCommentChangeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
       const { value } = event.target;
       setComment(value);
-      if (!commentRef.current) return;
-      commentRef.current.style.height = 'auto';
-      commentRef.current.style.height = `${commentRef.current.scrollHeight}px`;
+      if (!recipecommentRef.current) return;
+      recipecommentRef.current.style.height = 'auto';
+      recipecommentRef.current.style.height = `${recipecommentRef.current.scrollHeight}px`;
     }
     //          effect: 게시물 번호 path variable이 바뀔때마다 좋아요 및 댓글 리스트 불러오기          //
     useEffect(() => {
-      if (!boardNumber) return;
-      getFavoriteRecipeListRequest(boardNumber).then(getRecipeFavoriteListResponse);
-      getCommentRecipeListRequest(boardNumber).then(getRecipeCommentListResponse);
-    }, [boardNumber]);
+      if (!recipeBoardNumber) return;
+      getFavoriteRecipeListRequest(recipeBoardNumber).then(getRecipeFavoriteListResponse);
+      getCommentRecipeListRequest(recipeBoardNumber).then(getRecipeCommentListResponse);
+    }, [recipeBoardNumber]);
 
     //          render: 게시물 상세 하단 컴포넌트 렌더링          //
     return (
@@ -295,7 +301,7 @@ export default function RecipeDetail() {
                 <div className='icon favorite-light-icon'></div>
               }
             </div>
-            <div className='board-detail-bottom-button-text'>{`좋아요 ${favoriteList.length}`}</div>
+            <div className='board-detail-bottom-button-text'>{`좋아요 ${recipefavoriteList.length}`}</div>
             <div className='icon-button' onClick={onShowFavoriteBoxClickHandler}>
               {showFavorite ?
                 <div className='icon up-light-icon'></div> :
@@ -319,9 +325,9 @@ export default function RecipeDetail() {
         {showFavorite &&
           <div className='board-detail-bottom-favorite-box'>
             <div className='board-detail-bottom-favorite-container'>
-              <div className='board-detail-bottom-favorite-title'>{'좋아요 '}<span className='emphasis'>{favoriteList.length}</span></div>
+              <div className='board-detail-bottom-favorite-title'>{'좋아요 '}<span className='emphasis'>{recipefavoriteList.length}</span></div>
               <div className='board-detail-bottom-favorite-content'>
-                {favoriteList.map(item => <RecipeFavoriteItem recipefavoriteListItem={item} />)}
+                {recipefavoriteList.map(item => <RecipeFavoriteItem recipefavoriteListItem={item} />)}
               </div>
             </div>
           </div>
@@ -341,7 +347,7 @@ export default function RecipeDetail() {
             {loginUser !== null &&
               <div className='board-detail-bottom-comment-input-box'>
                 <div className='board-detail-bottom-comment-input-container'>
-                  <textarea ref={commentRef} className='board-detail-bottom-comment-textarea' placeholder='댓글을 작성해주세요.' value={comment} onChange={onCommentChangeHandler} />
+                  <textarea ref={recipecommentRef} className='board-detail-bottom-comment-textarea' placeholder='댓글을 작성해주세요.' value={comment} onChange={onCommentChangeHandler} />
                   <div className='board-detail-bottom-comment-button-box'>
                     <div className={comment === '' ? 'disable-button' : 'black-button'} onClick={onCommentSubmitButtonClickHandler}>{'댓글달기'}</div>
                   </div>
@@ -357,13 +363,13 @@ export default function RecipeDetail() {
   //          effect: 게시물 번호 path variable이 바뀔때마다 게시물 조휘수 증가          //
   let effectFlag = true;
   useEffect(() => {
-    if (!boardNumber) return;
+    if (!recipeBoardNumber) return;
     if (effectFlag) {
       effectFlag = false;
       return;
     }
-    increaseViewCountRecipeRequest(boardNumber).then(increaseViewCountRecipeResponse);
-  }, [boardNumber])
+    increaseViewCountRecipeRequest(recipeBoardNumber).then(increaseViewCountRecipeResponse);
+  }, [recipeBoardNumber])
 
   //          render: 게시물 상세 화면 컴포넌트 렌더링          //
   return (

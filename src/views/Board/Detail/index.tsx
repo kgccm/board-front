@@ -188,6 +188,7 @@ export default function BoardDetail() {
 
     //          function: get Comment List Response 처리 함수          //
     const getCommentListResponse = (responseBody: GetCommentListResponseDto | ResponseDto | null) => {
+      console.log('Response body:', responseBody); // 전체 응답 로그 추가
       if (!responseBody) return;
       const { code } = responseBody;
       if (code === 'NB') alert('존재하지 않는 게시물입니다.');
@@ -195,6 +196,8 @@ export default function BoardDetail() {
       if (code !== 'SU') return;
 
       const { commentList } = responseBody as GetCommentListResponseDto;
+      console.log('commentList:', commentList); // Log the value of recipecommentList
+      console.log('commentList_len:', commentList.length); // Log the len
       setTotalList(commentList);
       setTotalCommentCount(commentList.length);
     }

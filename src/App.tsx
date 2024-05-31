@@ -66,9 +66,10 @@ function App() {
       <Route element={<Container />}>
         <Route path={MAIN_PATH()} element={<Main />} />
         <Route path={RECIPE_PATH()} element={<Recipe />} />
-        <Route path={RECIPE_BOARD_PATH()}>
-          <Route path={RECIPE_BOARD_DETAIL_PATH(':boardNumber')} element={<RecipeDetail />} />
-        </Route>
+        <Route path={`${RECIPE_PATH()}/recipe-board/detail/:recipeBoardNumber`} element={<RecipeDetail />} />
+        {/* <Route path={RECIPE_BOARD_PATH()}>
+          <Route path={RECIPE_BOARD_DETAIL_PATH(':recipeboardNumber')} element={<RecipeDetail />} />
+        </Route> */}
         <Route path={AUTH_PATH()} element={<Authentication />} />
         <Route path={SEARCH_PATH(':searchWord')} element={<Search />} />
         <Route path={USER_PATH(':userEmail')} element={<UserP />} />
