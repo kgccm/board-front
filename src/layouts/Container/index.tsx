@@ -16,7 +16,8 @@ export default function Container() {
     <>
       <Header />
 
-      {pathname !== AUTH_PATH()  && pathname !== (BOARD_PATH() + '/' + BOARD_WRITE_PATH()) && <Navbar />} {/* 인증 페이지와 글 작성 페이지가 아닌 경우에만 NavBar 렌더링 */}
+      {pathname !== AUTH_PATH()  && pathname !== (BOARD_PATH() + '/' + BOARD_WRITE_PATH()) && <Navbar />} 
+      {/* 인증 페이지와 글 작성 페이지가 아닌 경우에만 NavBar 렌더링 */}
       <Outlet />
       
       {pathname !== AUTH_PATH() && <Footer />}

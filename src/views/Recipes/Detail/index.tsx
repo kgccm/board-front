@@ -9,7 +9,10 @@ import { useLoginUserStore } from 'stores';
 import { useNavigate, useParams } from 'react-router-dom';
 import { RECIPE_PATH, RECIPE_UPDATE_PATH, USER_PATH } from 'constant';
 import Recipe from 'types/interface/recipe.interface';
-import { deleteRecipeRequest, getRecipeRequest, getCommentRecipeListRequest, increaseViewCountRecipeRequest, postRecipeCommentRequest, putRecipeFavoriteRequest, getFavoriteRecipeListRequest } from 'apis';
+import {
+  deleteRecipeRequest, getRecipeRequest, getCommentRecipeListRequest, increaseViewCountRecipeRequest, postRecipeCommentRequest,
+  putRecipeFavoriteRequest, getFavoriteRecipeListRequest
+} from 'apis';
 import GetRecipeResponseDto from 'apis/response/recipe/get-recipe.response.dto';
 import { ResponseDto } from 'apis/response';
 import { DeleteRecipeResponseDto, GetRecipeCommentListResponseDto, GetRecipeFavoriteListResponseDto, IncreaseViewCountRecipeResponseDto, PostRecipeCommentResponseDto, PutRecipeFavoriteResponseDto } from 'apis/response/recipe';
@@ -175,7 +178,7 @@ export default function RecipeDetail() {
       totalSection, setTotalList } = usePagination<RecipeCommentListItem>(5);
 
     //          state: 좋아요 리스트 상태          //
-    const [recipefavoriteList, setRecipeFavoriteList] = useState<RecipeFavoriteListItem[]>([]);
+    const [favoriteList, setFavoriteList] = useState<RecipeFavoriteListItem[]>([]);
 
     //          state: 좋아요 상태          //
     const [isFavorite, setFavorite] = useState<Boolean>(false);
@@ -198,15 +201,13 @@ export default function RecipeDetail() {
       if (code !== 'SU') return;
 
       const { commentList } = responseBody as GetRecipeCommentListResponseDto;
-      console.log('commentList:', commentList); // Log the value of recipecommentList
-      console.log('commentList:', commentList.length); // Log the length of recipecommentList
       setTotalList(commentList);
       setTotalCommentCount(commentList.length);
-
     }
 
     //          function: get Recipe Favorite List Response 처리 함수          //
     const getRecipeFavoriteListResponse = (responseBody: GetRecipeFavoriteListResponseDto | ResponseDto | null) => {
+      console.log('getRecipeFavoriteListResponse:', responseBody); // Debugging log
       if (!responseBody) return;
       const { code } = responseBody;
       if (code === 'NB') alert('존재하지 않는 게시물입니다.');
@@ -214,18 +215,20 @@ export default function RecipeDetail() {
       if (code !== 'SU') return;
 
       const { favoriteList } = responseBody as GetRecipeFavoriteListResponseDto;
-      setRecipeFavoriteList(favoriteList);
+      setFavoriteList(favoriteList);
 
       if (!loginUser) {
         setFavorite(false);
         return;
       }
-      const isFavorite = recipefavoriteList.findIndex(favorite => favorite.email === loginUser.email) !== -1;
+
+      const isFavorite = favoriteList.findIndex(favorite => favorite.email === loginUser.email) !== -1;
       setFavorite(isFavorite);
     }
 
     //          function: put Favorite Response 처리 함수          //
     const putRecipeFavoriteResponse = (responseBody: PutRecipeFavoriteResponseDto | ResponseDto | null) => {
+      console.log('putRecipeFavoriteResponse:', responseBody); // Debugging log
       if (!responseBody) return;
       const { code } = responseBody;
       if (code === 'VF') alert('잘못된 접근입니다.');
@@ -235,6 +238,7 @@ export default function RecipeDetail() {
       if (code === 'DBE') alert('데이터베이스 오류입니다.');
       if (code !== 'SU') return;
       if (!recipeBoardNumber) return;
+      // setFavorite(prevState => !prevState);
 
       getFavoriteRecipeListRequest(recipeBoardNumber).then(getRecipeFavoriteListResponse);
     }
@@ -258,6 +262,7 @@ export default function RecipeDetail() {
 
     //          event handler: 좋아요 클릭 이벤트 처리          //
     const onFavoriteClickHandler = () => {
+      console.log('onFavoriteClickHandler'); // Debugging log
       if (!loginUser || !recipeBoardNumber || !cookies.accessToken) return;
       putRecipeFavoriteRequest(recipeBoardNumber, cookies.accessToken).then(putRecipeFavoriteResponse);
     }
@@ -301,7 +306,7 @@ export default function RecipeDetail() {
                 <div className='icon favorite-light-icon'></div>
               }
             </div>
-            <div className='board-detail-bottom-button-text'>{`좋아요 ${recipefavoriteList.length}`}</div>
+            <div className='board-detail-bottom-button-text'>{`좋아요 ${favoriteList.length}`}</div>
             <div className='icon-button' onClick={onShowFavoriteBoxClickHandler}>
               {showFavorite ?
                 <div className='icon up-light-icon'></div> :
@@ -325,9 +330,9 @@ export default function RecipeDetail() {
         {showFavorite &&
           <div className='board-detail-bottom-favorite-box'>
             <div className='board-detail-bottom-favorite-container'>
-              <div className='board-detail-bottom-favorite-title'>{'좋아요 '}<span className='emphasis'>{recipefavoriteList.length}</span></div>
+              <div className='board-detail-bottom-favorite-title'>{'좋아요 '}<span className='emphasis'>{favoriteList.length}</span></div>
               <div className='board-detail-bottom-favorite-content'>
-                {recipefavoriteList.map(item => <RecipeFavoriteItem recipefavoriteListItem={item} />)}
+                {favoriteList.map(item => <RecipeFavoriteItem recipefavoriteListItem={item} />)}
               </div>
             </div>
           </div>
@@ -360,7 +365,7 @@ export default function RecipeDetail() {
     )
   }
 
-  //          effect: 게시물 번호 path variable이 바뀔때마다 게시물 조휘수 증가          //
+  //          effect: 게시물 번호 path variable이 바뀔때마다 게시물 조회수 증가          //
   let effectFlag = true;
   useEffect(() => {
     if (!recipeBoardNumber) return;

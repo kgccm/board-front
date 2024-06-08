@@ -264,7 +264,6 @@ const PUT_FAVORITE_RECIPE_URL = (boardNumber: number | string) => `${API_DOMAIN}
 const DELETE_RECIPE_URL = (boardNumber: number | string) => `${API_DOMAIN}/recipe/recipe-board/${boardNumber}`;
 
 export const getRecipeRequest = async (boardNumber: number | string) => {
-    console.log('GET_RECIPE_URL:', GET_RECIPE_URL(boardNumber)); // URL 로그 추가
     const result = await axios.get(GET_RECIPE_URL(boardNumber))
         .then(response => {
             const responseBody: GetRecipeResponseDto = response.data;
@@ -409,6 +408,8 @@ export const patchRecipeRequest = async (boardNumber: number | string, requestBo
 
 
 export const putRecipeFavoriteRequest = async (boardNumber: number | string, accessToken: string) => {
+    
+    console.log('PUT_FAVORITE_RECIPE_URL:', PUT_FAVORITE_RECIPE_URL(boardNumber)); // URL 로그 추가
     const result = await axios.put(PUT_FAVORITE_RECIPE_URL(boardNumber), {}, authorization(accessToken))
         .then(response => {
             const responseBody: PutRecipeFavoriteResponseDto = response.data;
