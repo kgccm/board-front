@@ -2,11 +2,11 @@ import React, { ChangeEvent, useEffect, useRef, useState } from 'react'
 import defaultProfileImage from 'assets/image/default-profile-image.png';
 import { useNavigate, useParams } from 'react-router-dom';
 import './style.css';
-import { BoardListItem } from 'types/interface';
+import { BoardListItem, RecipeListItem } from 'types/interface';
 import BoardItem from 'components/BoardItem';
 import { BOARD_PATH, BOARD_WRITE_PATH, MAIN_PATH, USER_PATH } from 'constant';
 import { useLoginUserStore } from 'stores';
-import { fileUploadRequest, getUserBoardListRequest, getUserRequest, patchNicknameRequest, patchProfileImageRequest } from 'apis';
+import { fileUploadRequest, getUserBoardListRequest, getUserRecipeListRequest, getUserRequest, patchNicknameRequest, patchProfileImageRequest } from 'apis';
 import { GetUserResponseDto, PatchNicknameResponseDto, PatchProfileImageResponseDto } from 'apis/response/user';
 import { ResponseDto } from 'apis/response';
 import { PatchNicknameRequestDto, PatchProfileImageRequestDto } from 'apis/request/user';
@@ -14,6 +14,8 @@ import { useCookies } from 'react-cookie';
 import { usePagination } from 'hooks';
 import { GetUserBoardListResponseDto } from 'apis/response/board';
 import Pagination from 'components/Pagination';
+import { GetUserRecipeListResponseDto } from 'apis/response/recipe';
+import RecipeItem from 'components/RecipeItem';
 
 //          component: 유저 화면 컴포넌트 렌더링          //
 export default function User() {
@@ -180,13 +182,13 @@ export default function User() {
   };
 
   //          component: 유저 화면 하단 컴포넌트 렌더링          //
-  const UserBottom = () => {
+  const UserBottom = ({ selectedItem }: { selectedItem: 'board' | 'recipe' | 'all' }) => {
 
     //          state: 페이지네이션 관련 상태          //
     const {
       currentPage, currentSection, viewList, viewPageList, totalSection,
       setCurrentSection, setCurrentPage, setTotalList
-    } = usePagination<BoardListItem>(5);
+    } = usePagination<BoardListItem | RecipeListItem>(5);
     //          state: 게시물 개수 상태          //
     const [count, setCount] = useState<number>(2);
 
@@ -203,9 +205,37 @@ export default function User() {
       if (code !== 'SU') return;
 
       const { userBoardList } = responseBody as GetUserBoardListResponseDto;
+      console.log(userBoardList);
       setTotalList(userBoardList);
       setCount(userBoardList.length);
     }
+
+    //          function: get User Recipe List Response 처리 함수          //
+    const getUserRecipeListResponse = (responseBody: GetUserBoardListResponseDto | ResponseDto | null) => {
+      if (!responseBody) {
+        console.error('Response body is null or undefined.');
+        return;
+      }
+      const { code } = responseBody;
+      console.log('Response code:', code);
+      if (code === 'NU') {
+        alert('존재하지 않는 유저입니다.');
+        navigate(MAIN_PATH());
+        return;
+      }
+      if (code === 'DBE') alert('데이터베이스 오류입니다.');
+      if (code !== 'SU') return;
+
+      const { userBoardList } = responseBody as GetUserBoardListResponseDto;
+      console.log('User recipe list:', userBoardList);
+      if (!userBoardList) {
+        console.error('User recipe list is undefined.');
+        return;
+      }
+      setTotalList(userBoardList);
+      setCount(userBoardList.length);
+    }
+
 
     //          event handler: 사이드 카드 클릭 이벤트 처리          //
     const onSideCardClickHandler = () => {
@@ -214,22 +244,39 @@ export default function User() {
     }
 
     //          effect: userEmail path variable이 변경될 떄마다 실행할 함수          //
+    // useEffect(() => {
+    //   if (!userEmail) return;
+    //   if (selectedItem === 'board') {
+    //     getUserBoardListRequest(userEmail).then(getUserBoardListResponse);
+    //   } else if (selectedItem === 'recipe') {
+    //     getUserRecipeListRequest(userEmail).then(getUserRecipeListResponse);
+    //   }
+    // }, [userEmail, selectedItem]);
     useEffect(() => {
-      if (!userEmail) return;
-      getUserBoardListRequest(userEmail).then(getUserBoardListResponse);
-    }, [userEmail]);
-
+      if (selectedItem === 'board' || selectedItem === 'all') {
+        if (!userEmail) return;
+        getUserBoardListRequest(userEmail).then(getUserBoardListResponse);
+      } else if (selectedItem === 'recipe' || selectedItem === 'all') {
+        if (!userEmail) return;
+        getUserRecipeListRequest(userEmail).then(getUserRecipeListResponse);
+      }
+    }, [selectedItem, userEmail]);
 
     //          render: 유저 화면 하단 컴포넌트 렌더링          //
     return (
       <div id='user-bottom-wrapper'>
         <div className='user-bottom-container'>
+          <div className="user-bottom-selector">
+            <button className={selectedItem === 'board' ? 'selected' : ''} onClick={() => setSelectedItem('board')}>{'요모조모'}</button>
+            <button className={selectedItem === 'recipe' ? 'selected' : ''} onClick={() => setSelectedItem('recipe')}>{'레시피'}</button>
+          </div>
           <div className='user-bottom-title'>{isMyPage ? '내 게시물 ' : '게시물 '}<span className='emphasis'>{count}</span></div>
           <div className='user-bottom-contents-box'>
             {count === 0 ?
               <div className='user-bottom-contents-nothing'>{'게시물이 없습니다. '}</div> :
               <div className='user-bottom-contents'>
-                {viewList.map(boardListItem => <BoardItem boardListItem={boardListItem} />)}
+                {selectedItem === 'board' && viewList.map(boardListItem => <BoardItem key={boardListItem.boardNumber} boardListItem={boardListItem} />)}
+                {selectedItem === 'recipe' && viewList.map(recipeListItem => <RecipeItem key={recipeListItem.boardNumber} recipeListItem={recipeListItem} />)}
               </div>
             }
             <div className='user-bottom-side-box'>
@@ -269,12 +316,12 @@ export default function User() {
       </div>
     );
   };
-
+  const [selectedItem, setSelectedItem] = useState<'board' | 'recipe' | 'all'>('board');
   //          render: 유저 화면 컴포넌트 렌더링          //
   return (
     <>
       <UserTop />
-      <UserBottom />
+      <UserBottom selectedItem={selectedItem} />
     </>
   );
 }

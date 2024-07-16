@@ -14,6 +14,8 @@ export default function BoardWrite() {
   const contentRef = useRef<HTMLTextAreaElement | null>(null);
   //          state: 이미지 입력 요소 참조 상태          //
   const imageInputRef = useRef<HTMLInputElement | null>(null);
+  const priceRef = useRef<HTMLInputElement | null>(null);
+  const tradeLocationRef  =useRef<HTMLInputElement | null>(null);
 
 
   //          state: 게시물 상태          //
@@ -21,7 +23,9 @@ export default function BoardWrite() {
   const { content, setContent } = useBoardStore();
   const { boardImageFileList, setBoardImageFileList } = useBoardStore();
   const { resetBoard } = useBoardStore();
-
+  //          state: 중고거래 가격 상태          //
+  const {price, setPrice} = useBoardStore();
+  const {tradeLocation, setTradeLocation} = useBoardStore();
   //          state: board type 상태          //
   const { boardType, setBoardType } = useBoardTypeStore();
 
@@ -56,6 +60,23 @@ export default function BoardWrite() {
     contentRef.current.style.height = 'auto';
     contentRef.current.style.height = `${contentRef.current.scrollHeight}px`;
   }
+  const onPriceChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target;
+    setPrice(value);
+
+    if (!priceRef.current) return;
+    priceRef.current.style.height = 'auto';
+    priceRef.current.style.height = `${priceRef.current.scrollHeight}px`;
+  }
+  const onTradeLocationChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target;
+    setTradeLocation(value);
+
+    if (!tradeLocationRef.current) return;
+    tradeLocationRef.current.style.height = 'auto';
+    tradeLocationRef.current.style.height = `${tradeLocationRef.current.scrollHeight}px`;
+  }
+
 
   //          event handler: 이미지 변경 이벤트 처리          //
   const onImageChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
@@ -95,6 +116,7 @@ export default function BoardWrite() {
   //          event handler: board type 클릭 이벤트 처리          //
   const onBoardTypeChangeHandler = (event: ChangeEvent<HTMLSelectElement>) => {
     setBoardType(event.target.value);
+    setPrice('');
   };
 
   //          effect: 마운트 시 실행할 함수          //
@@ -112,10 +134,11 @@ export default function BoardWrite() {
     <div id='board-write-wrapper'>
       <div className='board-write-container'>
         <div className='board-select-box'>
-        <div className="category-label">{'카테고리'}</div>
+          <div className="category-label">{'카테고리'}</div>
           <select className='board-select' value={boardType} onChange={onBoardTypeChangeHandler}>
             <option value="community">{'요모조모'}</option>
             <option value="recipe">{'레시피'}</option>
+            <option value="trade">{'중고거래'}</option>
           </select>
         </div>
         <div className='board-write-box'>
@@ -123,10 +146,18 @@ export default function BoardWrite() {
             <textarea ref={titleRef} className='board-write-title-textarea' rows={1} placeholder='제목을 작성해주세요.' value={title} onChange={onTitleChangeHandler} />
           </div>
           <div className='divider'></div>
+
           <div className='board-write-content-box'>
             <textarea ref={contentRef} className='board-write-content-textarea' placeholder='게시글 내용을 작성해주세요&#13;&#10;신뢰할 수 있는 거래를 위해 자세히 적어주세요.'
               value={content} onChange={onContentChangeHandler} >
             </textarea>
+            {boardType === 'trade' && (
+              <div className='price-box'>
+                <input ref={priceRef}  placeholder='가격을 입력하세요' value={price} onChange={onPriceChangeHandler} />
+                <input ref={tradeLocationRef}  placeholder='장소를 입력하세요' value={tradeLocation} onChange={onTradeLocationChangeHandler} />
+              </div>
+
+            )}
             <div className='icon-button' onClick={onImageUploadButtonClickHandler}>
               <div className='icon image-box-light-icon'></div>
             </div>

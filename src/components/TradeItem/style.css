@@ -1,21 +1,21 @@
-.board-list-item{
-    padding: 24px;
+.trade-list-item{
+    padding: 30px 30px 50px 30px;
     
     background-color: rgba(255,255,255,1);
 
     display: flex;
     align-items: center;
-    gap: 30px;
 
     cursor: pointer;
     border-radius: 40px;
+    
 }
 
-.board-list-item:hover{
+.trade-list-item:hover{
     background-color: rgba(0, 0, 0, 0.2);
 }
 
-.board-list-item-main-box{
+.trade-list-item-main-box{
     flex: 1;
 
     display: flex;
@@ -23,23 +23,23 @@
     gap: 16px;
 }
 
-.board-list-item-top{
+.trade-list-item-top{
     display: flex;
     align-items: center;
     
     gap: 8px;
 }
 
-.board-list-item-top:hover{
+.trade-list-item-top:hover{
     cursor: pointer;
 }
 
-.board-list-item-profile-box{
+.trade-list-item-profile-box{
     width: 32px;
     height: 32px;
 }
 
-.board-list-item-profile-image{
+.trade-list-item-profile-image{
     border-radius: 50% 50%;
     width: 100%;
     height: 100%;
@@ -48,13 +48,13 @@
     background-size: 100% 100%;
 }
 
-.board-list-item-write-box{
+.trade-list-item-write-box{
     display: flex;
     flex-direction: column;
     gap: 2px;
 }
 
-.board-list-item-nickname{
+.trade-list-item-nickname{
     color: rgba(0,0,0,0.7);
     
     font-size: 12px;
@@ -62,7 +62,7 @@
     line-height: 140%;
 }
 
-.board-list-item-write-date{
+.trade-list-item-write-date{
     color: rgba(0,0,0,0.4);
     
     font-size: 12px;
@@ -70,13 +70,13 @@
     line-height: 140%;
 }
 
-.board-list-item-middle{
+.trade-list-item-middle{
     display: flex;
     flex-direction: column;
     gap: 5px;
 }
 
-.board-list-item-title{
+.trade-list-item-title{
     color:rgba(0,0,0,1);
 
     font-size: 16px;
@@ -84,7 +84,7 @@
     line-height: 140%;
 }
 
-.board-list-item-content{
+.trade-list-item-content{
     color:rgba(0,0,0,0.7);
 
     font-size: 12px;
@@ -92,11 +92,8 @@
     line-height: 140%;
 }
 
-.board-list-item-bottom{
 
-}
-
-.board-list-item-counts{
+.trade-list-item-counts{
     color: rgba(0, 0, 0, 0.7);
 
     font-size: 12px;
@@ -104,12 +101,12 @@
     line-height: 140%;
 }
 
-.board-list-item-image-box{
+.trade-list-item-image-box{
     width: 152px;
     height: 152px;
 }
 
-.board-list-item-image{
+.trade-list-item-image{
     border-radius: 10px;
     
     width: 100%;

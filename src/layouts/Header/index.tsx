@@ -1,14 +1,15 @@
 import { ChangeEvent, useRef, useState, KeyboardEvent, useEffect } from 'react';
 import './style.css';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { AUTH_PATH, BOARD_DETAIL_PATH, BOARD_PATH, BOARD_UPDATE_PATH, BOARD_WRITE_PATH, MAIN_PATH, SEARCH_PATH, USER_PATH, RECIPE_PATH, RECIPE_BOARD_DETAIL_PATH, RECIPE_BOARD_PATH } from 'constant';
+import { AUTH_PATH, BOARD_DETAIL_PATH, BOARD_PATH, BOARD_UPDATE_PATH, BOARD_WRITE_PATH, MAIN_PATH, SEARCH_PATH, USER_PATH, RECIPE_PATH, RECIPE_BOARD_DETAIL_PATH, RECIPE_BOARD_PATH, TRADE_PATH, TRADE_BOARD_PATH, TRADE_BOARD_DETAIL_PATH } from 'constant';
 import { useCookies } from 'react-cookie';
 import { useBoardStore, useLoginUserStore, useBoardTypeStore } from 'stores';
-import BoardDetail from 'views/Board/Detail';
-import { fileUploadRequest, patchBoardRequest, patchRecipeRequest, postBoardRequest, postRecipeRequest } from 'apis';
+import { fileUploadRequest, patchBoardRequest, patchRecipeRequest, postBoardRequest, postRecipeRequest, postTradeRequest } from 'apis';
 import { PatchBoardRequestDto, PostBoardRequestDto } from 'apis/request/board';
 import { PatchBoardResponseDto, PostBoardResponseDto } from 'apis/response/board';
 import { ResponseDto } from 'apis/response';
+import { PostRecipeResponseDto } from 'apis/response/recipe';
+import { PatchTradeResponseDto, PostTradeResponseDto } from 'apis/response/trade';
 
 //          component: 헤더 레이아웃          //
 export default function Header() {
@@ -27,6 +28,8 @@ export default function Header() {
   const [isMainPage, setMainPage] = useState<boolean>(false);
   //          state: 레시피 페이지 상태          //
   const [isRecipePage, setRecipePage] = useState<boolean>(false);
+  //          state: 중고거래 페이지 상태          //
+  const [isTradePage, setTradepage] = useState<boolean>(false);
   //          state: 검색 페이지 상태          //
   const [isSearchPage, setSearchPage] = useState<boolean>(false);
   //          state: 게시물 상세 페이지 상태          //
@@ -172,7 +175,7 @@ export default function Header() {
 
     }
     //          function: post Recipe Board Response 처리 함수          //
-    const postRecipeBoardResponse = (responseBody: PostBoardResponseDto | ResponseDto | null) => {
+    const postRecipeBoardResponse = (responseBody: PostRecipeResponseDto | ResponseDto | null) => {
       if (!responseBody) return;
       const { code } = responseBody;
       if (code === 'DBE') alert('데이터 베이스 오류입니다.');
@@ -196,7 +199,35 @@ export default function Header() {
       if (code !== 'SU') return;
 
       if (!boardNumber) return;
-      navigate( RECIPE_BOARD_PATH + '/' + RECIPE_BOARD_DETAIL_PATH(boardNumber));
+      navigate(RECIPE_BOARD_PATH + '/' + RECIPE_BOARD_DETAIL_PATH(boardNumber));
+    }
+
+    //          function: post Trade Board Response 처리 함수          //
+    const postTradeBoardResponse = (responseBody: PostTradeResponseDto | ResponseDto | null) => {
+      if (!responseBody) return;
+      const { code } = responseBody;
+      if (code === 'DBE') alert('데이터 베이스 오류입니다.');
+      if (code === 'AF' || code === 'NU') navigate(AUTH_PATH());
+      if (code === 'VF') alert('제목과 내용은 필수입니다.');
+      if (code !== 'SU') return;
+
+      resetBoard();
+      if (!loginUser) return;
+      const { email } = loginUser;
+      navigate(USER_PATH(email));
+    }
+
+    //          function: patch Trade Board Response 처리 함수          //
+    const patchTradeBoardResponse = (responseBody: PatchTradeResponseDto | ResponseDto | null) => {
+      if (!responseBody) return;
+      const { code } = responseBody;
+      if (code === 'DBE') alert('데이터 베이스 오류입니다.');
+      if (code === 'AF' || code === 'NU' || code === 'NB' || code === 'NP') navigate(AUTH_PATH());
+      if (code === 'VF') alert('제목과 내용은 필수입니다.');
+      if (code !== 'SU') return;
+
+      if (!boardNumber) return;
+      navigate(TRADE_BOARD_PATH + '/' + TRADE_BOARD_DETAIL_PATH(boardNumber));
     }
 
 
@@ -226,6 +257,10 @@ export default function Header() {
         } else if (boardType === 'community') {
           // 커뮤니티 게시판에 업로드
           postBoardRequest(requestBody, accessToken).then(postBoardResponse);
+        }
+        else if (boardType === 'trade') {
+          // 중고거래 게시판에 업로드
+          postTradeRequest(requestBody, accessToken).then(postTradeBoardResponse);
         }
       } else {
         if (!boardNumber) return;
@@ -257,8 +292,10 @@ export default function Header() {
     setAuthPage(isAuthPage);
     const isMainPage = pathname === MAIN_PATH();
     setMainPage(isMainPage);
-    const isRecipePage = pathname === RECIPE_PATH();
+    const isRecipePage = pathname.startsWith(RECIPE_PATH());
     setRecipePage(isRecipePage);
+    const isTradePage = pathname.startsWith(TRADE_PATH());
+    setTradepage(isTradePage);
     const isSearchPage = pathname.startsWith(SEARCH_PATH(''));
     setSearchPage(isSearchPage);
     const isBoardDetailPage = pathname.startsWith(BOARD_PATH() + '/' + BOARD_DETAIL_PATH(''));
@@ -288,8 +325,8 @@ export default function Header() {
           <div className='header-logo'>{'How?se'}</div>
         </div>
         <div className='header-right-box'>
-          {(isAuthPage || isMainPage || isSearchPage || isBoardDetailPage || isRecipePage ) && <SearchButton />}
-          {(isMainPage || isRecipePage || isSearchPage || isBoardDetailPage || isUserPage) && <MyPageButton />}
+          {(isAuthPage || isMainPage || isSearchPage || isBoardDetailPage || isRecipePage || isTradePage) && <SearchButton />}
+          {(isMainPage || isRecipePage || isSearchPage || isTradePage || isBoardDetailPage || isUserPage) && <MyPageButton />}
           {(isBoardWritePage || isBoardUpdatePage) && <UploadButton />}
 
         </div>

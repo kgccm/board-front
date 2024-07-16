@@ -198,3 +198,29 @@
   display: flex;
   justify-content: center;
 }
+
+.user-bottom-selector {
+  display: flex;
+  justify-content: center; /* 가운데 정렬 */
+  gap: 30px; /* 버튼 사이 간격 */
+  margin-bottom: 20px; /* 아래 여백 */
+}
+
+.user-bottom-selector button {
+  padding: 10px 20px; /* 버튼 내부 패딩 */
+  font-size: 24px; /* 폰트 크기 */
+  border: none;
+  border-radius: 43px;
+  background-color: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease; /* 부드러운 전환 효과 */
+}
+
+.user-bottom-selector button.selected {
+  color: white; /* 선택된 버튼의 글자색 */
+  background-color: rgba(0, 123, 255, 1); /* 선택된 버튼의 배경색 */
+}
+
+.user-bottom-selector button:hover {
+  background-color: rgba(0, 123, 255, 0.4); /* 마우스 호버 시 배경색 */
+}

@@ -25,18 +25,24 @@ export default function Pagination(props: Props) {
 
   //          event handler: 이전 클릭 이벤트 처리          //
   const onPreviousClickHandler = () => {
-    if (currentSection === 1) return;
-    setCurrentPage((currentSection - 1) * 10);
-    setCurrentSection(currentSection - 1);
+    if (currentPage === 1) return;
+    const newPage = currentPage - 1;
+    setCurrentPage(newPage);
+    if (newPage <= (currentSection - 1) * 10) {
+      setCurrentSection(currentSection - 1);
+    }
   };
-
+  
   //          event handler: 다음 클릭 이벤트 처리          //
   const onNextClickHandler = () => {
-    if (currentSection === totalSection) return;
-    setCurrentPage(currentSection * 10 + 1);
-    setCurrentSection(currentSection + 1);
+    const lastPage = viewPageList[viewPageList.length - 1];
+    if (currentPage === lastPage) return;
+    const newPage = currentPage + 1;
+    setCurrentPage(newPage);
+    if (newPage > currentSection * 10) {
+      setCurrentSection(currentSection + 1);
+    }
   };
-
   //          render: 페이지네이션 컴포넌트 렌더링          //
   return (
     <div id="pagination-wrapper">

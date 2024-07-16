@@ -10,7 +10,7 @@ import BoardWrite from 'views/Board/Write';
 import BoardUpdate from 'views/Board/Update';
 import Recipe from 'views/Recipe';
 import Container from 'layouts/Container';
-import { MAIN_PATH, AUTH_PATH, SEARCH_PATH, USER_PATH, BOARD_PATH, BOARD_WRITE_PATH, BOARD_DETAIL_PATH, BOARD_UPDATE_PATH, RECIPE_PATH, RECIPE_BOARD_DETAIL_PATH, RECIPE_BOARD_PATH } from 'constant';
+import { MAIN_PATH, AUTH_PATH, SEARCH_PATH, USER_PATH, BOARD_PATH, BOARD_WRITE_PATH, BOARD_DETAIL_PATH, BOARD_UPDATE_PATH, RECIPE_PATH, RECIPE_BOARD_DETAIL_PATH, RECIPE_BOARD_PATH, TRADE_PATH } from 'constant';
 import { useEffect } from 'react';
 import { useCookies } from 'react-cookie';
 import { useLoginUserStore } from 'stores';
@@ -19,6 +19,7 @@ import { GetSignInUserResponseDto } from 'apis/response/user';
 import { ResponseDto } from 'apis/response';
 import { User } from 'types/interface';
 import RecipeDetail from 'views/Recipes/Detail';
+import Trade from 'views/Trade';
 
 
 //           component: Application 컴포넌트           //
@@ -67,9 +68,6 @@ function App() {
         <Route path={MAIN_PATH()} element={<Main />} />
         <Route path={RECIPE_PATH()} element={<Recipe />} />
         <Route path={`${RECIPE_PATH()}/recipe-board/detail/:recipeBoardNumber`} element={<RecipeDetail />} />
-        {/* <Route path={RECIPE_BOARD_PATH()}>
-          <Route path={RECIPE_BOARD_DETAIL_PATH(':recipeboardNumber')} element={<RecipeDetail />} />
-        </Route> */}
         <Route path={AUTH_PATH()} element={<Authentication />} />
         <Route path={SEARCH_PATH(':searchWord')} element={<Search />} />
         <Route path={USER_PATH(':userEmail')} element={<UserP />} />
@@ -78,6 +76,8 @@ function App() {
           <Route path={BOARD_DETAIL_PATH(':boardNumber')} element={<BoardDetail />} />
           <Route path={BOARD_UPDATE_PATH(':boardNumber')} element={<BoardUpdate />} />
         </Route>
+        <Route path={TRADE_PATH()} element={<Trade />} />
+        <Route path={`${TRADE_PATH()}/trade-board/detail/:tradeBoardNumber`} element={<RecipeDetail />} />
         <Route path='*' element={<h1>404 Not Found</h1>} />
       </Route>
 

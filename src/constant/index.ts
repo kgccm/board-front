@@ -2,6 +2,8 @@
 export const MAIN_PATH = () => '/';
 // 레시피 페이지
 export const RECIPE_PATH = () => '/recipe';
+// 중고거래 페이지
+export const TRADE_PATH = () => `/trade`;
 //인증 페이지
 export const AUTH_PATH = () => '/auth';
 //검색
@@ -22,3 +24,10 @@ export const RECIPE_BOARD_DETAIL_PATH = (boardNumber: string | number) => `detai
 
 export const RECIPE_WRITE_PATH = () => 'write';
 export const RECIPE_UPDATE_PATH = (boardNumber: string | number) => `update/${boardNumber}`;
+
+// 중고거래 게시글 관련 // BOARD_PATH 와 동일한 로직
+export const TRADE_BOARD_PATH = () => '/trade-board';
+export const TRADE_BOARD_DETAIL_PATH =  (boardNumber: string | number) => `detail/${boardNumber}`;
+
+export const TRADE_WRITE_PATH = () => 'write';
+export const TRADE_UPDATE_PATH = (boardNumber: string | number) => `update/${boardNumber}`;
