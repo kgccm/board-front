@@ -1,5 +1,4 @@
 import axios from 'axios';
-import * as cheerio from 'cheerio';
 import { ResponseDto } from "./response";
 import { SignInRequestDto, SignUpRequestDto } from './request/auth';
 import { SignInResponseDto, SignUpResponseDto } from './response/auth';
@@ -486,7 +485,7 @@ export const getLatestTradeListRequest = async () => {
 }
 
 export const getTop3TradeListRequest = async () => {
-    console.log('get RECIPE_URL:', GET_TOP_3_TRADE_LIST_URL()); // URL 로그 추가
+    console.log('get TOP3 TRADE:', GET_TOP_3_TRADE_LIST_URL()); // URL 로그 추가
     const result = await axios.get(GET_TOP_3_TRADE_LIST_URL())
         .then(response => {
             const responseBody: GetTop3TradeListResponseDto = response.data;

@@ -10,6 +10,7 @@ import { PatchBoardResponseDto, PostBoardResponseDto } from 'apis/response/board
 import { ResponseDto } from 'apis/response';
 import { PostRecipeResponseDto } from 'apis/response/recipe';
 import { PatchTradeResponseDto, PostTradeResponseDto } from 'apis/response/trade';
+import { PostTradeRequestDto } from 'apis/request/trade';
 
 //          component: 헤더 레이아웃          //
 export default function Header() {
@@ -144,7 +145,7 @@ export default function Header() {
     //          state: 게시물 번호 path variable 상태          //
     const { boardNumber } = useParams();
     //          state: 게시물 상태          //
-    const { title, content, boardImageFileList, resetBoard } = useBoardStore();
+    const { title, content, boardImageFileList, price, tradeLocation, resetBoard } = useBoardStore();
     const { boardType } = useBoardTypeStore();
     //          function: post board response 처리 함수          //
     const postBoardResponse = (responseBody: PostBoardResponseDto | ResponseDto | null) => {
@@ -248,20 +249,24 @@ export default function Header() {
 
       const isWriterPage = pathname === BOARD_PATH() + '/' + BOARD_WRITE_PATH();
       if (isWriterPage) {
-        const requestBody: PostBoardRequestDto = {
-          title, content, boardImageList, boardType
-        };
-        if (boardType === 'recipe') {
-          // 레시피 게시판에 업로드
-          postRecipeRequest(requestBody, accessToken).then(postRecipeBoardResponse);
-        } else if (boardType === 'community') {
-          // 커뮤니티 게시판에 업로드
-          postBoardRequest(requestBody, accessToken).then(postBoardResponse);
-        }
-        else if (boardType === 'trade') {
-          // 중고거래 게시판에 업로드
-          postTradeRequest(requestBody, accessToken).then(postTradeBoardResponse);
-        }
+        if (boardType === 'recipe' || boardType === 'community') {
+          const requestBody: PostBoardRequestDto = {
+            title, content, boardImageList, boardType
+          };
+          if (boardType === 'recipe') {
+            // 레시피 게시판에 업로드
+            postRecipeRequest(requestBody, accessToken).then(postRecipeBoardResponse);
+          } else if (boardType === 'community') {
+            // 커뮤니티 게시판에 업로드
+            postBoardRequest(requestBody, accessToken).then(postBoardResponse);
+          }
+        }else if (boardType === 'trade')
+        {
+          const requestBody: PostTradeRequestDto = {
+            title, content, boardImageList, boardType, price, tradeLocation
+          };
+            postTradeRequest(requestBody, accessToken).then(postTradeBoardResponse);
+          }
       } else {
         if (!boardNumber) return;
         const requestBody: PatchBoardRequestDto = {
