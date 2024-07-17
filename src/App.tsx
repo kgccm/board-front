@@ -65,19 +65,19 @@ function App() {
   return (
     <Routes>
       <Route element={<Container />}>
-        <Route path={MAIN_PATH()} element={<Main />} />
-        <Route path={RECIPE_PATH()} element={<Recipe />} />
-        <Route path={`${RECIPE_PATH()}/recipe-board/detail/:recipeBoardNumber`} element={<RecipeDetail />} />
-        <Route path={AUTH_PATH()} element={<Authentication />} />
-        <Route path={SEARCH_PATH(':searchWord')} element={<Search />} />
-        <Route path={USER_PATH(':userEmail')} element={<UserP />} />
         <Route path={BOARD_PATH()}>
           <Route path={BOARD_WRITE_PATH()} element={<BoardWrite />} />
           <Route path={BOARD_DETAIL_PATH(':boardNumber')} element={<BoardDetail />} />
           <Route path={BOARD_UPDATE_PATH(':boardNumber')} element={<BoardUpdate />} />
         </Route>
+        <Route path={MAIN_PATH()} element={<Main />} />
+        <Route path={RECIPE_PATH()} element={<Recipe />} />
+        <Route path={`${RECIPE_PATH()}/recipe-board/detail/:recipeBoardNumber`} element={<RecipeDetail />} />
         <Route path={TRADE_PATH()} element={<Trade />} />
         <Route path={`${TRADE_PATH()}/trade-board/detail/:tradeBoardNumber`} element={<RecipeDetail />} />
+        <Route path={AUTH_PATH()} element={<Authentication />} />
+        <Route path={SEARCH_PATH(':searchWord')} element={<Search />} />
+        <Route path={USER_PATH(':userEmail')} element={<UserP />} />
         <Route path='*' element={<h1>404 Not Found</h1>} />
       </Route>
 

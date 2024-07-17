@@ -8,7 +8,7 @@ import { PostBoardResponseDto, GetBoardResponseDto, IncreaseViewCountResponseDto
 import { GetPopularListResponseDto, GetRelationListResponseDto } from './response/search';
 import { PatchNicknameRequestDto, PatchProfileImageRequestDto } from './request/user';
 import { DeleteRecipeResponseDto, GetLatestRecipeListResponseDto, GetRecipeCommentListResponseDto, GetRecipeFavoriteListResponseDto, GetRecipeResponseDto, GetTop3RecipeListResponseDto, GetUserRecipeListResponseDto, IncreaseViewCountRecipeResponseDto, PatchRecipeResponseDto, PostRecipeCommentResponseDto, PostRecipeResponseDto, PutRecipeFavoriteResponseDto } from './response/recipe';
-import { DeleteTradeResponseDto, GetLatestTradeListResponseDto, GetTop3TradeListResponseDto, GetTradeCommentListResponseDto, GetTradeFavoriteListResponseDto, GetUserTradeListResponseDto, IncreaseViewCountTradeResponseDto, PatchTradeResponseDto, PostTradeCommentResponseDto, PostTradeResponseDto, PutTradeFavoriteResponseDto } from './response/trade';
+import { DeleteTradeResponseDto, GetLatestTradeListResponseDto, GetTop3TradeListResponseDto, GetTradeCommentListResponseDto, GetTradeFavoriteListResponseDto, GetTradeResponseDto, GetUserTradeListResponseDto, IncreaseViewCountTradeResponseDto, PatchTradeResponseDto, PostTradeCommentResponseDto, PostTradeResponseDto, PutTradeFavoriteResponseDto } from './response/trade';
 
 const DOMAIN = 'http://localhost:4000';
 
@@ -280,7 +280,6 @@ export const getRecipeRequest = async (boardNumber: number | string) => {
 }
 
 export const getLatestRecipeListRequest = async () => {
-    console.log('get Latest RECIPE_URL:', GET_LATEST_RECIPE_LIST_URL); // UR
     const result = await axios.get(GET_LATEST_RECIPE_LIST_URL())
         .then(response => {
             const responseBody: GetLatestRecipeListResponseDto = response.data;
@@ -455,10 +454,9 @@ const PUT_FAVORITE_TRADE_URL = (boardNumber: number | string) => `${API_DOMAIN}/
 const DELETE_TRADE_URL = (boardNumber: number | string) => `${API_DOMAIN}/trade/trade-board/${boardNumber}`;
 
 export const getTradeRequest = async (boardNumber: number | string) => {
-    console.log('get trade:', GET_TRADE_URL(boardNumber)); // URL 로그 추가
     const result = await axios.get(GET_TRADE_URL(boardNumber))
         .then(response => {
-            const responseBody: GetRecipeResponseDto = response.data;
+            const responseBody: GetTradeResponseDto = response.data;
             return responseBody;
         })
         .catch(error => {
@@ -470,7 +468,6 @@ export const getTradeRequest = async (boardNumber: number | string) => {
 }
 
 export const getLatestTradeListRequest = async () => {
-    console.log('get latest trade:', GET_LATEST_TRADE_LIST_URL()); // URL 로그 추가
     const result = await axios.get(GET_LATEST_TRADE_LIST_URL())
         .then(response => {
             const responseBody: GetLatestTradeListResponseDto = response.data;
@@ -485,7 +482,6 @@ export const getLatestTradeListRequest = async () => {
 }
 
 export const getTop3TradeListRequest = async () => {
-    console.log('get TOP3 TRADE:', GET_TOP_3_TRADE_LIST_URL()); // URL 로그 추가
     const result = await axios.get(GET_TOP_3_TRADE_LIST_URL())
         .then(response => {
             const responseBody: GetTop3TradeListResponseDto = response.data;
@@ -559,6 +555,7 @@ export const getCommentTradeListRequest = async (boardNumber: number | string) =
 
 
 export const postTradeRequest = async (requestBody: PostBoardRequestDto, accessToken: string) => {
+    // console.log('post trade request', POST_TRADE_URL());
     const result = await axios.post(POST_TRADE_URL(), requestBody, authorization(accessToken))
         .then(response => {
             const responseBody: PostTradeResponseDto = response.data;

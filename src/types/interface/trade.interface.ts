@@ -3,10 +3,10 @@ export default interface Trade {
     title : string;
     content : string;
     boardImageList : string[];
+    tradeLocation : string | null;
+    price : number;
     writeDatetime : string;
     writerEmail : string;
-    tradeLocation : string | null;
-    price : string | null;
     writerNickname : string;
     writerProfileImage : string | null;
 }

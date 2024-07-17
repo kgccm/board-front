@@ -3,6 +3,6 @@ export default interface PostTradeRequestDto{
     content: string;
     boardImageList : string[];
     tradeLocation : string | null;
-    price : string | null;
+    price : number;
     boardType: string; 
 }

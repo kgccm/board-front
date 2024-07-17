@@ -3,7 +3,6 @@ import './style.css';
 import defaultProfileImage from 'assets/image/default-profile-image.png';
 import { RecipeListItem } from 'types/interface';
 import { useNavigate } from 'react-router-dom';
-import { RECIPE_BOARD_DETAIL_PATH, RECIPE_BOARD_PATH, RECIPE_PATH } from 'constant';
 
 interface Props{
     recipetop3ListItem : RecipeListItem

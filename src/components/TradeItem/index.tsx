@@ -13,9 +13,9 @@ export default function TradeItem({ tradeListItem }: Props) {
 
     //          properties          // 
     const { boardNumber, title, content, boardTitleImage } = tradeListItem;
+    const { price,  tradeLocation} = tradeListItem;
     const { favoriteCount, commentCount, viewCount } = tradeListItem;
     const { writeDatetime, writerNickname, writerProfileImage } = tradeListItem;
-    const { price,  tradeLocation} = tradeListItem;
 
     //          function: 네비게이트 함수          // 
     const navigate = useNavigate();

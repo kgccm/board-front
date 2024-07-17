@@ -10,7 +10,6 @@ import { getLatestTradeListRequest,  getTop3TradeListRequest,  } from 'apis';
 import { GetLatestTradeListResponseDto, GetTop3TradeListResponseDto } from 'apis/response/trade';
 import { ResponseDto } from 'apis/response';
 import { usePagination } from 'hooks';
-import { GetPopularListResponseDto } from 'apis/response/search';
 //          component: 레시피 화면 컴포넌트          //
 export default function Trade() {
 
@@ -23,8 +22,9 @@ export default function Trade() {
     //          state: 주간 Top3 레시피 리스트 상태          //
     const [top3tradeList, setTop3tradeList] = useState<TradeListItem[]>([]);
 
-    //          function: get Top3 recipe List Response 처리 함수          //
+    //          function: get Top3 trade List Response 처리 함수          //
     const getTop3TradeListResponse = (responseBody: GetTop3TradeListResponseDto | ResponseDto | null) => {
+      console.log('API Response:', responseBody);
       if (!responseBody) return;
       const { code } = responseBody;
 
@@ -32,6 +32,7 @@ export default function Trade() {
       if (code !== 'SU') return;
 
       const { tradetop3List } = responseBody as GetTop3TradeListResponseDto;
+      console.log(top3tradeList);
       setTop3tradeList(tradetop3List);
     }
 
@@ -53,7 +54,7 @@ export default function Trade() {
           <div className='trade-top-content-box'>
             <div className='trade-top-contents-title'>{'주간 Top 3 물품'}</div>
             <div className='trade-top-contents'>
-              {top3tradeList.map(tradetop3ListItem => <TradeTop3Item tradetop3ListItem={tradetop3ListItem} />)}
+              {top3tradeList.map(tradetop3ListItem => <TradeTop3Item tradeTop3ListItem={tradetop3ListItem} />)}
             </div>
           </div>
         </div>
@@ -72,12 +73,13 @@ export default function Trade() {
 
     //          function : get Latest Board List Response 처리 함수          //
     const getLatestTradeListResponse = (responseBody: GetLatestTradeListResponseDto | ResponseDto | null) => {
+      console.log('API Response:', responseBody); // 응답 데이터 전체를 로그로 출력
       if (!responseBody) return;
       const { code } = responseBody;
       if (code === 'DBE') alert('데이터베이스 오류입니다.');
       if (code !== 'SU') return;
 
-      const { tradelatestList } = responseBody as GetLatestTradeListResponseDto;
+      const {  tradelatestList } = responseBody as GetLatestTradeListResponseDto;
       setTotalList(tradelatestList);
     }
 

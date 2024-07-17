@@ -3,12 +3,12 @@ import { create } from 'zustand';
 interface BoardStore {
     title: string;
     content: string;
-    price: string;
+    price: number;
     tradeLocation: string;
     boardImageFileList: File[];
     setTitle: (title: string) => void;
     setContent: (content: string) => void;
-    setPrice: (price: string) => void;
+    setPrice: (price: number) => void;
     setTradeLocation: (tradeLocation: string) => void;
     setBoardImageFileList: (boardImageFileList: File[]) => void;
     resetBoard: () => void;
@@ -17,7 +17,7 @@ interface BoardStore {
 const useBoardStore = create<BoardStore>(set => ({
     title: '',
     content: '',
-    price: '',
+    price: 0,
     tradeLocation: '',
     boardImageFileList: [],
     setTitle: (title) => set(state => ({ ...state, title })),
@@ -25,7 +25,7 @@ const useBoardStore = create<BoardStore>(set => ({
     setPrice: (price) => set(state => ({ ...state, price })),
     setTradeLocation: (tradeLocation) => set(state => ({ ...state, tradeLocation })),
     setBoardImageFileList: (boardImageFileList) => set(state => ({ ...state, boardImageFileList })),
-    resetBoard: () => set(state => ({ ...state, title: '', content: '',  tradeLocation: '', price: '',boardImageFileList: []})),
+    resetBoard: () => set(state => ({ ...state, title: '', content: '',  tradeLocation: '', price: 0 ,boardImageFileList: []})),
 }));
 
 export default useBoardStore;
