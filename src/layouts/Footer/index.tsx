@@ -1,19 +1,24 @@
 import React from 'react'
 import './style.css';
-
+import { useNavigate } from 'react-router-dom';
 //          component: Footer Layout          //
 export default function Footer() {
+
+    const navigate = useNavigate();
 
     //          event handler: 인스타 아이콘 버튼 클릭 이벤트 처리          //
     const onInstaIconButtonClickHandler = () => {
         window.open('https://www.instagram.com');
     }
-    
+
     //          event handler: 네이버 아이콘 버튼 클릭 이벤트 처리          //
     const onNGitHubIconButtonClickHandler = () => {
         window.open('https://github.com/kgccm');
     }
 
+    const onHouseIconClickHandler = () => {
+        navigate('/'); // 메인 페이지 경로로 이동
+    }
     //          render: Footer Layout 렌더링          //
     return (
         <div id='footer'>
@@ -21,7 +26,7 @@ export default function Footer() {
                 <div className='footer-top'>
                     <div className='footer-logo-box'>
                         <div className='icon-box'>
-                            <div className='icon logo-house-icon'></div>
+                            <div className='icon logo-house-icon'  onClick={onHouseIconClickHandler}></div>
                         </div>
                         <div className='footer-logo-text'>{'How?se'}</div>
                     </div>
