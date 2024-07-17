@@ -84,19 +84,35 @@ export default function BoardWrite() {
 
 
   //          event handler: 이미지 변경 이벤트 처리          //
+  // const onImageChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+  //   if (!event.target.files || !event.target.files.length) return;
+  //   const file = event.target.files[0];
+
+  //   const imageUrl = URL.createObjectURL(file);
+  //   const newImageUrls = imageUrls.map(item => item);
+  //   newImageUrls.push(imageUrl);
+  //   setImageUrls(newImageUrls);
+
+  //   const newBoardImageFileList = boardImageFileList.map(item => item);
+  //   newBoardImageFileList.push(file);
+  //   setBoardImageFileList(newBoardImageFileList);
+  // }
   const onImageChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files || !event.target.files.length) return;
-    const file = event.target.files[0];
-
-    const imageUrl = URL.createObjectURL(file);
-    const newImageUrls = imageUrls.map(item => item);
-    newImageUrls.push(imageUrl);
+    const files = Array.from(event.target.files); // Convert FileList to array
+  
+    const newImageUrls = [...imageUrls];
+    const newBoardImageFileList = [...boardImageFileList];
+  
+    files.forEach((file) => {
+      const imageUrl = URL.createObjectURL(file);
+      newImageUrls.push(imageUrl);
+      newBoardImageFileList.push(file);
+    });
+  
     setImageUrls(newImageUrls);
-
-    const newBoardImageFileList = boardImageFileList.map(item => item);
-    newBoardImageFileList.push(file);
     setBoardImageFileList(newBoardImageFileList);
-  }
+  };
 
   //          event handler: 이미지 업로드 버튼 클릭 이벤트 처리          //
   const onImageUploadButtonClickHandler = () => {
@@ -150,9 +166,19 @@ export default function BoardWrite() {
           <div className='board-write-title-box'>
             <textarea ref={titleRef} className='board-write-title-textarea' rows={1} placeholder='제목을 작성해주세요.' value={title} onChange={onTitleChangeHandler}
               onDragOver={(event) => event.preventDefault()} // 드래그 오버 이벤트 막기
-              onDrop={(event) => event.preventDefault()}/>
+              onDrop={(event) => event.preventDefault()} />
           </div>
           <div className='divider'></div>
+          <div className='board-write-images-container'>
+            {imageUrls.map((imageUrl, index) => (
+              <div  key={index}  className='board-write-image-box'>
+                <img className='board-write-image' src={imageUrl} />
+                <div className='icon-button image-close' onClick={() => onImageCloseButtonClickHandler(index)}>
+                  <div className='icon close-icon'></div>
+                </div>
+              </div>
+            ))}
+          </div>
           <div className='trade-price-and-location-container'>
             {boardType === 'trade' && (
               <div className='price-trade-location-wrapper'>
@@ -160,7 +186,7 @@ export default function BoardWrite() {
                   <input
                     ref={priceRef}
                     type='number'
-                    placeholder='가격을 입력하세요'
+                    placeholder='₩ 거래 가격'
                     value={price === 0 ? '' : price}
                     onChange={onPriceChangeHandler}
                     onInput={(e) => {
@@ -179,7 +205,6 @@ export default function BoardWrite() {
               </div>
             )}
           </div>
-
           <div className='board-write-content-box'>
             <textarea
               ref={contentRef}
@@ -197,22 +222,10 @@ export default function BoardWrite() {
               onDrop={(event) => event.preventDefault()} // 드롭 이벤트 막기
             />
 
-
-
             <div className='icon-button' onClick={onImageUploadButtonClickHandler}>
               <div className='icon image-box-light-icon'></div>
             </div>
-            <input ref={imageInputRef} type='file' accept='image/*' style={{ display: 'none' }} onChange={onImageChangeHandler} />
-          </div>
-          <div className='board-write-images-container'>
-            {imageUrls.map((imageUrl, index) => (
-              <div className='board-write-image-box'>
-                <img className='board-write-image' src={imageUrl} />
-                <div className='icon-button image-close' onClick={() => onImageCloseButtonClickHandler(index)}>
-                  <div className='icon close-icon'></div>
-                </div>
-              </div>
-            ))}
+            <input ref={imageInputRef} type='file' accept='image/*' style={{ display: 'none' }} multiple  onChange={onImageChangeHandler} />
           </div>
         </div>
       </div>

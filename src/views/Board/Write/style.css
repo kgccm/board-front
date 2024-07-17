@@ -156,8 +156,8 @@
 
 .board-write-image-box {
   position: relative;
-  width: 150px; /* 이미지 박스의 너비 조정 */
-  height: 150px; /* 이미지 박스의 높이 조정 */
+  width: 89px; /* 이미지 박스의 너비 조정 */
+  height: 89px; /* 이미지 박스의 높이 조정 */
   margin-right: 10px; /* 이미지 박스 간 간격 조정 */
   margin-bottom: 10px; /* 이미지 박스 간 간격 조정 */
   overflow: hidden; /* 넘치는 이미지를 자르기 위해 overflow 속성 추가 */
@@ -236,4 +236,10 @@
   font-size: 16px;
   border: 1px solid #ddd;
   resize: none;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0; /* Optional */
 }
