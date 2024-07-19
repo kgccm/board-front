@@ -221,7 +221,7 @@
 
 /* 가격 입력 박스 */
 .price-box input {
-  width: 100%;
+  width: 30%;
   padding: 10px;
   font-size: 16px;
   border: 1px solid #ddd;
@@ -231,7 +231,7 @@
 
 /* 거래 장소 입력 박스 */
 .trade-location-box textarea {
-  width: 100%;
+  width: 50%;
   padding: 10px;
   font-size: 16px;
   border: 1px solid #ddd;

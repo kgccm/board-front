@@ -35,7 +35,11 @@ export default function TradeTop3Item({ tradeTop3ListItem }: Props) {
 
     //          render: Top 3 List Item 컴포넌트 렌더링          //
     return (
-        <div className='trade-top-3-list-item' style={{ backgroundImage: `url(${boardTitleImage})` }} onClick={onClickHandler}>
+        <div className='trade-top-3-list-item' onClick={onClickHandler}>
+            <div className='trade-top-3-list-item-image-box'>
+                <img className='trade-top-3-list-item-image' src={`${boardTitleImage}`} alt={title} />
+            </div>
+
             <div className='trade-top-3-list-item-main-box'>
                 <div className='trade-top-3-list-item-top'>
                     <div className='trade-top-3-list-item-profile-box'>
@@ -46,15 +50,15 @@ export default function TradeTop3Item({ tradeTop3ListItem }: Props) {
                         <div className='trade-top-3-list-item-write-date'>{writeDatetime}</div>
                     </div>
                 </div>
+                <div className='trade-list-item-price'>
+                    {'가격 :'}{formatPrice(price)}
+                </div>
                 <div className='trade-list-item-location-box'>
                     <div className='trade-item-location'>{'거래장소 : '}{tradeLocation}</div>
                 </div>
-                <div className='trade-top-3-list-item-middle'>
+                <div className='trade-top-3-list-item-info'>
                     <div className='trade-top-3-list-item-title'>{title}</div>
                     <div className='trade-top-3-list-item-content'>{content}</div>
-                    <div className='trade-list-item-price'>
-                        {'가격 :'}{formatPrice(price)}
-                    </div>
                 </div>
                 <div className='trade-top-3-list-item-bottom'>
                     <div className='trade-top-3-list-item-counts'>
@@ -62,7 +66,7 @@ export default function TradeTop3Item({ tradeTop3ListItem }: Props) {
                     </div>
                 </div>
             </div>
-
         </div>
+
     )
 }

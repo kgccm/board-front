@@ -4,6 +4,7 @@ import Header from 'layouts/Header'
 import Navbar from 'layouts/NavBar';
 import path from 'path';
 import { Outlet, useLocation } from 'react-router-dom'
+import MapContainer from 'utils/MapContainer';
 
 //          component: 레이아웃          //
 export default function Container() {
@@ -20,6 +21,7 @@ export default function Container() {
       {/* 인증 페이지와 글 작성 페이지가 아닌 경우에만 NavBar 렌더링 */}
       <Outlet />
       
+      {/* <MapContainer/> */}
       {pathname !== AUTH_PATH() && <Footer />}
     </>
   )

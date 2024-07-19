@@ -196,6 +196,7 @@ export default function BoardWrite() {
                     onDragOver={(event) => event.preventDefault()} // 드래그 오버 이벤트 막기
                     onDrop={(event) => event.preventDefault()} // 드롭 이벤트 막기
                   />
+                   
                 </div>
                 <div className='trade-location-box'>
                   <textarea ref={tradeLocationRef} placeholder='장소를 입력하세요' value={tradeLocation} onChange={onTradeLocationChangeHandler} onDragOver={(event) => event.preventDefault()} // 드래그 오버 이벤트 막기

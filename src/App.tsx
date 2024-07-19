@@ -20,7 +20,7 @@ import { ResponseDto } from 'apis/response';
 import { User } from 'types/interface';
 import RecipeDetail from 'views/Recipes/Detail';
 import Trade from 'views/Trade';
-
+import MapContainer from 'utils/MapContainer';
 
 //           component: Application 컴포넌트           //
 function App() {
