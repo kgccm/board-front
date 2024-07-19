@@ -1,14 +1,16 @@
 // src/stores/board-type.store.ts
 import { create } from 'zustand';
 
+type BoardType = 'community' | 'recipe' | 'trade';
+
 interface BoardTypeStore {
-  boardType: string;
-  setBoardType: (type: string) => void;
+  boardType: BoardType;
+  setBoardType: (type: BoardType) => void;
 }
 
 const useBoardTypeStore = create<BoardTypeStore>((set) => ({
   boardType: 'community', // default value
-  setBoardType: (boardType) => set((state) => ({ ...state, boardType })),
+  setBoardType: (boardType: BoardType) => set({ boardType }),
 }));
 
 export default useBoardTypeStore;

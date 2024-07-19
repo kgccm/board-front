@@ -2,15 +2,15 @@ import React, { ChangeEvent, useEffect, useRef, useState } from 'react'
 import './style.css';
 import { useBoardStore, useLoginUserStore } from 'stores';
 import { useNavigate, useParams } from 'react-router-dom';
-import { MAIN_PATH } from 'constant';
+import { TRADE_PATH } from 'constant';
 import { useCookies } from 'react-cookie';
-import { getBoardRequest } from 'apis';
-import { GetBoardResponseDto } from 'apis/response/board';
+import { getTradeRequest } from 'apis';
+import { GetTradeResponseDto } from 'apis/response/trade';
 import { ResponseDto } from 'apis/response';
 import { convertUrlsToFile } from 'utils';
 
 //          component: 게시물 수정 화면 컴포넌트          //
-export default function BoardUpdate() {
+export default function TradeUpdate() {
 
   //          state: 제목 영역 요소 참조 상태          //
   const titleRef = useRef<HTMLTextAreaElement | null>(null);
@@ -20,12 +20,15 @@ export default function BoardUpdate() {
   const imageInputRef = useRef<HTMLInputElement | null>(null);
 
   //          state: 게시물 번호 path variable 상태          //
-  const { boardNumber } = useParams();
+  const { tradeBoardNumber } = useParams();
 
   //          state: 게시물 상태          //
-  const { title, setTitle } = useBoardStore();
+  const { title, setTitle, } = useBoardStore();
   const { content, setContent } = useBoardStore();
   const { boardImageFileList, setBoardImageFileList } = useBoardStore();
+  const { price, setPrice } = useBoardStore();
+  const { tradeLocation, setTradeLocation } = useBoardStore();
+
 
   //          state: 쿠키 상태          //
   const [cookies, setCookies] = useCookies();
@@ -40,24 +43,28 @@ export default function BoardUpdate() {
   const navigate = useNavigate();
 
   //          function: get Board Response 처리 함수          //
-  const getBoardResponse = (responseBody: GetBoardResponseDto | ResponseDto | null) => {
+  const getTradeResponse = (responseBody: GetTradeResponseDto | ResponseDto | null) => {
     if (!responseBody) return;
     const { code } = responseBody;
     if (code === 'NB') alert('존재하지 않는 게시물입니다.');
     if (code === 'DBE') alert('데이터베이스 오류입니다.');
     if (code !== 'SU') {
-      navigate(MAIN_PATH());
+      navigate(TRADE_PATH());
       return;
     }
 
-    const { title, content, boardImageList, writerEmail } = responseBody as GetBoardResponseDto;
+    const { title, content, boardImageList, writerEmail, price, tradeLocation } = responseBody as GetTradeResponseDto;
     setTitle(title);
     setContent(content);
     setImageUrls(boardImageList);
+    setPrice(price);
+    if (tradeLocation !== null) {
+      setTradeLocation(tradeLocation);
+    }
     convertUrlsToFile(boardImageList).then(boardImageFileList => setBoardImageFileList(boardImageFileList));
 
     if (!loginUser || loginUser.email !== writerEmail) {
-      navigate(MAIN_PATH());
+      navigate(TRADE_PATH());
       return;
     }
   }
@@ -125,39 +132,41 @@ export default function BoardUpdate() {
   useEffect(() => {
     const accessToken = cookies.accessToken;
     if (!accessToken) {
-      navigate(MAIN_PATH());
+      navigate(TRADE_PATH());
       return;
     }
-    if (!boardNumber) return;
-    getBoardRequest(boardNumber).then(getBoardResponse);
-  }, [boardNumber])
+    if (!tradeBoardNumber) return;
+    getTradeRequest(tradeBoardNumber).then(getTradeResponse);
+  }, [tradeBoardNumber])
 
   //          render: 게시물 작성 화면 컴포넌트 렌더링          //
   return (
-    <div id='board-update-wrapper'>
-      <div className='board-update-container'>
-        <div className='board-update-box'>
-          <div className='board-update-title-box'>
-            <textarea ref={titleRef} className='board-update-title-textarea' rows={1} placeholder='제목을 작성해주세요.' value={title} onChange={onTitleChangeHandler} onDragOver={(event) => event.preventDefault()} // 드래그 오버 이벤트 막기
-              onDrop={(event) => event.preventDefault()} />
+    <div id='trade-update-wrapper'>
+      <div className='trade-update-container'>
+        <div className='trade-update-box'>
+          <div className='trade-update-title-box'>
+            <textarea ref={titleRef} className='trade-update-title-textarea' rows={1} placeholder='제목을 작성해주세요.' value={title} onChange={onTitleChangeHandler}
+            onDragOver={(event) => event.preventDefault()} // 드래그 오버 이벤트 막기
+            onDrop={(event) => event.preventDefault()} // 드롭 이벤트 막기
+            />
           </div>
           <div className='divider'></div>
-          <div className='board-write-images-container'>
+          <div className='trade-update-images-container'>
             {imageUrls.map((imageUrl, index) => (
-              <div key={index} className='board-write-image-box'>
-                <img className='board-write-image' src={imageUrl} />
+              <div  key={index}  className='trade-write-image-box'>
+                <img className='trade-update-image' src={imageUrl} />
                 <div className='icon-button image-close' onClick={() => onImageCloseButtonClickHandler(index)}>
                   <div className='icon close-icon'></div>
                 </div>
               </div>
             ))}
           </div>
-
-          <div className='board-update-content-box'>
-            <textarea ref={contentRef} className='board-update-content-textarea' placeholder='게시글 내용을 작성해주세요&#13;&#10;신뢰할 수 있는 거래를 위해 자세히 적어주세요.'
-              value={content} onChange={onContentChangeHandler}
+          <div className='trade-update-content-box'>
+            <textarea ref={contentRef} className='trade-update-content-textarea' placeholder='게시글 내용을 작성해주세요&#13;&#10;신뢰할 수 있는 거래를 위해 자세히 적어주세요.'
+              value={content} onChange={onContentChangeHandler} 
               onDragOver={(event) => event.preventDefault()} // 드래그 오버 이벤트 막기
-              onDrop={(event) => event.preventDefault()} />
+              onDrop={(event) => event.preventDefault()} // 드롭 이벤트 막기
+            />
             <div className='icon-button' onClick={onImageUploadButtonClickHandler}>
               <div className='icon image-box-light-icon'></div>
             </div>

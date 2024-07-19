@@ -22,8 +22,7 @@ export default function TradeItem({ tradeListItem }: Props) {
 
     //          event handler: 게시물 아이템 클릭 이벤트 처리 함수          // 
     const onClickHandler = () => {
-        navigate(TRADE_PATH() + TRADE_BOARD_PATH() + '/' + TRADE_BOARD_DETAIL_PATH(boardNumber));
-        // navigate(`/trade/trade-board/detail/${boardNumber}`);
+        navigate(`/trade/trade-board/detail/${boardNumber}`);
     };
     
 

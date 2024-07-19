@@ -5,7 +5,7 @@ import { RecipeCommentListItem, RecipeFavoriteListItem } from 'types/interface';
 import RecipeCommentItem from 'components/RecipeCommentItem';
 import Pagination from 'components/Pagination';
 import defaultProfileImage from 'assets/image/default-profile-image.png';
-import { useLoginUserStore } from 'stores';
+import { useBoardTypeStore, useLoginUserStore } from 'stores';
 import { useNavigate, useParams } from 'react-router-dom';
 import { RECIPE_PATH, RECIPE_UPDATE_PATH, USER_PATH } from 'constant';
 import Recipe from 'types/interface/recipe.interface';
@@ -20,7 +20,6 @@ import dayjs from 'dayjs';
 import { useCookies } from 'react-cookie';
 import { PostRecipeCommentRequestDto } from 'apis/request/recipe';
 import { usePagination } from 'hooks';
-
 //          component: 게시물 상세 화면 컴포넌트          //
 export default function RecipeDetail() {
 
@@ -33,8 +32,11 @@ export default function RecipeDetail() {
   //          state: 쿠키 상태          //
   const [cookies, setCookies] = useCookies();
 
+  const { boardType,setBoardType } = useBoardTypeStore();
+
   //          function: 네비게이트 함수          //
   const navigate = useNavigate();
+
 
   //          function: increase View Count Response 처리 함수          //
   const increaseViewCountRecipeResponse = (responseBody: IncreaseViewCountRecipeResponseDto | ResponseDto | null) => {
@@ -61,7 +63,7 @@ export default function RecipeDetail() {
       const date = dayjs(recipe.writeDatetime);
       return date.format('YYYY. MM. DD.');
     }
-    //          function: get Board Response 처리 함수          //
+    //          function: get Recipe Response 처리 함수          //
     const getRecipeResponse = (responseBody: GetRecipeResponseDto | ResponseDto | null) => {
       if (!responseBody) return;
       const { code } = responseBody;
@@ -82,7 +84,7 @@ export default function RecipeDetail() {
       setWriter(isWriter);
     }
 
-    //          function: delete Board Response 처리 함수          //
+    //          function: deleteRecipe Response 처리 함수          //
     const deleteRecipeResponse = (responseBody: DeleteRecipeResponseDto | ResponseDto | null) => {
       if (!responseBody) return;
       const { code } = responseBody;
@@ -113,7 +115,7 @@ export default function RecipeDetail() {
     const onUpdateButtonClickHandler = () => {
       if (!recipe || !loginUser) return;
       if (loginUser.email !== recipe.writerEmail) return;
-      navigate(RECIPE_PATH() + '/' + RECIPE_UPDATE_PATH(recipe.boardNumber))
+      navigate(`/recipe/recipe-board/update/${recipe.boardNumber}`);
     }
 
     //          event handler: 삭제 버튼 클릭 이벤트 처리          //
@@ -159,8 +161,8 @@ export default function RecipeDetail() {
         </div>
         <div className='divider'></div>
         <div className='board-detail-top-main'>
-          <div className='board-detail-main-text'>{recipe.content}</div>
           {recipe.boardImageList.map(image => <img className='board-detail-main-image' src={image} />)}
+          <div className='board-detail-main-text'>{recipe.content}</div>
         </div>
       </div>
     )
@@ -193,7 +195,6 @@ export default function RecipeDetail() {
 
     //          function: get Comment List Response 처리 함수          //
     const getRecipeCommentListResponse = (responseBody: GetRecipeCommentListResponseDto | ResponseDto | null) => {
-      console.log('Response body:', responseBody); // 전체 응답 로그 추가
       if (!responseBody) return;
       const { code } = responseBody;
       if (code === 'NB') alert('존재하지 않는 게시물입니다.');
@@ -207,7 +208,6 @@ export default function RecipeDetail() {
 
     //          function: get Recipe Favorite List Response 처리 함수          //
     const getRecipeFavoriteListResponse = (responseBody: GetRecipeFavoriteListResponseDto | ResponseDto | null) => {
-      console.log('getRecipeFavoriteListResponse:', responseBody); // Debugging log
       if (!responseBody) return;
       const { code } = responseBody;
       if (code === 'NB') alert('존재하지 않는 게시물입니다.');
@@ -228,7 +228,6 @@ export default function RecipeDetail() {
 
     //          function: put Favorite Response 처리 함수          //
     const putRecipeFavoriteResponse = (responseBody: PutRecipeFavoriteResponseDto | ResponseDto | null) => {
-      console.log('putRecipeFavoriteResponse:', responseBody); // Debugging log
       if (!responseBody) return;
       const { code } = responseBody;
       if (code === 'VF') alert('잘못된 접근입니다.');
@@ -369,11 +368,13 @@ export default function RecipeDetail() {
   let effectFlag = true;
   useEffect(() => {
     if (!recipeBoardNumber) return;
+
     if (effectFlag) {
       effectFlag = false;
       return;
     }
     increaseViewCountRecipeRequest(recipeBoardNumber).then(increaseViewCountRecipeResponse);
+    console.log(boardType);
   }, [recipeBoardNumber])
 
   //          render: 게시물 상세 화면 컴포넌트 렌더링          //

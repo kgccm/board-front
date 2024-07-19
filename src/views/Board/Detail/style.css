@@ -147,11 +147,12 @@
     line-height: 150%;
 
     white-space: pre-wrap;
+    height: auto;
 }
 
 .board-detail-main-image {
     width: 75%;
-    height: 75%;
+    height: auto;
     object-fit: cover;
 }
 

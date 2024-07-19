@@ -9,6 +9,8 @@ import { GetPopularListResponseDto, GetRelationListResponseDto } from './respons
 import { PatchNicknameRequestDto, PatchProfileImageRequestDto } from './request/user';
 import { DeleteRecipeResponseDto, GetLatestRecipeListResponseDto, GetRecipeCommentListResponseDto, GetRecipeFavoriteListResponseDto, GetRecipeResponseDto, GetTop3RecipeListResponseDto, GetUserRecipeListResponseDto, IncreaseViewCountRecipeResponseDto, PatchRecipeResponseDto, PostRecipeCommentResponseDto, PostRecipeResponseDto, PutRecipeFavoriteResponseDto } from './response/recipe';
 import { DeleteTradeResponseDto, GetLatestTradeListResponseDto, GetTop3TradeListResponseDto, GetTradeCommentListResponseDto, GetTradeFavoriteListResponseDto, GetTradeResponseDto, GetUserTradeListResponseDto, IncreaseViewCountTradeResponseDto, PatchTradeResponseDto, PostTradeCommentResponseDto, PostTradeResponseDto, PutTradeFavoriteResponseDto } from './response/trade';
+import { PatchRecipeRequestDto } from './request/recipe';
+import { PatchTradeRequestDto } from './request/trade';
 
 const DOMAIN = 'http://localhost:4000';
 
@@ -394,7 +396,10 @@ export const postRecipeCommentRequest = async (boardNumber: number | string, req
     return result;
 }
 
-export const patchRecipeRequest = async (boardNumber: number | string, requestBody: PatchBoardRequestDto, accessToken: string) => {
+export const patchRecipeRequest = async (boardNumber: number | string, requestBody: PatchRecipeRequestDto, accessToken: string) => {
+    console.log('PATCH_RECIPE_URL:', PATCH_RECIPE_URL(boardNumber));
+    console.log('Request Body:', requestBody);
+    console.log('Access Token:', accessToken);
     const result = await axios.patch(PATCH_RECIPE_URL(boardNumber), requestBody, authorization(accessToken))
         .then(response => {
             const responseBody: PatchRecipeResponseDto = response.data;
@@ -555,7 +560,6 @@ export const getCommentTradeListRequest = async (boardNumber: number | string) =
 
 
 export const postTradeRequest = async (requestBody: PostBoardRequestDto, accessToken: string) => {
-    // console.log('post trade request', POST_TRADE_URL());
     const result = await axios.post(POST_TRADE_URL(), requestBody, authorization(accessToken))
         .then(response => {
             const responseBody: PostTradeResponseDto = response.data;
@@ -583,7 +587,7 @@ export const postTradeCommentRequest = async (boardNumber: number | string, requ
     return result;
 }
 
-export const patchTradeRequest = async (boardNumber: number | string, requestBody: PatchBoardRequestDto, accessToken: string) => {
+export const patchTradeRequest = async (boardNumber: number | string, requestBody: PatchTradeRequestDto, accessToken: string) => {
     const result = await axios.patch(PATCH_TRADE_URL(boardNumber), requestBody, authorization(accessToken))
         .then(response => {
             const responseBody: PatchTradeResponseDto = response.data;
@@ -601,7 +605,7 @@ export const patchTradeRequest = async (boardNumber: number | string, requestBod
 export const putTradeFavoriteRequest = async (boardNumber: number | string, accessToken: string) => {
     
     console.log('PUT_FAVORITE_TRADE_URL:', PUT_FAVORITE_TRADE_URL(boardNumber)); // URL 로그 추가
-    const result = await axios.put(PUT_FAVORITE_RECIPE_URL(boardNumber), {}, authorization(accessToken))
+    const result = await axios.put(PUT_FAVORITE_TRADE_URL(boardNumber), {}, authorization(accessToken))
         .then(response => {
             const responseBody: PutTradeFavoriteResponseDto = response.data;
             return responseBody;

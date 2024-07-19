@@ -5,7 +5,7 @@ import { TradeCommentListItem, TradeFavoriteListItem } from 'types/interface';
 import TradeCommentItem from 'components/TradeCommentItem';
 import Pagination from 'components/Pagination';
 import defaultProfileImage from 'assets/image/default-profile-image.png';
-import { useLoginUserStore } from 'stores';
+import { useBoardTypeStore, useLoginUserStore } from 'stores';
 import { useNavigate, useParams } from 'react-router-dom';
 import { TRADE_PATH, TRADE_UPDATE_PATH, USER_PATH } from 'constant';
 import Trade from 'types/interface/trade.interface';
@@ -27,12 +27,14 @@ export default function TradeDetail() {
   //          state: 게시물 번호 path variable 상태          //
   // const { TradeBoardNumber } = useParams<{ TradeBoardNumber: string }>();
   const { tradeBoardNumber } = useParams();
+    const { boardTypeParam } = useParams<{ boardTypeParam: string }>();
+
   console.log('TradeDetail boardNumber:', tradeBoardNumber); // boardNumber 로그 추가
   //          state: 로그인 유저 상태          //
   const { loginUser } = useLoginUserStore();
   //          state: 쿠키 상태          //
   const [cookies, setCookies] = useCookies();
-
+  const { boardType, setBoardType } = useBoardTypeStore();
   //          function: 네비게이트 함수          //
   const navigate = useNavigate();
 
@@ -113,7 +115,7 @@ export default function TradeDetail() {
     const onUpdateButtonClickHandler = () => {
       if (!trade || !loginUser) return;
       if (loginUser.email !== trade.writerEmail) return;
-      navigate(TRADE_PATH() + '/' + TRADE_UPDATE_PATH(trade.boardNumber))
+      navigate(`/trade/trade-board/update/${trade.boardNumber}`);
     }
 
     //          event handler: 삭제 버튼 클릭 이벤트 처리          //
@@ -159,8 +161,8 @@ export default function TradeDetail() {
         </div>
         <div className='divider'></div>
         <div className='board-detail-top-main'>
-          <div className='board-detail-main-text'>{trade.content}</div>
           {trade.boardImageList.map(image => <img className='board-detail-main-image' src={image} />)}
+          <div className='board-detail-main-text'>{trade.content}</div>
         </div>
       </div>
     )
@@ -364,7 +366,6 @@ export default function TradeDetail() {
       </div>
     )
   }
-
   //          effect: 게시물 번호 path variable이 바뀔때마다 게시물 조회수 증가          //
   let effectFlag = true;
   useEffect(() => {
@@ -374,6 +375,7 @@ export default function TradeDetail() {
       return;
     }
     increaseViewCountTradeRequest(tradeBoardNumber).then(increaseViewCountTradeResponse);
+    console.log(boardType);
   }, [tradeBoardNumber])
 
   //          render: 게시물 상세 화면 컴포넌트 렌더링          //

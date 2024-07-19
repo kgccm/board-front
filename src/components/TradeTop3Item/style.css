@@ -50,6 +50,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  padding-top: 55px;
 }
 
 .trade-top-3-list-item-profile-box {

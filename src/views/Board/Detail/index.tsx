@@ -5,7 +5,7 @@ import { CommentListItem, FavoriteListItem } from 'types/interface';
 import CommentItem from 'components/CommentItem';
 import Pagination from 'components/Pagination';
 import defaultProfileImage from 'assets/image/default-profile-image.png';
-import { useLoginUserStore } from 'stores';
+import { useBoardTypeStore, useLoginUserStore } from 'stores';
 import { useNavigate, useParams } from 'react-router-dom';
 import { BOARD_PATH, BOARD_UPDATE_PATH, MAIN_PATH, USER_PATH } from 'constant';
 import Board from 'types/interface/board.interface';
@@ -20,7 +20,7 @@ import { usePagination } from 'hooks';
 
 //          component: 게시물 상세 화면 컴포넌트          //
 export default function BoardDetail() {
-
+  const { boardType, setBoardType } = useBoardTypeStore();
   //          state: 게시물 번호 path variable 상태          //
   const { boardNumber } = useParams();
   //          state: 로그인 유저 상태          //
@@ -154,8 +154,8 @@ export default function BoardDetail() {
         </div>
         <div className='divider'></div>
         <div className='board-detail-top-main'>
-          <div className='board-detail-main-text'>{board.content}</div>
           {board.boardImageList.map(image => <img className='board-detail-main-image' src={image} />)}
+          <div className='board-detail-main-text'>{board.content}</div>
         </div>
       </div>
     )
@@ -363,6 +363,7 @@ export default function BoardDetail() {
       return;
     }
     increaseViewCountRequest(boardNumber).then(increaseViewCountResponse);
+    console.log(boardType);
   }, [boardNumber])
 
   //          render: 게시물 상세 화면 컴포넌트 렌더링          //

@@ -300,3 +300,6 @@
     background-color: rgba(0, 0, 0, 0.1);
     cursor: pointer;
 }
+.gray-image{
+    background-color: url(assets/image/gray-image.png);
+}

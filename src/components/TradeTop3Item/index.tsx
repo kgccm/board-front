@@ -23,8 +23,6 @@ export default function TradeTop3Item({ tradeTop3ListItem }: Props) {
 
     //          event Handler: 게시물 아이템 클릭 이벤트 처리 함수          //
     const onClickHandler = () => {
-        // navigate(trade_PATH() + trade_BOARD_PATH() + '/' + trade_BOARD_DETAIL_PATH(boardNumber));
-        // navigate(`/trade/trade-board/detail/${tradetop3ListItem.boardNumber}`);
         navigate(`/trade/trade-board/detail/${boardNumber}`);
     }
 

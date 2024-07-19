@@ -7,7 +7,7 @@
   display: flex;
   align-items: center;
   gap: 4px;
-
+  transition: transform 0.3s ease, background-color 0.3s ease;
   cursor: pointer;
 }
 
@@ -17,8 +17,16 @@
   font-size: 14px;
   font-weight: 600;
   line-height: 140%;
+  transition: color 0.3s ease;
+}
+.pagination-change-link-box:hover {
+  transform: scale(1.1);
+  background-color: rgba(0, 0, 0, 0.1); /* 배경색의 투명도 조절 */
 }
 
+.pagination-change-link-text:hover {
+  color: #333; /* 색깔 진하게 조절 */
+}
 .pagination-divider {
   color: rgba(0, 0, 0, 0.2);
 
@@ -39,8 +47,8 @@
   cursor: default;
 }
 
-.pagination-text{
-    color: rgba(0, 0, 0, 0.55);
+.pagination-text {
+  color: rgba(0, 0, 0, 0.55);
 
   font-size: 14px;
   font-weight: 600;

@@ -84,32 +84,20 @@ export default function BoardWrite() {
 
 
   //          event handler: 이미지 변경 이벤트 처리          //
-  // const onImageChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-  //   if (!event.target.files || !event.target.files.length) return;
-  //   const file = event.target.files[0];
 
-  //   const imageUrl = URL.createObjectURL(file);
-  //   const newImageUrls = imageUrls.map(item => item);
-  //   newImageUrls.push(imageUrl);
-  //   setImageUrls(newImageUrls);
-
-  //   const newBoardImageFileList = boardImageFileList.map(item => item);
-  //   newBoardImageFileList.push(file);
-  //   setBoardImageFileList(newBoardImageFileList);
-  // }
   const onImageChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files || !event.target.files.length) return;
     const files = Array.from(event.target.files); // Convert FileList to array
-  
+
     const newImageUrls = [...imageUrls];
     const newBoardImageFileList = [...boardImageFileList];
-  
+
     files.forEach((file) => {
       const imageUrl = URL.createObjectURL(file);
       newImageUrls.push(imageUrl);
       newBoardImageFileList.push(file);
     });
-  
+
     setImageUrls(newImageUrls);
     setBoardImageFileList(newBoardImageFileList);
   };
@@ -136,8 +124,12 @@ export default function BoardWrite() {
   }
   //          event handler: board type 클릭 이벤트 처리          //
   const onBoardTypeChangeHandler = (event: ChangeEvent<HTMLSelectElement>) => {
-    setBoardType(event.target.value);
-    setPrice(0); // board type 변경 시 가격을 초기화
+    const value = event.target.value as 'community' | 'recipe' | 'trade';
+    // Type guard to ensure the value is valid
+    if (value === 'community' || value === 'recipe' || value === 'trade') {
+      setBoardType(value);
+      setPrice(0); // board type 변경 시 가격을 초기화
+    }
   };
 
   //          effect: 마운트 시 실행할 함수          //
@@ -171,7 +163,7 @@ export default function BoardWrite() {
           <div className='divider'></div>
           <div className='board-write-images-container'>
             {imageUrls.map((imageUrl, index) => (
-              <div  key={index}  className='board-write-image-box'>
+              <div key={index} className='board-write-image-box'>
                 <img className='board-write-image' src={imageUrl} />
                 <div className='icon-button image-close' onClick={() => onImageCloseButtonClickHandler(index)}>
                   <div className='icon close-icon'></div>
@@ -196,7 +188,7 @@ export default function BoardWrite() {
                     onDragOver={(event) => event.preventDefault()} // 드래그 오버 이벤트 막기
                     onDrop={(event) => event.preventDefault()} // 드롭 이벤트 막기
                   />
-                   
+
                 </div>
                 <div className='trade-location-box'>
                   <textarea ref={tradeLocationRef} placeholder='장소를 입력하세요' value={tradeLocation} onChange={onTradeLocationChangeHandler} onDragOver={(event) => event.preventDefault()} // 드래그 오버 이벤트 막기
@@ -226,7 +218,7 @@ export default function BoardWrite() {
             <div className='icon-button' onClick={onImageUploadButtonClickHandler}>
               <div className='icon image-box-light-icon'></div>
             </div>
-            <input ref={imageInputRef} type='file' accept='image/*' style={{ display: 'none' }} multiple  onChange={onImageChangeHandler} />
+            <input ref={imageInputRef} type='file' accept='image/*' style={{ display: 'none' }} multiple onChange={onImageChangeHandler} />
           </div>
         </div>
       </div>

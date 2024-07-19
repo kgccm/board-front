@@ -21,8 +21,7 @@ export default function RecipeItem({ recipeListItem }: Props) {
 
     //          event handler: 게시물 아이템 클릭 이벤트 처리 함수          // 
     const onClickHandler = () => {
-        navigate(RECIPE_PATH() + RECIPE_BOARD_PATH() + '/' + RECIPE_BOARD_DETAIL_PATH(boardNumber));
-        // navigate(`/recipe/recipe-board/detail/${boardNumber}`);
+        navigate(`/recipe/recipe-board/detail/${boardNumber}`);
     };
     
 
