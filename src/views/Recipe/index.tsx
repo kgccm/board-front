@@ -24,7 +24,6 @@ export default function Recipe() {
 
     //          function: get Top3 recipe List Response 처리 함수          //
     const getTop3RecipeListResponse = (responseBody: GetTop3RecipeListResponseDto | ResponseDto | null) => {
-      console.log("API",responseBody);
       if (!responseBody) return;
       const { code } = responseBody;
 
@@ -33,7 +32,6 @@ export default function Recipe() {
 
       const { recipetop3List } = responseBody as GetTop3RecipeListResponseDto;
       setTop3recipeList(recipetop3List);
-      console.log(recipetop3List);
     }
 
 
@@ -73,7 +71,6 @@ export default function Recipe() {
 
     //          function : get Latest Board List Response 처리 함수          //
     const getLatestRecipeListResponse = (responseBody: GetLatestRecipeListResponseDto | ResponseDto | null) => {
-      console.log("API",responseBody);
       if (!responseBody) return;
       const { code } = responseBody;
       if (code === 'DBE') alert('데이터베이스 오류입니다.');

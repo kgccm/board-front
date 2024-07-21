@@ -4,7 +4,8 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import {
   AUTH_PATH, BOARD_DETAIL_PATH, BOARD_PATH, BOARD_UPDATE_PATH, BOARD_WRITE_PATH, MAIN_PATH, SEARCH_PATH,
   USER_PATH, RECIPE_PATH, RECIPE_BOARD_DETAIL_PATH, RECIPE_BOARD_PATH,
-  TRADE_PATH, TRADE_BOARD_PATH, TRADE_BOARD_DETAIL_PATH, RECIPE_UPDATE_PATH
+  TRADE_PATH, TRADE_BOARD_PATH, TRADE_BOARD_DETAIL_PATH, RECIPE_UPDATE_PATH,
+  TRADE_UPDATE_PATH
 } from 'constant';
 import { useCookies } from 'react-cookie';
 import { useBoardStore, useLoginUserStore, useBoardTypeStore } from 'stores';
@@ -12,7 +13,7 @@ import { fileUploadRequest, patchBoardRequest, patchRecipeRequest, patchTradeReq
 import { PatchBoardRequestDto, PostBoardRequestDto } from 'apis/request/board';
 import { PatchBoardResponseDto, PostBoardResponseDto } from 'apis/response/board';
 import { ResponseDto } from 'apis/response';
-import { PostRecipeResponseDto } from 'apis/response/recipe';
+import { PatchRecipeResponseDto, PostRecipeResponseDto } from 'apis/response/recipe';
 import { PatchTradeResponseDto, PostTradeResponseDto } from 'apis/response/trade';
 import { PatchTradeRequestDto, PostTradeRequestDto } from 'apis/request/trade';
 import { Recipe } from 'types/interface';
@@ -21,8 +22,7 @@ import { PatchRecipeRequestDto, PostRecipeRequestDto } from 'apis/request/recipe
 //          component: 헤더 레이아웃          //
 export default function Header() {
 
-
-
+  const { boardNumber, recipeBoardNumber,tradeBoardNumber } = useParams();
   //          state: 로그인 유저 상태          //
   const { loginUser, setLoginUser, resetLoginUser } = useLoginUserStore();
   //          state: path 상태          //
@@ -160,7 +160,9 @@ export default function Header() {
   const UploadButton = () => {
 
     //          state: 게시물 번호 path variable 상태          //
-    const { boardNumber } = useParams();
+    // const { boardNumber } = useParams();
+    // const {recipeBoardNumber} = useParams();
+    // const {tradeBoardNumber} = useParams();
     //          state: 게시물 상태          //
     const { title, content, boardImageFileList, price, tradeLocation, resetBoard } = useBoardStore();
     const { boardType, setBoardType } = useBoardTypeStore();
@@ -176,7 +178,6 @@ export default function Header() {
       if (code !== 'SU') return;
 
       resetBoard();
-      setBoardType(boardType);
       if (!loginUser) return;
       const { email } = loginUser;
       navigate(USER_PATH(email));
@@ -190,7 +191,6 @@ export default function Header() {
       if (code === 'AF' || code === 'NU' || code === 'NB' || code === 'NP') navigate(AUTH_PATH());
       if (code === 'VF') alert('제목과 내용은 필수입니다.');
       if (code !== 'SU') return;
-      setBoardType(boardType);
       if (boardNumber) {
         navigate(`${BOARD_PATH()}/${BOARD_DETAIL_PATH(boardNumber)}`);
       }
@@ -205,23 +205,21 @@ export default function Header() {
       if (code !== 'SU') return;
 
       resetBoard();
-      setBoardType(boardType);
       if (!loginUser) return;
       const { email } = loginUser;
       navigate(USER_PATH(email));
     }
 
     //          function: patch Recipe Board Response 처리 함수          //
-    const patchRecipeBoardResponse = (responseBody: PatchBoardResponseDto | ResponseDto | null) => {
+    const patchRecipeBoardResponse = (responseBody: PatchRecipeResponseDto | ResponseDto | null) => {
       if (!responseBody) return;
       const { code } = responseBody;
       if (code === 'DBE') alert('데이터 베이스 오류입니다.');
       if (code === 'AF' || code === 'NU' || code === 'NB' || code === 'NP') navigate(AUTH_PATH());
       if (code === 'VF') alert('제목과 내용은 필수입니다.');
       if (code !== 'SU') return;
-      setBoardType(boardType);
-      if (boardNumber) {
-        navigate(`${RECIPE_PATH()}${RECIPE_BOARD_PATH()}${RECIPE_BOARD_DETAIL_PATH(boardNumber)}`);
+      if (recipeBoardNumber) {
+        navigate(`${RECIPE_BOARD_PATH()}/${RECIPE_BOARD_DETAIL_PATH(recipeBoardNumber)}`);
       }
     };
 
@@ -235,7 +233,6 @@ export default function Header() {
       if (code !== 'SU') return;
 
       resetBoard();
-      setBoardType(boardType);
       if (!loginUser) return;
       const { email } = loginUser;
       navigate(USER_PATH(email));
@@ -249,9 +246,8 @@ export default function Header() {
       if (code === 'AF' || code === 'NU' || code === 'NB' || code === 'NP') navigate(AUTH_PATH());
       if (code === 'VF') alert('제목과 내용은 필수입니다.');
       if (code !== 'SU') return;
-      setBoardType(boardType);
-      if (boardNumber) {
-        navigate(`${TRADE_PATH()}/${TRADE_BOARD_PATH}/${TRADE_BOARD_DETAIL_PATH(boardNumber)}`);
+      if (tradeBoardNumber) {
+        navigate(`${TRADE_BOARD_PATH}/${TRADE_BOARD_DETAIL_PATH(tradeBoardNumber)}`);
       }
     };
 
@@ -274,7 +270,9 @@ export default function Header() {
 
       // Determine if this is a creation or update operation
       const isWriterPage = pathname === BOARD_PATH() + '/' + BOARD_WRITE_PATH();
-      const isUpdatePage = pathname.includes('update');
+      const isBoardUpdatePage = pathname.startsWith(BOARD_PATH() + '/' + BOARD_UPDATE_PATH(''));
+      const isRecipeUpdatePage = pathname.startsWith(RECIPE_BOARD_PATH() + '/' + RECIPE_UPDATE_PATH(''))
+      const isTradeUpdatePage = pathname.startsWith(TRADE_BOARD_PATH() + '/' + TRADE_UPDATE_PATH(''))
 
       // Handle create operations
       if (isWriterPage) {
@@ -300,37 +298,40 @@ export default function Header() {
           postTradeRequest(requestBody, accessToken).then(postTradeBoardResponse);
         }
       }
-      else if (isUpdatePage) {
-        if (pathname.includes('/recipe/')) { }
-        if (boardType === 'recipe') {
-          console.log(setBoardType);
-          if (!boardNumber) return;
-          const requestBody: PatchRecipeRequestDto = { title, content, boardImageList, boardType };
-          patchRecipeRequest(boardNumber, requestBody, accessToken).then(patchRecipeBoardResponse);
-        } else if (boardType === 'community') {
-          console.log(setBoardType);
-          if (!boardNumber) return;
-          const requestBody: PatchBoardRequestDto = { title, content, boardImageList, boardType };
-          patchBoardRequest(boardNumber, requestBody, accessToken).then(patchBoardResponse);
-        } else {
-          if (!boardNumber) return;
-          console.log(setBoardType);
-          const requestBody: PatchTradeRequestDto = { title, content, boardImageList, boardType, price, tradeLocation };
-          patchTradeRequest(boardNumber, requestBody, accessToken).then(patchTradeBoardResponse);
-        }
+      else if (isBoardUpdatePage) {
+        if (!boardNumber) return;
+        const requestBody: PatchBoardRequestDto = { title, content, boardImageList };
+        patchBoardRequest(boardNumber, requestBody, accessToken).then(patchBoardResponse);
+        console.log(boardNumber)
+      }
+      else if (isRecipeUpdatePage) {
+        if (!recipeBoardNumber) return;
+        const requestBody: PatchRecipeRequestDto = { title, content, boardImageList };
+        patchRecipeRequest(recipeBoardNumber, requestBody, accessToken).then(patchRecipeBoardResponse);
+        console.log(recipeBoardNumber)
+      }
+      else if (isTradeUpdatePage) {
+        if (!tradeBoardNumber) return;
+        const requestBody: PatchTradeRequestDto = { title, content, boardImageList, tradeLocation, price };
+        console.log(tradeBoardNumber);
+        patchTradeRequest(tradeBoardNumber, requestBody, accessToken).then(patchTradeBoardResponse);
       }
     }
 
 
     //          render: 업로드 버튼 컴포넌트 렌더링          //
     if (boardType === 'trade') {
+
       if (title && content && boardImageFileList.length > 0)
         return <div className='black-button' onClick={onUploadButtonClickHandler}>{'업로드'}</div>;
       else
         return <div className='disable-button'>{'업로드'}</div>;
     }
     if (title && content)
-      return <div className='black-button' onClick={onUploadButtonClickHandler}>{'업로드'}</div>;
+      console.log(recipeBoardNumber);
+    console.log(tradeBoardNumber);
+    console.log(boardNumber);
+    return <div className='black-button' onClick={onUploadButtonClickHandler}>{'업로드'}</div>;
     //          render: 업로드 불가 버튼 컴포넌트 렌더링          //
     return <div className='disable-button'>{'업로드'}</div>;
 
@@ -357,19 +358,19 @@ export default function Header() {
     const isRecipePage = pathname.startsWith(RECIPE_PATH());
     setRecipePage(isRecipePage);
 
-    const isRecipeDetailPage = pathname.startsWith(RECIPE_PATH()) && pathname.includes('detail');
+    const isRecipeDetailPage = pathname.startsWith(RECIPE_BOARD_PATH() + '/' + RECIPE_BOARD_DETAIL_PATH(''))
     setRecipeDetailPage(isRecipeDetailPage);
 
-    const isRecipeUpdatePage = pathname.startsWith(RECIPE_PATH()) && pathname.includes('update');
+    const isRecipeUpdatePage = pathname.startsWith(RECIPE_BOARD_PATH() + '/' + RECIPE_UPDATE_PATH(''));
     setRecipeUpdatePage(isRecipeUpdatePage);
 
     const isTradePage = pathname.startsWith(TRADE_PATH());
     setTradepage(isTradePage);
 
-    const isTradeDetailPage = pathname.startsWith(TRADE_PATH()) && pathname.includes('detail');
+    const isTradeDetailPage = pathname.startsWith(TRADE_BOARD_PATH() + '/' + TRADE_BOARD_DETAIL_PATH(''));
     setTradeDetailPage(isTradeDetailPage);
 
-    const isTradeUpdatePage = pathname.startsWith(TRADE_PATH()) && pathname.includes('update');
+    const isTradeUpdatePage = pathname.startsWith(TRADE_BOARD_PATH() + '/' + TRADE_UPDATE_PATH(''))
     setTradeUpdatePage(isTradeUpdatePage);
 
     const isSearchPage = pathname.startsWith(SEARCH_PATH(''));
@@ -384,6 +385,7 @@ export default function Header() {
   //          effect: login user가 변경될 때 마다 실행될 함수          //
   useEffect(() => {
     setLogin(loginUser !== null);
+
   }, [loginUser])
 
   //          render: 헤더 레이아웃 렌더링          //

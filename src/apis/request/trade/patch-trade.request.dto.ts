@@ -4,5 +4,5 @@ export default interface PatchTradeRequestDto {
     boardImageList: string[];
     tradeLocation : string | null;
     price : number;
-    boardType: string; 
+    // boardType: string; 
 }

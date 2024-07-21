@@ -7,7 +7,7 @@ import { PatchBoardRequestDto, PostBoardRequestDto, PostCommentRequestDto } from
 import { PostBoardResponseDto, GetBoardResponseDto, IncreaseViewCountResponseDto, GetFavoriteListResponseDto, GetCommentListResponseDto, PutFavoriteResponseDto, PostCommentResponseDto, DeleteBoardResponseDto, PatchBoardResponseDto, GetLatestBoardListResponseDto, GetTop3BoardListResponseDto, GetSearchBoardListResponseDto, GetUserBoardListResponseDto } from './response/board';
 import { GetPopularListResponseDto, GetRelationListResponseDto } from './response/search';
 import { PatchNicknameRequestDto, PatchProfileImageRequestDto } from './request/user';
-import { DeleteRecipeResponseDto, GetLatestRecipeListResponseDto, GetRecipeCommentListResponseDto, GetRecipeFavoriteListResponseDto, GetRecipeResponseDto, GetTop3RecipeListResponseDto, GetUserRecipeListResponseDto, IncreaseViewCountRecipeResponseDto, PatchRecipeResponseDto, PostRecipeCommentResponseDto, PostRecipeResponseDto, PutRecipeFavoriteResponseDto } from './response/recipe';
+import { DeleteRecipeResponseDto, GetLatestRecipeListResponseDto, GetRecipeCommentListResponseDto, GetRecipeFavoriteListResponseDto, GetRecipeResponseDto, GetSearchRecipeListResponseDto, GetTop3RecipeListResponseDto, GetUserRecipeListResponseDto, IncreaseViewCountRecipeResponseDto, PatchRecipeResponseDto, PostRecipeCommentResponseDto, PostRecipeResponseDto, PutRecipeFavoriteResponseDto } from './response/recipe';
 import { DeleteTradeResponseDto, GetLatestTradeListResponseDto, GetTop3TradeListResponseDto, GetTradeCommentListResponseDto, GetTradeFavoriteListResponseDto, GetTradeResponseDto, GetUserTradeListResponseDto, IncreaseViewCountTradeResponseDto, PatchTradeResponseDto, PostTradeCommentResponseDto, PostTradeResponseDto, PutTradeFavoriteResponseDto } from './response/trade';
 import { PatchRecipeRequestDto } from './request/recipe';
 import { PatchTradeRequestDto } from './request/trade';
@@ -209,6 +209,7 @@ export const postCommentRequest = async (boardNumber: number | string, requestBo
 }
 
 export const patchBoardRequest = async (boardNumber: number | string, requestBody: PatchBoardRequestDto, accessToken: string) => {
+    console.log('request');
     const result = await axios.patch(PATCH_BOARD_URL(boardNumber), requestBody, authorization(accessToken))
         .then(response => {
             const responseBody: PatchBoardResponseDto = response.data;
@@ -252,23 +253,36 @@ export const deleteBoardRequest = async (boardNumber: number | string, accessTok
 }
 
 //          state: recipe end point          //
-const GET_RECIPE_URL = (boardNumber: number | string) => `${API_DOMAIN}/recipe/recipe-board/${boardNumber}`;
-
+const GET_RECIPE_URL = (recipeBoardNumber: number | string) => `${API_DOMAIN}/recipe/recipe-board/${recipeBoardNumber}`;
+const GET_SEARCH_RECIPE_BOARD_LIST_URL = (searchWord: string, preSearchWord: string | null) => `${API_DOMAIN}/recipe/recipe-board/search-list/${searchWord}${preSearchWord ? '/' + preSearchWord : ''}`;
 const GET_LATEST_RECIPE_LIST_URL = () => `${API_DOMAIN}/recipe/recipe-board/latest-list`;
 const GET_TOP_3_RECIPE_LIST_URL = () => `${API_DOMAIN}/recipe/recipe-board/top-3`;
 const GET_USER_RECIPE_LIST_URL = (email: string) => `${API_DOMAIN}/recipe/recipe-board/user-board-list/${email}`;
 const POST_RECIPE_URL = () => `${API_DOMAIN}/recipe/recipe-board`;
-const INCREASE_VIEW_COUNT_RECIPE_URL = (boardNumber: number | string) => `${API_DOMAIN}/recipe/recipe-board/${boardNumber}/increase-view-count`;
-const GET_FAVORITE_LIST_RECIPE_URL = (boardNumber: number | string) => `${API_DOMAIN}/recipe/recipe-board/${boardNumber}/favorite-list`;
-const GET_COMMENT_LIST_RECIPE_URL = (boardNumber: number | string) => `${API_DOMAIN}/recipe/recipe-board/${boardNumber}/comment-list`;
-const POST_COMMENT_RECIPE_URL = (boardNumber: number | string) => `${API_DOMAIN}/recipe/recipe-board/${boardNumber}/comment`;
-const PATCH_RECIPE_URL = (boardNumber: number | string) => `${API_DOMAIN}/recipe/recipe-board/${boardNumber}`;
-const PUT_FAVORITE_RECIPE_URL = (boardNumber: number | string) => `${API_DOMAIN}/recipe/recipe-board/${boardNumber}/favorite`;
-const DELETE_RECIPE_URL = (boardNumber: number | string) => `${API_DOMAIN}/recipe/recipe-board/${boardNumber}`;
+const INCREASE_VIEW_COUNT_RECIPE_URL = (recipeBoardNumber: number | string) => `${API_DOMAIN}/recipe/recipe-board/${recipeBoardNumber}/increase-view-count`;
+const GET_FAVORITE_LIST_RECIPE_URL = (recipeBoardNumber: number | string) => `${API_DOMAIN}/recipe/recipe-board/${recipeBoardNumber}/favorite-list`;
+const GET_COMMENT_LIST_RECIPE_URL = (recipeBoardNumber: number | string) => `${API_DOMAIN}/recipe/recipe-board/${recipeBoardNumber}/comment-list`;
+const POST_COMMENT_RECIPE_URL = (recipeBoardNumber: number | string) => `${API_DOMAIN}/recipe/recipe-board/${recipeBoardNumber}/comment`;
+const PATCH_RECIPE_URL = (recipeBoardNumber: number | string) => `${API_DOMAIN}/recipe/recipe-board/${recipeBoardNumber}`;
+const PUT_FAVORITE_RECIPE_URL = (recipeBoardNumber: number | string) => `${API_DOMAIN}/recipe/recipe-board/${recipeBoardNumber}/favorite`;
+const DELETE_RECIPE_URL = (recipeBoardNumber: number | string) => `${API_DOMAIN}/recipe/recipe-board/${recipeBoardNumber}`;
 
-export const getRecipeRequest = async (boardNumber: number | string) => {
-    console.log('get RECIPE_URL:', GET_RECIPE_URL(boardNumber)); // URL 로그 추가
-    const result = await axios.get(GET_RECIPE_URL(boardNumber))
+export const getSearchRecipeListRequest = async (searchWord: string, preSearchWord: string | null) => {
+    const result = await axios.get(GET_SEARCH_RECIPE_BOARD_LIST_URL(searchWord, preSearchWord))
+        .then(response => {
+            const responseBody: GetSearchRecipeListResponseDto = response.data;
+            return responseBody;
+        })
+        .catch(error => {
+            if (!error.response) return null;
+            const responseBody: ResponseDto = error.response.data;
+            return responseBody;
+        })
+    return result;
+}
+
+export const getRecipeRequest = async (recipeBoardNumber: number | string) => {
+    const result = await axios.get(GET_RECIPE_URL(recipeBoardNumber))
         .then(response => {
             const responseBody: GetRecipeResponseDto = response.data;
             return responseBody;
@@ -313,6 +327,7 @@ export const getUserRecipeListRequest = async (email: string) => {
     const result = await axios.get(GET_USER_RECIPE_LIST_URL(email))
         .then(response => {
             const responseBody: GetUserRecipeListResponseDto = response.data;
+            console.log(responseBody);
             return responseBody;
         })
         .catch(error => {
@@ -324,8 +339,8 @@ export const getUserRecipeListRequest = async (email: string) => {
 }
 
 
-export const increaseViewCountRecipeRequest = async (boardNumber: number | string) => {
-    const result = await axios.get(INCREASE_VIEW_COUNT_RECIPE_URL(boardNumber))
+export const increaseViewCountRecipeRequest = async (recipeBoardNumber: number | string) => {
+    const result = await axios.get(INCREASE_VIEW_COUNT_RECIPE_URL(recipeBoardNumber))
         .then(response => {
             const responseBody: IncreaseViewCountRecipeResponseDto = response.data;
             return responseBody;
@@ -338,8 +353,8 @@ export const increaseViewCountRecipeRequest = async (boardNumber: number | strin
     return result;
 }
 
-export const getFavoriteRecipeListRequest = async (boardNumber: number | string) => {
-    const result = await axios.get(GET_FAVORITE_LIST_RECIPE_URL(boardNumber))
+export const getFavoriteRecipeListRequest = async (recipeBoardNumber: number | string) => {
+    const result = await axios.get(GET_FAVORITE_LIST_RECIPE_URL(recipeBoardNumber))
         .then(response => {
             const responseBody: GetRecipeFavoriteListResponseDto = response.data;
             return responseBody;
@@ -353,8 +368,8 @@ export const getFavoriteRecipeListRequest = async (boardNumber: number | string)
 }
 
 
-export const getCommentRecipeListRequest = async (boardNumber: number | string) => {
-    const result = await axios.get(GET_COMMENT_LIST_RECIPE_URL(boardNumber))
+export const getCommentRecipeListRequest = async (recipeBoardNumber: number | string) => {
+    const result = await axios.get(GET_COMMENT_LIST_RECIPE_URL(recipeBoardNumber))
         .then(response => {
             const responseBody: GetRecipeCommentListResponseDto = response.data;
             return responseBody;
@@ -382,8 +397,8 @@ export const postRecipeRequest = async (requestBody: PostBoardRequestDto, access
     return result;
 }
 
-export const postRecipeCommentRequest = async (boardNumber: number | string, requestBody: PostCommentRequestDto, accessToken: string) => {
-    const result = await axios.post(POST_COMMENT_RECIPE_URL(boardNumber), requestBody, authorization(accessToken))
+export const postRecipeCommentRequest = async (recipeBoardNumber: number | string, requestBody: PostCommentRequestDto, accessToken: string) => {
+    const result = await axios.post(POST_COMMENT_RECIPE_URL(recipeBoardNumber), requestBody, authorization(accessToken))
         .then(response => {
             const responseBody: PostRecipeCommentResponseDto = response.data;
             return responseBody;
@@ -396,11 +411,9 @@ export const postRecipeCommentRequest = async (boardNumber: number | string, req
     return result;
 }
 
-export const patchRecipeRequest = async (boardNumber: number | string, requestBody: PatchRecipeRequestDto, accessToken: string) => {
-    console.log('PATCH_RECIPE_URL:', PATCH_RECIPE_URL(boardNumber));
-    console.log('Request Body:', requestBody);
-    console.log('Access Token:', accessToken);
-    const result = await axios.patch(PATCH_RECIPE_URL(boardNumber), requestBody, authorization(accessToken))
+export const patchRecipeRequest = async (recipeBoardNumber: number | string, requestBody: PatchRecipeRequestDto, accessToken: string) => {
+    console.log('recipe update request');
+    const result = await axios.patch(PATCH_RECIPE_URL(recipeBoardNumber), requestBody, authorization(accessToken))
         .then(response => {
             const responseBody: PatchRecipeResponseDto = response.data;
             return responseBody;
@@ -414,10 +427,8 @@ export const patchRecipeRequest = async (boardNumber: number | string, requestBo
 }
 
 
-export const putRecipeFavoriteRequest = async (boardNumber: number | string, accessToken: string) => {
-    
-    console.log('PUT_FAVORITE_RECIPE_URL:', PUT_FAVORITE_RECIPE_URL(boardNumber)); // URL 로그 추가
-    const result = await axios.put(PUT_FAVORITE_RECIPE_URL(boardNumber), {}, authorization(accessToken))
+export const putRecipeFavoriteRequest = async (recipeBoardNumber: number | string, accessToken: string) => {
+    const result = await axios.put(PUT_FAVORITE_RECIPE_URL(recipeBoardNumber), {}, authorization(accessToken))
         .then(response => {
             const responseBody: PutRecipeFavoriteResponseDto = response.data;
             return responseBody;
@@ -430,8 +441,8 @@ export const putRecipeFavoriteRequest = async (boardNumber: number | string, acc
     return result;
 }
 
-export const deleteRecipeRequest = async (boardNumber: number | string, accessToken: string) => {
-    const result = await axios.delete(DELETE_RECIPE_URL(boardNumber), authorization(accessToken))
+export const deleteRecipeRequest = async (recipeBoardNumber: number | string, accessToken: string) => {
+    const result = await axios.delete(DELETE_RECIPE_URL(recipeBoardNumber), authorization(accessToken))
         .then(response => {
             const responseBody: DeleteRecipeResponseDto = response.data;
             return responseBody;
@@ -444,22 +455,22 @@ export const deleteRecipeRequest = async (boardNumber: number | string, accessTo
     return result;
 }
 
-const GET_TRADE_URL = (boardNumber: number | string) => `${API_DOMAIN}/trade/trade-board/${boardNumber}`;
+const GET_TRADE_URL = (tradeBoardNumber: number | string) => `${API_DOMAIN}/trade/trade-board/${tradeBoardNumber}`;
 
 const GET_LATEST_TRADE_LIST_URL = () => `${API_DOMAIN}/trade/trade-board/latest-list`;
 const GET_TOP_3_TRADE_LIST_URL = () => `${API_DOMAIN}/trade/trade-board/top-3`;
 const GET_USER_TRADE_LIST_URL = (email: string) => `${API_DOMAIN}/trade/trade-board/user-board-list/${email}`;
 const POST_TRADE_URL = () => `${API_DOMAIN}/trade/trade-board`;
-const INCREASE_VIEW_COUNT_TRADE_URL = (boardNumber: number | string) => `${API_DOMAIN}/trade/trade-board/${boardNumber}/increase-view-count`;
-const GET_FAVORITE_LIST_TRADE_URL = (boardNumber: number | string) => `${API_DOMAIN}/trade/trade-board/${boardNumber}/favorite-list`;
-const GET_COMMENT_LIST_TRADE_URL = (boardNumber: number | string) => `${API_DOMAIN}/trade/trade-board/${boardNumber}/comment-list`;
-const POST_COMMENT_TRADE_URL = (boardNumber: number | string) => `${API_DOMAIN}/trade/trade-board/${boardNumber}/comment`;
-const PATCH_TRADE_URL = (boardNumber: number | string) => `${API_DOMAIN}/trade/trade-board/${boardNumber}`;
-const PUT_FAVORITE_TRADE_URL = (boardNumber: number | string) => `${API_DOMAIN}/trade/trade-board/${boardNumber}/favorite`;
-const DELETE_TRADE_URL = (boardNumber: number | string) => `${API_DOMAIN}/trade/trade-board/${boardNumber}`;
+const INCREASE_VIEW_COUNT_TRADE_URL = (tradeBoardNumber: number | string) => `${API_DOMAIN}/trade/trade-board/${tradeBoardNumber}/increase-view-count`;
+const GET_FAVORITE_LIST_TRADE_URL = (tradeBoardNumber: number | string) => `${API_DOMAIN}/trade/trade-board/${tradeBoardNumber}/favorite-list`;
+const GET_COMMENT_LIST_TRADE_URL = (tradeBoardNumber: number | string) => `${API_DOMAIN}/trade/trade-board/${tradeBoardNumber}/comment-list`;
+const POST_COMMENT_TRADE_URL = (tradeBoardNumber: number | string) => `${API_DOMAIN}/trade/trade-board/${tradeBoardNumber}/comment`;
+const PATCH_TRADE_URL = (tradeBoardNumber: number | string) => `${API_DOMAIN}/trade/trade-board/${tradeBoardNumber}`;
+const PUT_FAVORITE_TRADE_URL = (tradeBoardNumber: number | string) => `${API_DOMAIN}/trade/trade-board/${tradeBoardNumber}/favorite`;
+const DELETE_TRADE_URL = (tradeBoardNumber: number | string) => `${API_DOMAIN}/trade/trade-board/${tradeBoardNumber}`;
 
-export const getTradeRequest = async (boardNumber: number | string) => {
-    const result = await axios.get(GET_TRADE_URL(boardNumber))
+export const getTradeRequest = async (tradeBoardNumber: number | string) => {
+    const result = await axios.get(GET_TRADE_URL(tradeBoardNumber))
         .then(response => {
             const responseBody: GetTradeResponseDto = response.data;
             return responseBody;
@@ -515,8 +526,8 @@ export const getUserTradeListRequest = async (email: string) => {
 }
 
 
-export const increaseViewCountTradeRequest = async (boardNumber: number | string) => {
-    const result = await axios.get(INCREASE_VIEW_COUNT_TRADE_URL(boardNumber))
+export const increaseViewCountTradeRequest = async (tradeBoardNumber: number | string) => {
+    const result = await axios.get(INCREASE_VIEW_COUNT_TRADE_URL(tradeBoardNumber))
         .then(response => {
             const responseBody: IncreaseViewCountTradeResponseDto = response.data;
             return responseBody;
@@ -529,8 +540,8 @@ export const increaseViewCountTradeRequest = async (boardNumber: number | string
     return result;
 }
 
-export const getFavoriteTradeListRequest = async (boardNumber: number | string) => {
-    const result = await axios.get(GET_FAVORITE_LIST_TRADE_URL(boardNumber))
+export const getFavoriteTradeListRequest = async (tradeBoardNumber: number | string) => {
+    const result = await axios.get(GET_FAVORITE_LIST_TRADE_URL(tradeBoardNumber))
         .then(response => {
             const responseBody: GetTradeFavoriteListResponseDto = response.data;
             return responseBody;
@@ -544,8 +555,8 @@ export const getFavoriteTradeListRequest = async (boardNumber: number | string) 
 }
 
 
-export const getCommentTradeListRequest = async (boardNumber: number | string) => {
-    const result = await axios.get(GET_COMMENT_LIST_TRADE_URL(boardNumber))
+export const getCommentTradeListRequest = async (tradeBoardNumber: number | string) => {
+    const result = await axios.get(GET_COMMENT_LIST_TRADE_URL(tradeBoardNumber))
         .then(response => {
             const responseBody: GetTradeCommentListResponseDto = response.data;
             return responseBody;
@@ -573,8 +584,8 @@ export const postTradeRequest = async (requestBody: PostBoardRequestDto, accessT
     return result;
 }
 
-export const postTradeCommentRequest = async (boardNumber: number | string, requestBody: PostCommentRequestDto, accessToken: string) => {
-    const result = await axios.post(POST_COMMENT_TRADE_URL(boardNumber), requestBody, authorization(accessToken))
+export const postTradeCommentRequest = async (tradeBoardNumber: number | string, requestBody: PostCommentRequestDto, accessToken: string) => {
+    const result = await axios.post(POST_COMMENT_TRADE_URL(tradeBoardNumber), requestBody, authorization(accessToken))
         .then(response => {
             const responseBody: PostTradeCommentResponseDto = response.data;
             return responseBody;
@@ -587,8 +598,8 @@ export const postTradeCommentRequest = async (boardNumber: number | string, requ
     return result;
 }
 
-export const patchTradeRequest = async (boardNumber: number | string, requestBody: PatchTradeRequestDto, accessToken: string) => {
-    const result = await axios.patch(PATCH_TRADE_URL(boardNumber), requestBody, authorization(accessToken))
+export const patchTradeRequest = async (tradeBoardNumber: number | string, requestBody: PatchTradeRequestDto, accessToken: string) => {
+    const result = await axios.patch(PATCH_TRADE_URL(tradeBoardNumber), requestBody, authorization(accessToken))
         .then(response => {
             const responseBody: PatchTradeResponseDto = response.data;
             return responseBody;
@@ -602,10 +613,8 @@ export const patchTradeRequest = async (boardNumber: number | string, requestBod
 }
 
 
-export const putTradeFavoriteRequest = async (boardNumber: number | string, accessToken: string) => {
-    
-    console.log('PUT_FAVORITE_TRADE_URL:', PUT_FAVORITE_TRADE_URL(boardNumber)); // URL 로그 추가
-    const result = await axios.put(PUT_FAVORITE_TRADE_URL(boardNumber), {}, authorization(accessToken))
+export const putTradeFavoriteRequest = async (tradeBoardNumber: number | string, accessToken: string) => {
+    const result = await axios.put(PUT_FAVORITE_TRADE_URL(tradeBoardNumber), {}, authorization(accessToken))
         .then(response => {
             const responseBody: PutTradeFavoriteResponseDto = response.data;
             return responseBody;
@@ -618,8 +627,8 @@ export const putTradeFavoriteRequest = async (boardNumber: number | string, acce
     return result;
 }
 
-export const deleteTradeRequest = async (boardNumber: number | string, accessToken: string) => {
-    const result = await axios.delete(DELETE_TRADE_URL(boardNumber), authorization(accessToken))
+export const deleteTradeRequest = async (tradeBoardNumber: number | string, accessToken: string) => {
+    const result = await axios.delete(DELETE_TRADE_URL(tradeBoardNumber), authorization(accessToken))
         .then(response => {
             const responseBody: DeleteTradeResponseDto = response.data;
             return responseBody;

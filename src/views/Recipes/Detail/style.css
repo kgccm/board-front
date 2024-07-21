@@ -270,3 +270,12 @@
     display: flex;
     justify-content: flex-end;
 }
+.board-detail-top-main.full-screen {
+    height: 317px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: left;
+  
+  }

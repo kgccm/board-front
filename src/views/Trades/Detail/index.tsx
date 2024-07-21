@@ -29,7 +29,6 @@ export default function TradeDetail() {
   const { tradeBoardNumber } = useParams();
     const { boardTypeParam } = useParams<{ boardTypeParam: string }>();
 
-  console.log('TradeDetail boardNumber:', tradeBoardNumber); // boardNumber 로그 추가
   //          state: 로그인 유저 상태          //
   const { loginUser } = useLoginUserStore();
   //          state: 쿠키 상태          //
@@ -195,7 +194,6 @@ export default function TradeDetail() {
 
     //          function: get Comment List Response 처리 함수          //
     const getTradeCommentListResponse = (responseBody: GetTradeCommentListResponseDto | ResponseDto | null) => {
-      console.log('Response body:', responseBody); // 전체 응답 로그 추가
       if (!responseBody) return;
       const { code } = responseBody;
       if (code === 'NB') alert('존재하지 않는 게시물입니다.');
@@ -209,7 +207,6 @@ export default function TradeDetail() {
 
     //          function: get Trade Favorite List Response 처리 함수          //
     const getTradeFavoriteListResponse = (responseBody: GetTradeFavoriteListResponseDto | ResponseDto | null) => {
-      console.log('getTradeFavoriteListResponse:', responseBody); // Debugging log
       if (!responseBody) return;
       const { code } = responseBody;
       if (code === 'NB') alert('존재하지 않는 게시물입니다.');
@@ -230,7 +227,6 @@ export default function TradeDetail() {
 
     //          function: put Favorite Response 처리 함수          //
     const putTradeFavoriteResponse = (responseBody: PutTradeFavoriteResponseDto | ResponseDto | null) => {
-      console.log('putTradeFavoriteResponse:', responseBody); // Debugging log
       if (!responseBody) return;
       const { code } = responseBody;
       if (code === 'VF') alert('잘못된 접근입니다.');
@@ -264,7 +260,6 @@ export default function TradeDetail() {
 
     //          event handler: 좋아요 클릭 이벤트 처리          //
     const onFavoriteClickHandler = () => {
-      console.log('onFavoriteClickHandler'); // Debugging log
       if (!loginUser || !tradeBoardNumber || !cookies.accessToken) return;
       putTradeFavoriteRequest(tradeBoardNumber, cookies.accessToken).then(putTradeFavoriteResponse);
     }
@@ -375,7 +370,6 @@ export default function TradeDetail() {
       return;
     }
     increaseViewCountTradeRequest(tradeBoardNumber).then(increaseViewCountTradeResponse);
-    console.log(boardType);
   }, [tradeBoardNumber])
 
   //          render: 게시물 상세 화면 컴포넌트 렌더링          //

@@ -24,7 +24,6 @@ export default function Trade() {
 
     //          function: get Top3 trade List Response 처리 함수          //
     const getTop3TradeListResponse = (responseBody: GetTop3TradeListResponseDto | ResponseDto | null) => {
-      console.log('API Response:', responseBody);
       if (!responseBody) return;
       const { code } = responseBody;
 
@@ -32,7 +31,6 @@ export default function Trade() {
       if (code !== 'SU') return;
 
       const { tradetop3List } = responseBody as GetTop3TradeListResponseDto;
-      console.log(top3tradeList);
       setTop3tradeList(tradetop3List);
     }
 
@@ -73,7 +71,6 @@ export default function Trade() {
 
     //          function : get Latest Board List Response 처리 함수          //
     const getLatestTradeListResponse = (responseBody: GetLatestTradeListResponseDto | ResponseDto | null) => {
-      console.log('API Response:', responseBody); // 응답 데이터 전체를 로그로 출력
       if (!responseBody) return;
       const { code } = responseBody;
       if (code === 'DBE') alert('데이터베이스 오류입니다.');

@@ -22,6 +22,7 @@ export default function User() {
 
   //          state: user email path varible 상태          //
   const { userEmail } = useParams();
+  const {boardNumber, recipeBoardNumber} = useParams();
   //          state: 로그인 유저 상태          //
   const { loginUser } = useLoginUserStore();
   //          state: cookie 상태          //
@@ -203,21 +204,18 @@ export default function User() {
       }
       if (code === 'DBE') alert('데이터베이스 오류입니다.');
       if (code !== 'SU') return;
-
+      console.log(responseBody);
       const { userBoardList } = responseBody as GetUserBoardListResponseDto;
-      console.log(userBoardList);
       setTotalList(userBoardList);
       setCount(userBoardList.length);
     }
 
     //          function: get User Recipe List Response 처리 함수          //
-    const getUserRecipeListResponse = (responseBody: GetUserBoardListResponseDto | ResponseDto | null) => {
+    const getUserRecipeListResponse = (responseBody: GetUserRecipeListResponseDto | ResponseDto | null) => {
       if (!responseBody) {
-        console.error('Response body is null or undefined.');
         return;
       }
       const { code } = responseBody;
-      console.log('Response code:', code);
       if (code === 'NU') {
         alert('존재하지 않는 유저입니다.');
         navigate(MAIN_PATH());
@@ -225,16 +223,42 @@ export default function User() {
       }
       if (code === 'DBE') alert('데이터베이스 오류입니다.');
       if (code !== 'SU') return;
+      console.log(responseBody);
 
-      const { userBoardList } = responseBody as GetUserBoardListResponseDto;
-      console.log('User recipe list:', userBoardList);
+      const {userBoardList} = responseBody as GetUserRecipeListResponseDto;
+      console.log(userBoardList)
       if (!userBoardList) {
-        console.error('User recipe list is undefined.');
         return;
       }
+      
       setTotalList(userBoardList);
       setCount(userBoardList.length);
+      // console.log(userRecipeList);
     }
+
+    //  //          function: get User Trade List Response 처리 함수          //
+    //  const getUserTradeListResponse = (responseBody: GetUserBoardListResponseDto | ResponseDto | null) => {
+    //   if (!responseBody) {
+    //     console.error('Response body is null or undefined.');
+    //     return;
+    //   }
+    //   const { code } = responseBody;
+    //   console.log('Response code:', code);
+    //   if (code === 'NU') {
+    //     alert('존재하지 않는 유저입니다.');
+    //     navigate(MAIN_PATH());
+    //     return;
+    //   }
+    //   if (code === 'DBE') alert('데이터베이스 오류입니다.');
+    //   if (code !== 'SU') return;
+
+    //   const { userBoardList } = responseBody as GetUserBoardListResponseDto;
+    //   if (!userBoardList) {
+    //     return;
+    //   }
+    //   setTotalList(userBoardList);
+    //   setCount(userBoardList.length);
+    // }
 
 
     //          event handler: 사이드 카드 클릭 이벤트 처리          //
@@ -244,23 +268,11 @@ export default function User() {
     }
 
     //          effect: userEmail path variable이 변경될 떄마다 실행할 함수          //
-    // useEffect(() => {
-    //   if (!userEmail) return;
-    //   if (selectedItem === 'board') {
-    //     getUserBoardListRequest(userEmail).then(getUserBoardListResponse);
-    //   } else if (selectedItem === 'recipe') {
-    //     getUserRecipeListRequest(userEmail).then(getUserRecipeListResponse);
-    //   }
-    // }, [userEmail, selectedItem]);
     useEffect(() => {
-      if (selectedItem === 'board' || selectedItem === 'all') {
-        if (!userEmail) return;
-        getUserBoardListRequest(userEmail).then(getUserBoardListResponse);
-      } else if (selectedItem === 'recipe' || selectedItem === 'all') {
-        if (!userEmail) return;
-        getUserRecipeListRequest(userEmail).then(getUserRecipeListResponse);
-      }
-    }, [selectedItem, userEmail]);
+      if (!userEmail) return;
+      if (selectedItem === 'board') getUserBoardListRequest(userEmail).then(getUserBoardListResponse);
+      else getUserRecipeListRequest(userEmail).then(getUserRecipeListResponse);
+    }, [userEmail, selectedItem]);
 
     //          render: 유저 화면 하단 컴포넌트 렌더링          //
     return (
@@ -275,8 +287,9 @@ export default function User() {
             {count === 0 ?
               <div className='user-bottom-contents-nothing'>{'게시물이 없습니다. '}</div> :
               <div className='user-bottom-contents'>
-                {selectedItem === 'board' && viewList.map(boardListItem => <BoardItem key={boardListItem.boardNumber} boardListItem={boardListItem} />)}
-                {selectedItem === 'recipe' && viewList.map(recipeListItem => <RecipeItem key={recipeListItem.boardNumber} recipeListItem={recipeListItem} />)}
+                {selectedItem === 'board' && viewList.map(boardListItem => <BoardItem key={boardNumber} boardListItem={boardListItem} />)}
+                {selectedItem === 'recipe' && viewList.map(recipeListItem => <RecipeItem key={recipeBoardNumber} recipeListItem={recipeListItem} />)}
+             
               </div>
             }
             <div className='user-bottom-side-box'>
@@ -316,7 +329,8 @@ export default function User() {
       </div>
     );
   };
-  const [selectedItem, setSelectedItem] = useState<'board' | 'recipe' | 'all'>('board');
+  const [selectedItem, setSelectedItem] = useState<'board' | 'recipe'>('board');
+
   //          render: 유저 화면 컴포넌트 렌더링          //
   return (
     <>

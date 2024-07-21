@@ -2,7 +2,7 @@ import React, { ChangeEvent, useEffect, useRef, useState } from 'react'
 import './style.css';
 import { useBoardStore, useLoginUserStore } from 'stores';
 import { useNavigate, useParams } from 'react-router-dom';
-import { MAIN_PATH } from 'constant';
+import { BOARD_PATH, BOARD_UPDATE_PATH, MAIN_PATH } from 'constant';
 import { useCookies } from 'react-cookie';
 import { getBoardRequest } from 'apis';
 import { GetBoardResponseDto } from 'apis/response/board';
@@ -130,6 +130,7 @@ export default function BoardUpdate() {
     }
     if (!boardNumber) return;
     getBoardRequest(boardNumber).then(getBoardResponse);
+    console.log('BOARD PATH',  `${BOARD_PATH()}/${BOARD_UPDATE_PATH(boardNumber)}`);
   }, [boardNumber])
 
   //          render: 게시물 작성 화면 컴포넌트 렌더링          //

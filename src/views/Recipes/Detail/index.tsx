@@ -26,13 +26,11 @@ export default function RecipeDetail() {
   //          state: 게시물 번호 path variable 상태          //
   // const { recipeBoardNumber } = useParams<{ recipeBoardNumber: string }>();
   const { recipeBoardNumber } = useParams();
-  console.log('RecipeDetail boardNumber:', recipeBoardNumber); // boardNumber 로그 추가
   //          state: 로그인 유저 상태          //
   const { loginUser } = useLoginUserStore();
   //          state: 쿠키 상태          //
   const [cookies, setCookies] = useCookies();
-
-  const { boardType,setBoardType } = useBoardTypeStore();
+  const { boardType, setBoardType } = useBoardTypeStore();
 
   //          function: 네비게이트 함수          //
   const navigate = useNavigate();
@@ -49,6 +47,7 @@ export default function RecipeDetail() {
 
   //          component: 게시물 상세 상단 컴포넌트          //
   const RecipeDetailTop = () => {
+    const [hasImages, setHasImages] = useState<boolean>(false);
 
     //          state: 작성자 여부 상태          //
     const [isWriter, setWriter] = useState<Boolean>(false);
@@ -161,8 +160,18 @@ export default function RecipeDetail() {
         </div>
         <div className='divider'></div>
         <div className='board-detail-top-main'>
-          {recipe.boardImageList.map(image => <img className='board-detail-main-image' src={image} />)}
-          <div className='board-detail-main-text'>{recipe.content}</div>
+          {recipe.boardImageList.length ?
+            <>
+              {recipe.boardImageList.map(image => <img className='board-detail-main-image' src={image} />)}
+              <div className='board-detail-main-text'>{recipe.content}</div>
+            </>
+            :
+            <>
+              <div className='board-detail-top-main full-screen'>
+                <div className='board-detail-main-text'>{recipe.content}</div>
+              </div>
+            </>
+          }
         </div>
       </div>
     )
@@ -261,7 +270,6 @@ export default function RecipeDetail() {
 
     //          event handler: 좋아요 클릭 이벤트 처리          //
     const onFavoriteClickHandler = () => {
-      console.log('onFavoriteClickHandler'); // Debugging log
       if (!loginUser || !recipeBoardNumber || !cookies.accessToken) return;
       putRecipeFavoriteRequest(recipeBoardNumber, cookies.accessToken).then(putRecipeFavoriteResponse);
     }
@@ -374,7 +382,7 @@ export default function RecipeDetail() {
       return;
     }
     increaseViewCountRecipeRequest(recipeBoardNumber).then(increaseViewCountRecipeResponse);
-    console.log(boardType);
+    console.log('RECIPE PATH', RECIPE_PATH())
   }, [recipeBoardNumber])
 
   //          render: 게시물 상세 화면 컴포넌트 렌더링          //

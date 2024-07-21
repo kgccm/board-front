@@ -2,7 +2,7 @@ import React, { ChangeEvent, useEffect, useRef, useState } from 'react'
 import './style.css';
 import { useBoardStore, useLoginUserStore } from 'stores';
 import { useNavigate, useParams } from 'react-router-dom';
-import { RECIPE_PATH } from 'constant';
+import { RECIPE_PATH, RECIPE_UPDATE_PATH } from 'constant';
 import { useCookies } from 'react-cookie';
 import { getRecipeRequest } from 'apis';
 import { GetRecipeResponseDto } from 'apis/response/recipe';
@@ -130,6 +130,7 @@ export default function RecipeUpdate() {
     }
     if (!recipeBoardNumber) return;
     getRecipeRequest(recipeBoardNumber).then(getRecipeResponse);
+    console.log('RECIPE PATH',  `${RECIPE_PATH()}/${RECIPE_UPDATE_PATH(recipeBoardNumber)}`);
   }, [recipeBoardNumber])
 
   //          render: 게시물 작성 화면 컴포넌트 렌더링          //

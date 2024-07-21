@@ -42,7 +42,7 @@ export default function BoardDetail() {
 
   //          component: 게시물 상세 상단 컴포넌트          //
   const BoardDetailTop = () => {
-
+    const [hasImages, setHasImages] = useState<boolean>(false);
     //          state: 작성자 여부 상태          //
     const [isWriter, setWriter] = useState<Boolean>(false);
     //          state: more 버튼 상태          //
@@ -154,10 +154,20 @@ export default function BoardDetail() {
         </div>
         <div className='divider'></div>
         <div className='board-detail-top-main'>
-          {board.boardImageList.map(image => <img className='board-detail-main-image' src={image} />)}
-          <div className='board-detail-main-text'>{board.content}</div>
+          {board.boardImageList.length ?
+            <>
+              {board.boardImageList.map(image => <img className='board-detail-main-image' src={image} />)}
+              <div className='board-detail-main-text'>{board.content}</div>
+            </>
+            :
+            <>
+              <div className='board-detail-top-main full-screen'>
+                <div className='board-detail-main-text'>{board.content}</div>
+              </div>
+            </>
+          }
         </div>
-      </div>
+      </div >
     )
   }
 
@@ -363,7 +373,6 @@ export default function BoardDetail() {
       return;
     }
     increaseViewCountRequest(boardNumber).then(increaseViewCountResponse);
-    console.log(boardType);
   }, [boardNumber])
 
   //          render: 게시물 상세 화면 컴포넌트 렌더링          //

@@ -10,7 +10,7 @@ import BoardWrite from 'views/Board/Write';
 import BoardUpdate from 'views/Board/Update';
 import Recipe from 'views/Recipe';
 import Container from 'layouts/Container';
-import { MAIN_PATH, AUTH_PATH, SEARCH_PATH, USER_PATH, BOARD_PATH, BOARD_WRITE_PATH, BOARD_DETAIL_PATH, BOARD_UPDATE_PATH, RECIPE_PATH, RECIPE_BOARD_DETAIL_PATH, RECIPE_BOARD_PATH, TRADE_PATH, RECIPE_UPDATE_PATH } from 'constant';
+import { MAIN_PATH, AUTH_PATH, SEARCH_PATH, USER_PATH, BOARD_PATH, BOARD_WRITE_PATH, BOARD_DETAIL_PATH, BOARD_UPDATE_PATH, RECIPE_PATH, RECIPE_BOARD_DETAIL_PATH, RECIPE_BOARD_PATH, TRADE_PATH, RECIPE_UPDATE_PATH, TRADE_BOARD_PATH, TRADE_BOARD_DETAIL_PATH, TRADE_UPDATE_PATH } from 'constant';
 import { useEffect } from 'react';
 import { useCookies } from 'react-cookie';
 import { useLoginUserStore } from 'stores';
@@ -73,13 +73,21 @@ function App() {
           <Route path={BOARD_DETAIL_PATH(':boardNumber')} element={<BoardDetail />} />
           <Route path={BOARD_UPDATE_PATH(':boardNumber')} element={<BoardUpdate />} />
         </Route>
+
         <Route path={MAIN_PATH()} element={<Main />} />
+
         <Route path={RECIPE_PATH()} element={<Recipe />} />
-        <Route path={`${RECIPE_PATH()}/recipe-board/detail/:recipeBoardNumber`} element={<RecipeDetail />} />
-        <Route path={`${RECIPE_PATH()}/recipe-board/update/:recipeBoardNumber`} element={<RecipeUpdate />} />
+        <Route path={RECIPE_BOARD_PATH()}>
+          <Route path={RECIPE_BOARD_DETAIL_PATH(':recipeBoardNumber')} element={<RecipeDetail />} />
+          <Route path={RECIPE_UPDATE_PATH(':recipeBoardNumber')} element={<RecipeUpdate />} />
+        </Route>
+
         <Route path={TRADE_PATH()} element={<Trade />} />
-        <Route path={`${TRADE_PATH()}/trade-board/detail/:tradeBoardNumber`} element={<TradeDetail />} />
-        <Route path={`${TRADE_PATH()}/trade-board/update/:tradeBoardNumber`} element={<TradeUpdate />} />
+        <Route path={TRADE_BOARD_PATH()}>
+        <Route path={TRADE_BOARD_DETAIL_PATH(':tradeBoardNumber')} element={<TradeDetail />} />
+        <Route path={TRADE_UPDATE_PATH(':tradeBoardNumber')} element={<TradeUpdate />} />
+        </Route>
+
         <Route path={AUTH_PATH()} element={<Authentication />} />
         <Route path={SEARCH_PATH(':searchWord')} element={<Search />} />
         <Route path={USER_PATH(':userEmail')} element={<UserP />} />

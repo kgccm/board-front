@@ -125,7 +125,6 @@ export default function BoardWrite() {
   //          event handler: board type 클릭 이벤트 처리          //
   const onBoardTypeChangeHandler = (event: ChangeEvent<HTMLSelectElement>) => {
     const value = event.target.value as 'community' | 'recipe' | 'trade';
-    // Type guard to ensure the value is valid
     if (value === 'community' || value === 'recipe' || value === 'trade') {
       setBoardType(value);
       setPrice(0); // board type 변경 시 가격을 초기화
