@@ -27,7 +27,6 @@ export default function TradeDetail() {
   //          state: 게시물 번호 path variable 상태          //
   // const { TradeBoardNumber } = useParams<{ TradeBoardNumber: string }>();
   const { tradeBoardNumber } = useParams();
-    const { boardTypeParam } = useParams<{ boardTypeParam: string }>();
 
   //          state: 로그인 유저 상태          //
   const { loginUser } = useLoginUserStore();
@@ -56,6 +55,11 @@ export default function TradeDetail() {
     //          state: more 버튼 상태          //
     const [showMore, setShowMore] = useState<boolean>(false);
 
+
+    //          function: 가격을 한국식으로 포맷팅하는 함수          //
+    const formatPrice = (price: number) => {
+      return new Intl.NumberFormat('ko-KR').format(price) + '원';
+    }
     //          function: 작성일 포멧 변경 함수          //
     const getWriteDateTimeFormat = () => {
       if (!trade) return null;
@@ -161,7 +165,9 @@ export default function TradeDetail() {
         <div className='divider'></div>
         <div className='board-detail-top-main'>
           {trade.boardImageList.map(image => <img className='board-detail-main-image' src={image} />)}
-          <div className='board-detail-main-text'>{trade.content}</div>
+          <div className='board-detail-main-price'> {'가격 : '}{formatPrice(trade.price)}</div>
+          <div className='board-detail-main-trade-location'>{'거래장소 : '}{trade.tradeLocation}</div>
+          <div className='board-detail-main-text'>{'\n\n상품 설명 : '}{trade.content}</div>
         </div>
       </div>
     )

@@ -1,4 +1,4 @@
-import { BoardListItem, RecipeListItem } from "./interface";
+import { BoardListItem, RecipeListItem,  TradeListItem } from "./interface";
 
 export type BoardType = 'community' | 'recipe' | 'trade';
-export type ListItem = BoardListItem | RecipeListItem;
+export type ListItem = BoardListItem | RecipeListItem | TradeListItem;

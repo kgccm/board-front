@@ -8,7 +8,7 @@ import { PostBoardResponseDto, GetBoardResponseDto, IncreaseViewCountResponseDto
 import { GetPopularListResponseDto, GetRelationListResponseDto } from './response/search';
 import { PatchNicknameRequestDto, PatchProfileImageRequestDto } from './request/user';
 import { DeleteRecipeResponseDto, GetLatestRecipeListResponseDto, GetRecipeCommentListResponseDto, GetRecipeFavoriteListResponseDto, GetRecipeResponseDto, GetSearchRecipeListResponseDto, GetTop3RecipeListResponseDto, GetUserRecipeListResponseDto, IncreaseViewCountRecipeResponseDto, PatchRecipeResponseDto, PostRecipeCommentResponseDto, PostRecipeResponseDto, PutRecipeFavoriteResponseDto } from './response/recipe';
-import { DeleteTradeResponseDto, GetLatestTradeListResponseDto, GetTop3TradeListResponseDto, GetTradeCommentListResponseDto, GetTradeFavoriteListResponseDto, GetTradeResponseDto, GetUserTradeListResponseDto, IncreaseViewCountTradeResponseDto, PatchTradeResponseDto, PostTradeCommentResponseDto, PostTradeResponseDto, PutTradeFavoriteResponseDto } from './response/trade';
+import { DeleteTradeResponseDto, GetLatestTradeListResponseDto, GetSearchTradeListResponseDto, GetTop3TradeListResponseDto, GetTradeCommentListResponseDto, GetTradeFavoriteListResponseDto, GetTradeResponseDto, GetUserTradeListResponseDto, IncreaseViewCountTradeResponseDto, PatchTradeResponseDto, PostTradeCommentResponseDto, PostTradeResponseDto, PutTradeFavoriteResponseDto } from './response/trade';
 import { PatchRecipeRequestDto } from './request/recipe';
 import { PatchTradeRequestDto } from './request/trade';
 
@@ -327,7 +327,6 @@ export const getUserRecipeListRequest = async (email: string) => {
     const result = await axios.get(GET_USER_RECIPE_LIST_URL(email))
         .then(response => {
             const responseBody: GetUserRecipeListResponseDto = response.data;
-            console.log(responseBody);
             return responseBody;
         })
         .catch(error => {
@@ -456,7 +455,7 @@ export const deleteRecipeRequest = async (recipeBoardNumber: number | string, ac
 }
 
 const GET_TRADE_URL = (tradeBoardNumber: number | string) => `${API_DOMAIN}/trade/trade-board/${tradeBoardNumber}`;
-
+const GET_SEARCH_TRADE_BOARD_LIST_URL = (searchWord: string, preSearchWord: string | null) => `${API_DOMAIN}/trade/trade-board/search-list/${searchWord}${preSearchWord ? '/' + preSearchWord : ''}`;
 const GET_LATEST_TRADE_LIST_URL = () => `${API_DOMAIN}/trade/trade-board/latest-list`;
 const GET_TOP_3_TRADE_LIST_URL = () => `${API_DOMAIN}/trade/trade-board/top-3`;
 const GET_USER_TRADE_LIST_URL = (email: string) => `${API_DOMAIN}/trade/trade-board/user-board-list/${email}`;
@@ -468,6 +467,21 @@ const POST_COMMENT_TRADE_URL = (tradeBoardNumber: number | string) => `${API_DOM
 const PATCH_TRADE_URL = (tradeBoardNumber: number | string) => `${API_DOMAIN}/trade/trade-board/${tradeBoardNumber}`;
 const PUT_FAVORITE_TRADE_URL = (tradeBoardNumber: number | string) => `${API_DOMAIN}/trade/trade-board/${tradeBoardNumber}/favorite`;
 const DELETE_TRADE_URL = (tradeBoardNumber: number | string) => `${API_DOMAIN}/trade/trade-board/${tradeBoardNumber}`;
+
+export const getSearchTradeListRequest = async (searchWord: string, preSearchWord: string | null) => {
+    const result = await axios.get(GET_SEARCH_TRADE_BOARD_LIST_URL(searchWord, preSearchWord))
+        .then(response => {
+            const responseBody: GetSearchTradeListResponseDto = response.data;
+            return responseBody;
+        })
+        .catch(error => {
+            if (!error.response) return null;
+            const responseBody: ResponseDto = error.response.data;
+            return responseBody;
+        })
+    return result;
+}
+
 
 export const getTradeRequest = async (tradeBoardNumber: number | string) => {
     const result = await axios.get(GET_TRADE_URL(tradeBoardNumber))

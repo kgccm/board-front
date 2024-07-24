@@ -399,7 +399,7 @@ export default function Header() {
           <div className='header-logo'>{'How?se'}</div>
         </div>
         <div className='header-right-box'>
-          {(isAuthPage || isMainPage || isSearchPage || isBoardDetailPage || isRecipePage || isTradePage) && !isRecipeUpdatePage && !isTradeUpdatePage && <SearchButton />}
+          {(isAuthPage || isMainPage || isSearchPage || isBoardDetailPage || isUserPage || isRecipePage || isTradePage) && !isRecipeUpdatePage && !isTradeUpdatePage && <SearchButton />}
           {(isMainPage || isRecipePage || isSearchPage || isTradePage || isBoardDetailPage || isUserPage || isRecipeDetailPage || isTradeDetailPage) && !isTradeUpdatePage && !isRecipeUpdatePage && <MyPageButton />}
           {(isBoardWritePage || isBoardUpdatePage || isRecipeUpdatePage || isTradeUpdatePage) && <UploadButton />}
 

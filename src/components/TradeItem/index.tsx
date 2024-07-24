@@ -13,7 +13,7 @@ export default function TradeItem({ tradeListItem }: Props) {
 
     //          properties          // 
     const { boardNumber, title, content, boardTitleImage } = tradeListItem;
-    const { price,  tradeLocation} = tradeListItem;
+    const { price, tradeLocation } = tradeListItem;
     const { favoriteCount, commentCount, viewCount } = tradeListItem;
     const { writeDatetime, writerNickname, writerProfileImage } = tradeListItem;
 
@@ -24,8 +24,11 @@ export default function TradeItem({ tradeListItem }: Props) {
     const onClickHandler = () => {
         navigate(`/trade/trade-board/detail/${boardNumber}`);
     };
-    
 
+    //          function: 가격을 한국식으로 포맷팅하는 함수          //
+    const formatPrice = (price: number) => {
+        return new Intl.NumberFormat('ko-KR').format(price) + '원';
+    }
     //          render : trade List Item 컴포넌트 렌더링         //
     return (
         <div className='trade-list-item' onClick={onClickHandler}>
@@ -48,10 +51,10 @@ export default function TradeItem({ tradeListItem }: Props) {
                         {content}
                     </div>
                     <div className='trade-list-item-price'>
-                        {price}
+                        {'가격 :'}{formatPrice(price)}
                     </div>
                 </div>
-                
+
                 <div className='trade-list-item-bottom'>
                     <div className='trade-list-item-counts'>
                         {`댓글 ${commentCount} ∙ 좋아요 ${favoriteCount} ∙ 조회수 ${viewCount}`}
