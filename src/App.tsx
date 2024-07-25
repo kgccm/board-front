@@ -84,8 +84,8 @@ function App() {
 
         <Route path={TRADE_PATH()} element={<Trade />} />
         <Route path={TRADE_BOARD_PATH()}>
-        <Route path={TRADE_BOARD_DETAIL_PATH(':tradeBoardNumber')} element={<TradeDetail />} />
-        <Route path={TRADE_UPDATE_PATH(':tradeBoardNumber')} element={<TradeUpdate />} />
+          <Route path={TRADE_BOARD_DETAIL_PATH(':tradeBoardNumber')} element={<TradeDetail />} />
+          <Route path={TRADE_UPDATE_PATH(':tradeBoardNumber')} element={<TradeUpdate />} />
         </Route>
 
         <Route path={AUTH_PATH()} element={<Authentication />} />

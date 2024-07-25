@@ -193,7 +193,6 @@ export default function TradeDetail() {
           </div>
           <div className='board-detail-top-right'>
             <div className='board-detail-title'>{trade.title}</div>
-            <div className='board-detail-main-price-large'>{formatPrice(trade.price)}</div>
             <div className='board-detail-top-right-sub-box'>
               <div className='board-detail-write-info-box'>
                 <div className='board-detail-writer-profile-image' style={{ backgroundImage: `url(${trade.writerProfileImage ? trade.writerProfileImage : defaultProfileImage})` }}></div>

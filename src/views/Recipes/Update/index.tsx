@@ -130,7 +130,6 @@ export default function RecipeUpdate() {
     }
     if (!recipeBoardNumber) return;
     getRecipeRequest(recipeBoardNumber).then(getRecipeResponse);
-    console.log('RECIPE PATH',  `${RECIPE_PATH()}/${RECIPE_UPDATE_PATH(recipeBoardNumber)}`);
   }, [recipeBoardNumber])
 
   //          render: 게시물 작성 화면 컴포넌트 렌더링          //

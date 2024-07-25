@@ -18,7 +18,9 @@ export default function TradeUpdate() {
   const contentRef = useRef<HTMLTextAreaElement | null>(null);
   //          state: 이미지 입력 요소 참조 상태          //
   const imageInputRef = useRef<HTMLInputElement | null>(null);
+  const priceRef = useRef<HTMLInputElement | null>(null);
 
+  const tradeLocationRef = useRef<HTMLTextAreaElement | null>(null);
   //          state: 게시물 번호 path variable 상태          //
   const { tradeBoardNumber } = useParams();
 
@@ -89,6 +91,29 @@ export default function TradeUpdate() {
     contentRef.current.style.height = `${contentRef.current.scrollHeight}px`;
   }
 
+  //          event handler: 가격 변경 이벤트 처리          //
+  const onPriceChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target;
+    const numericValue = value === '' ? 0 : Number(value);
+    if (!isNaN(numericValue)) {
+      setPrice(numericValue);
+    }
+
+    if (!priceRef.current) return;
+    priceRef.current.style.height = 'auto';
+    priceRef.current.style.height = `${priceRef.current.scrollHeight}px`;
+  };
+  //          event handler: 거래 장소 변경 이벤트 처리          //
+  const onTradeLocationChangeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    const { value } = event.target;
+    setTradeLocation(value);
+
+    if (!tradeLocationRef.current) return;
+    tradeLocationRef.current.style.height = 'auto';
+    tradeLocationRef.current.style.height = `${tradeLocationRef.current.scrollHeight}px`;
+  }
+
+
   //          event handler: 이미지 변경 이벤트 처리          //
   const onImageChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files || !event.target.files.length) return;
@@ -146,14 +171,14 @@ export default function TradeUpdate() {
         <div className='trade-update-box'>
           <div className='trade-update-title-box'>
             <textarea ref={titleRef} className='trade-update-title-textarea' rows={1} placeholder='제목을 작성해주세요.' value={title} onChange={onTitleChangeHandler}
-            onDragOver={(event) => event.preventDefault()} // 드래그 오버 이벤트 막기
-            onDrop={(event) => event.preventDefault()} // 드롭 이벤트 막기
+              onDragOver={(event) => event.preventDefault()} // 드래그 오버 이벤트 막기
+              onDrop={(event) => event.preventDefault()} // 드롭 이벤트 막기
             />
           </div>
           <div className='divider'></div>
           <div className='trade-update-images-container'>
             {imageUrls.map((imageUrl, index) => (
-              <div  key={index}  className='trade-write-image-box'>
+              <div key={index} className='trade-update-image-box'>
                 <img className='trade-update-image' src={imageUrl} />
                 <div className='icon-button image-close' onClick={() => onImageCloseButtonClickHandler(index)}>
                   <div className='icon close-icon'></div>
@@ -161,9 +186,34 @@ export default function TradeUpdate() {
               </div>
             ))}
           </div>
+          <div className='trade-price-and-location-container'>
+            <div className='price-trade-location-wrapper'>
+              <div className='price-box'>
+                <input
+                  ref={priceRef}
+                  type='number'
+                  placeholder='₩ 거래 가격'
+                  value={price === 0 ? '' : price}
+                  onChange={onPriceChangeHandler}
+                  onInput={(e) => {
+                    const target = e.target as HTMLInputElement;
+                    target.value = target.value.replace(/[^0-9]/g, '');
+                  }}
+                  onDragOver={(event) => event.preventDefault()} // 드래그 오버 이벤트 막기
+                  onDrop={(event) => event.preventDefault()} // 드롭 이벤트 막기
+                />
+              </div>
+              <div className='trade-location-box'>
+                <textarea ref={tradeLocationRef} placeholder='장소를 입력하세요' value={tradeLocation} onChange={onTradeLocationChangeHandler} onDragOver={(event) => event.preventDefault()} // 드래그 오버 이벤트 막기
+                  onDrop={(event) => event.preventDefault()} // 드롭 이벤트 막기
+                />
+              </div>
+            </div>
+
+          </div>
           <div className='trade-update-content-box'>
             <textarea ref={contentRef} className='trade-update-content-textarea' placeholder='게시글 내용을 작성해주세요&#13;&#10;신뢰할 수 있는 거래를 위해 자세히 적어주세요.'
-              value={content} onChange={onContentChangeHandler} 
+              value={content} onChange={onContentChangeHandler}
               onDragOver={(event) => event.preventDefault()} // 드래그 오버 이벤트 막기
               onDrop={(event) => event.preventDefault()} // 드롭 이벤트 막기
             />
