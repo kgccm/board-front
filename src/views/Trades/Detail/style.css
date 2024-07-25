@@ -350,3 +350,6 @@
 .indicator.active {
   background-color: white; /* 활성화된 인디케이터의 색상 */
 }
+.rotate-180deg {
+  rotate: 180deg;
+}
