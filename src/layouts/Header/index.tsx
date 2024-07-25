@@ -22,7 +22,7 @@ import { PatchRecipeRequestDto, PostRecipeRequestDto } from 'apis/request/recipe
 //          component: 헤더 레이아웃          //
 export default function Header() {
 
-  const { boardNumber, recipeBoardNumber,tradeBoardNumber } = useParams();
+  const { boardNumber, recipeBoardNumber, tradeBoardNumber } = useParams();
   //          state: 로그인 유저 상태          //
   const { loginUser, setLoginUser, resetLoginUser } = useLoginUserStore();
   //          state: path 상태          //
@@ -78,7 +78,8 @@ export default function Header() {
     const [word, setWord] = useState<string>('');
     //          state: 검색어 path variable 상태          //
     const { searchWord } = useParams();
-
+    //          state: 검색창 경고 메시지 상태          //
+    const [warning, setWarning] = useState<boolean>(false);
     //          event handler: 검색어 변경 이벤트 처리 함수          //
     const onSearchWordChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
       const value = event.target.value;
@@ -96,11 +97,16 @@ export default function Header() {
         setStatus(!status);
         return;
       }
+      if (!word.trim()) {
+        setWarning(true);
+        return;
+      }
       navigate(SEARCH_PATH(word));
     };
 
     //          effect: 검색어 path variable 변경 될 때마다 실행될 함수          //
     useEffect(() => {
+      if (!searchWord) return;
       if (searchWord) {
         setWord(searchWord);
         setStatus(true);
@@ -116,10 +122,17 @@ export default function Header() {
     //          render: 검색 버튼 컴포넌트 렌더링 (클릭 true 상태)          //
     return (
       <div className='header-search-input-box'>
-        <input className='header-search-input' type='text' placeholder='검색어를 입력해주세요.' value={word} onChange={onSearchWordChangeHandler} onKeyDown={onSearchWordKeyDownHandler} />
+        <input className={`header-search-input ${warning ? 'error' : ''}`}
+         type='text' 
+         placeholder={warning ? '검색어는 필수입니다.' : '검색어를 입력해주세요.'}
+         value={word} 
+         onChange={onSearchWordChangeHandler} 
+         onKeyDown={onSearchWordKeyDownHandler} 
+         />
         <div ref={searchButtonRef} className='icon-button' onClick={onSearchbuttonClickHandler}>
           <div className='icon search-light-icon'></div>
         </div>
+        {warning && <div className='warning-message'>{warning}</div>} {/* 경고 메시지 표시 */}
       </div>
     )
   };

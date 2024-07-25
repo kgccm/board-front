@@ -74,3 +74,11 @@
     font-weight: 400;
     line-height: 140%;
 }
+/* placeholder 스타일 */
+.header-search-input::placeholder {
+    color: #ccc; /* 기본 색상 */
+  }
+  
+  .header-search-input.error::placeholder {
+    color: red; /* 오류 색상 */
+  }

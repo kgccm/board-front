@@ -48,6 +48,8 @@ export default function TradeDetail() {
   //          component: 게시물 상세 상단 컴포넌트          //
   const TradeDetailTop = () => {
 
+    // 슬라이더 이미지 상태와 현재 인덱스 상태
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
     //          state: 작성자 여부 상태          //
     const [isWriter, setWriter] = useState<Boolean>(false);
     //          state: more 버튼 상태          //
@@ -66,6 +68,20 @@ export default function TradeDetail() {
       const date = dayjs(trade.writeDatetime);
       return date.format('YYYY. MM. DD.');
     }
+
+    //          function: 이미지 슬라이더 핸들러          //
+    const goToNextImage = () => {
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % (trade?.boardImageList.length || 1));
+    };
+    //          function: 이미지 슬라이더 핸들러          //
+    const goToPreviousImage = () => {
+      setCurrentImageIndex((prevIndex) => (prevIndex - 1 + (trade?.boardImageList.length || 1)) % (trade?.boardImageList.length || 1));
+    };
+
+    //          function: 페이지 인디케이터 핸들러          //
+    const goToImage = (index: number) => {
+      setCurrentImageIndex(index);
+    };
     //          function: get Board Response 처리 함수          //
     const getTradeResponse = (responseBody: GetTradeResponseDto | ResponseDto | null) => {
       if (!responseBody) return;
@@ -140,34 +156,50 @@ export default function TradeDetail() {
     if (!trade) return <></>
     return (
       <div id='board-detail-top'>
-        <div className='board-detail-top-header'>
-          <div className='board-detail-title'>{trade.title}</div>
-          <div className='board-detail-top-sub-box'>
-            <div className='board-detail-write-info-box'>
-              <div className='board-detail-writer-profile-image' style={{ backgroundImage: `url(${trade.writerProfileImage ? trade.writerProfileImage : defaultProfileImage})` }}></div>
-              <div className='board-detail-writer-nickname' onClick={onNicknameClickHandler}>{trade.writerNickname}</div>
-              <div className='board-detail-info-divider'>{'\|'}</div>
-              <div className='board-detail-write-date'>{getWriteDateTimeFormat()}</div>
-            </div>
-            {isWriter &&
-              <div className='icon-button' onClick={onMoreButtonClickHandler}>
-                <div className='icon more-icon'></div>
+        <div className='board-detail-top-container'>
+          <div className='board-detail-top-left'>
+            <div className='image-slider'>
+              <button className='slider-button left' onClick={goToPreviousImage}>◀</button>
+              <img className='board-detail-main-image' src={trade.boardImageList[currentImageIndex]} alt='Trade Item' />
+              <button className='slider-button right' onClick={goToNextImage}>▶</button>
+              <div className='image-slider-indicators'>
+                {trade.boardImageList.map((_, index) => (
+                  <span
+                    key={index}
+                    className={`indicator ${index === currentImageIndex ? 'active' : ''}`}
+                    onClick={() => goToImage(index)}
+                  />
+                ))}
               </div>
-            }
-            {showMore &&
-              <div className='board-detail-more-box'>
-                <div className='board-detail-update-button' onClick={onUpdateButtonClickHandler}>{'수정'}</div>
-                <div className='divider'></div>
-                <div className='board-detail-delete-button' onClick={onDeleteButtonClickHandler}>{'삭제'}</div>
-              </div>}
+            </div>
           </div>
-        </div>
-        <div className='divider'></div>
-        <div className='board-detail-top-main'>
-          {trade.boardImageList.map(image => <img className='board-detail-main-image' src={image} />)}
-          <div className='board-detail-main-price'> {'가격 : '}{formatPrice(trade.price)}</div>
-          <div className='board-detail-main-trade-location'>{'거래장소 : '}{trade.tradeLocation}</div>
-          <div className='board-detail-main-text'>{'\n\n상품 설명 : '}{trade.content}</div>
+          <div className='board-detail-top-right'>
+            <div className='board-detail-title'>{trade.title}</div>
+            <div className='board-detail-main-price-large'>{formatPrice(trade.price)}</div>
+            <div className='board-detail-top-right-sub-box'>
+              <div className='board-detail-write-info-box'>
+                <div className='board-detail-writer-profile-image' style={{ backgroundImage: `url(${trade.writerProfileImage ? trade.writerProfileImage : defaultProfileImage})` }}></div>
+                <div className='board-detail-writer-nickname' onClick={onNicknameClickHandler}>{trade.writerNickname}</div>
+                <div className='board-detail-info-divider'>{'\|'}</div>
+                <div className='board-detail-write-date'>{getWriteDateTimeFormat()}</div>
+              </div>
+              {isWriter &&
+                <div className='icon-button' onClick={onMoreButtonClickHandler}>
+                  <div className='icon more-icon'></div>
+                </div>
+              }
+              {showMore &&
+                <div className='board-detail-more-box'>
+                  <div className='board-detail-update-button' onClick={onUpdateButtonClickHandler}>{'수정'}</div>
+                  <div className='divider'></div>
+                  <div className='board-detail-delete-button' onClick={onDeleteButtonClickHandler}>{'삭제'}</div>
+                </div>}
+            </div>
+            <div className='divider'></div>
+            <div className='board-detail-main-price'> {'가격 : '}{formatPrice(trade.price)}</div>
+            <div className='board-detail-main-trade-location'>{'거래장소 : '}{trade.tradeLocation}</div>
+            <div className='board-detail-main-text'>{'\n\n상품 설명 : '}{trade.content}</div>
+          </div>
         </div>
       </div>
     )
