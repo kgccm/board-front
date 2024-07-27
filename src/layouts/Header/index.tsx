@@ -5,7 +5,8 @@ import {
   AUTH_PATH, BOARD_DETAIL_PATH, BOARD_PATH, BOARD_UPDATE_PATH, BOARD_WRITE_PATH, MAIN_PATH, SEARCH_PATH,
   USER_PATH, RECIPE_PATH, RECIPE_BOARD_DETAIL_PATH, RECIPE_BOARD_PATH,
   TRADE_PATH, TRADE_BOARD_PATH, TRADE_BOARD_DETAIL_PATH, RECIPE_UPDATE_PATH,
-  TRADE_UPDATE_PATH
+  TRADE_UPDATE_PATH,
+  ONBOARD_PATH
 } from 'constant';
 import { useCookies } from 'react-cookie';
 import { useBoardStore, useLoginUserStore, useBoardTypeStore } from 'stores';
@@ -18,6 +19,7 @@ import { PatchTradeResponseDto, PostTradeResponseDto } from 'apis/response/trade
 import { PatchTradeRequestDto, PostTradeRequestDto } from 'apis/request/trade';
 import { Recipe } from 'types/interface';
 import { PatchRecipeRequestDto, PostRecipeRequestDto } from 'apis/request/recipe';
+import path from 'path';
 
 //          component: 헤더 레이아웃          //
 export default function Header() {
@@ -28,7 +30,7 @@ export default function Header() {
   //          state: path 상태          //
   const { pathname } = useLocation();
   //          state: cookie 상태          //
-  const [cookies, setCookie] = useCookies();
+  const [cookies, setCookie, removeCookie] = useCookies();
   //          state: 로그인 상태          //
   const [isLogin, setLogin] = useState<boolean>(false);
   //          state: 인증 페이지 상태          //
@@ -55,9 +57,10 @@ export default function Header() {
   const [isTradeUpdatePage, setTradeUpdatePage] = useState<boolean>(false);
   //          state: 검색 페이지 상태          //
   const [isSearchPage, setSearchPage] = useState<boolean>(false);
-
   //          state: 유저 페이지 상태          //
   const [isUserPage, setUserPage] = useState<boolean>(false);
+  //          state: 온보딩 페이지 상태          //
+  const [isOnboardPage, setOnBoardPage] = useState<boolean>(false);
 
   //          function: 네비게이트 함수          //
   const navigate = useNavigate();
@@ -123,12 +126,12 @@ export default function Header() {
     return (
       <div className='header-search-input-box'>
         <input className={`header-search-input ${warning ? 'error' : ''}`}
-         type='text' 
-         placeholder={warning ? '검색어는 필수입니다.' : '검색어를 입력해주세요.'}
-         value={word} 
-         onChange={onSearchWordChangeHandler} 
-         onKeyDown={onSearchWordKeyDownHandler} 
-         />
+          type='text'
+          placeholder={warning ? '검색어는 필수입니다.' : '검색어를 입력해주세요.'}
+          value={word}
+          onChange={onSearchWordChangeHandler}
+          onKeyDown={onSearchWordKeyDownHandler}
+        />
         <div ref={searchButtonRef} className='icon-button' onClick={onSearchbuttonClickHandler}>
           <div className='icon search-light-icon'></div>
         </div>
@@ -152,7 +155,7 @@ export default function Header() {
     //          event handler: 로그아웃 버튼 클릭 이벤트 처리 함수          //
     const onSignOutbuttonClickHandler = () => {
       resetLoginUser();
-      setCookie('accessToken', '', { path: MAIN_PATH(), expires: new Date() });
+      removeCookie('accessToken', { path: '/' });
       navigate(MAIN_PATH());
     };
     //          event handler: 로그인 버튼 클릭 이벤트 처리 함수          //
@@ -356,6 +359,9 @@ export default function Header() {
     const isAuthPage = pathname.startsWith(AUTH_PATH());
     setAuthPage(isAuthPage);
 
+    const isOnboardPage = pathname === ONBOARD_PATH();
+    setOnBoardPage(isOnboardPage);
+
     const isMainPage = pathname === MAIN_PATH();
     setMainPage(isMainPage);
 
@@ -412,9 +418,9 @@ export default function Header() {
           <div className='header-logo'>{'How?se'}</div>
         </div>
         <div className='header-right-box'>
-          {(isAuthPage || isMainPage || isSearchPage || isBoardDetailPage || isUserPage || isRecipePage || isTradePage) && !isRecipeUpdatePage && !isTradeUpdatePage && <SearchButton />}
-          {(isMainPage || isRecipePage || isSearchPage || isTradePage || isBoardDetailPage || isUserPage || isRecipeDetailPage || isTradeDetailPage) && !isTradeUpdatePage && !isRecipeUpdatePage && <MyPageButton />}
-          {(isBoardWritePage || isBoardUpdatePage || isRecipeUpdatePage || isTradeUpdatePage) && <UploadButton />}
+          {(isAuthPage || isMainPage || isSearchPage || isBoardDetailPage || isUserPage || isRecipePage || isTradePage) && !isOnboardPage && !isRecipeUpdatePage && !isTradeUpdatePage && <SearchButton />}
+          {(isMainPage || isRecipePage || isSearchPage || isTradePage || isBoardDetailPage || isUserPage || isRecipeDetailPage || isTradeDetailPage) && !isOnboardPage && !isTradeUpdatePage && !isRecipeUpdatePage && <MyPageButton />}
+          {(isBoardWritePage || isBoardUpdatePage || isRecipeUpdatePage || isTradeUpdatePage) && !isOnboardPage && <UploadButton />}
 
         </div>
       </div>

@@ -54,7 +54,7 @@ export default function Authentication() {
       const now = new Date().getTime();
       const expires = new Date(now + expirationTime * 1000);
 
-      setCookie('accessToken', token, { expires, path: MAIN_PATH() });
+      setCookie('accessToken', token, { expires, path: '/' });
       navigate(MAIN_PATH());
     }
 

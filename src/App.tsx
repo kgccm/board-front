@@ -10,7 +10,7 @@ import BoardWrite from 'views/Board/Write';
 import BoardUpdate from 'views/Board/Update';
 import Recipe from 'views/Recipe';
 import Container from 'layouts/Container';
-import { MAIN_PATH, AUTH_PATH, SEARCH_PATH, USER_PATH, BOARD_PATH, BOARD_WRITE_PATH, BOARD_DETAIL_PATH, BOARD_UPDATE_PATH, RECIPE_PATH, RECIPE_BOARD_DETAIL_PATH, RECIPE_BOARD_PATH, TRADE_PATH, RECIPE_UPDATE_PATH, TRADE_BOARD_PATH, TRADE_BOARD_DETAIL_PATH, TRADE_UPDATE_PATH } from 'constant';
+import { MAIN_PATH, AUTH_PATH, SEARCH_PATH, USER_PATH, BOARD_PATH, BOARD_WRITE_PATH, BOARD_DETAIL_PATH, BOARD_UPDATE_PATH, RECIPE_PATH, RECIPE_BOARD_DETAIL_PATH, RECIPE_BOARD_PATH, TRADE_PATH, RECIPE_UPDATE_PATH, TRADE_BOARD_PATH, TRADE_BOARD_DETAIL_PATH, TRADE_UPDATE_PATH, ONBOARD_PATH } from 'constant';
 import { useEffect } from 'react';
 import { useCookies } from 'react-cookie';
 import { useLoginUserStore } from 'stores';
@@ -23,6 +23,7 @@ import Trade from 'views/Trade';
 import TradeDetail from 'views/Trades/Detail';
 import RecipeUpdate from 'views/Recipes/Update';
 import TradeUpdate from 'views/Trades/Update';
+import Onboard from 'views/Onboard';
 // import MapContainer from 'utils/MapContainer';
 
 //           component: Application 컴포넌트           //
@@ -68,13 +69,17 @@ function App() {
   return (
     <Routes>
       <Route element={<Container />}>
+
+      <Route path={ONBOARD_PATH()} element={<Onboard />} />
+
+        <Route path={MAIN_PATH()} element={<Main />} />
+        
         <Route path={BOARD_PATH()}>
           <Route path={BOARD_WRITE_PATH()} element={<BoardWrite />} />
           <Route path={BOARD_DETAIL_PATH(':boardNumber')} element={<BoardDetail />} />
           <Route path={BOARD_UPDATE_PATH(':boardNumber')} element={<BoardUpdate />} />
         </Route>
 
-        <Route path={MAIN_PATH()} element={<Main />} />
 
         <Route path={RECIPE_PATH()} element={<Recipe />} />
         <Route path={RECIPE_BOARD_PATH()}>

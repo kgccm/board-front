@@ -1,5 +1,8 @@
+// 온보딩 페이지
+export const ONBOARD_PATH =() => '/';
+
 // 메인(커뮤니티 페이지)
-export const MAIN_PATH = () => '/';
+export const MAIN_PATH = () => '/community';
 // 레시피 페이지
 export const RECIPE_PATH = () => '/recipe';
 // 중고거래 페이지
@@ -11,7 +14,7 @@ export const SEARCH_PATH = (searchWord: string) => `/search/${searchWord}`;
 //마이페이지
 export const USER_PATH = (userEmail: string) => `/user/${userEmail}`;
 //커뮤니티 게시글 관련
-export const BOARD_PATH = () => '/board';
+export const BOARD_PATH = () => '/community/board';
 export const BOARD_DETAIL_PATH = (boardNumber: string | number) => `detail/${boardNumber}`;
 export const BOARD_WRITE_PATH = () => 'write';
 export const BOARD_UPDATE_PATH = (boardNumber: string | number ) => `update/${boardNumber}`;

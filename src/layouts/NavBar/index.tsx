@@ -1,7 +1,7 @@
 import React from 'react';
 import './style.css';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { BOARD_DETAIL_PATH, BOARD_PATH, MAIN_PATH, RECIPE_PATH, TRADE_PATH } from 'constant';
+import { BOARD_DETAIL_PATH, BOARD_PATH, MAIN_PATH, ONBOARD_PATH, RECIPE_PATH, TRADE_PATH } from 'constant';
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -14,6 +14,7 @@ export default function Navbar() {
   const isBoardDetailPage = location.pathname.startsWith(BOARD_PATH() + '/' + BOARD_DETAIL_PATH(''));
   const isRecipeDetailPage = location.pathname.startsWith(RECIPE_PATH()) && location.pathname.includes('detail');
   const isTradeDetailPage = location.pathname.startsWith(TRADE_PATH()) && location.pathname.includes('detail');
+  const isOnboardPage = location.pathname === ONBOARD_PATH();
   const handleCommunityClick = () => {
     navigate(MAIN_PATH());
   };
