@@ -155,7 +155,7 @@ export default function Header() {
     //          event handler: 로그아웃 버튼 클릭 이벤트 처리 함수          //
     const onSignOutbuttonClickHandler = () => {
       resetLoginUser();
-      removeCookie('accessToken', { path: '/' });
+       removeCookie('accessToken', { path: '/' });
       navigate(MAIN_PATH());
     };
     //          event handler: 로그인 버튼 클릭 이벤트 처리 함수          //

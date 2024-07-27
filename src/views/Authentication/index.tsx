@@ -9,6 +9,7 @@ import { useCookies } from 'react-cookie';
 import { MAIN_PATH } from 'constant';
 import { useNavigate } from 'react-router-dom';
 import { Address, useDaumPostcodePopup } from 'react-daum-postcode';
+import { useLoginUserStore } from 'stores';
 //          component: 인증 화면 컴포넌트          //
 export default function Authentication() {
 
@@ -76,7 +77,7 @@ export default function Authentication() {
     const onSignInButtonClickHandler = () => {
       const requestBody: SignInRequestDto = { email, password };
       signInRequest(requestBody)
-      .then(signInResponse);      
+        .then(signInResponse);
     }
 
     //          event handler: 회원가입 링크 클릭 이벤트 처리          //
@@ -217,7 +218,7 @@ export default function Authentication() {
     const open = useDaumPostcodePopup();
 
     //          function: sign up response 처리 함수          //
-    const signUpResponse = async(responseBody: SignUpResponseDto | ResponseDto | null) => {
+    const signUpResponse = async (responseBody: SignUpResponseDto | ResponseDto | null) => {
       if (!responseBody) {
         alert('네트워크 이상입니다.');
         return;

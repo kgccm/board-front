@@ -57,7 +57,7 @@ function App() {
   }, [cookies.accessToken]);
 
   //          render: Application 컴포넌트 렌더링          //
-  //          description: 메인 화면 : '/' - Main          //
+  //          description: 메인 화면 : '/community' - Main          //
   //          description: 로그인 + 회원가입 화면 : '/auth' - Authentication          //
   //          description: 검색 화면 : '/search/:searchword' - Search          //
   //          description: 유저 페이지 : '/user/:useremail' - User          //
@@ -70,10 +70,10 @@ function App() {
     <Routes>
       <Route element={<Container />}>
 
-      <Route path={ONBOARD_PATH()} element={<Onboard />} />
+        <Route path={ONBOARD_PATH()} element={<Onboard />} />
 
         <Route path={MAIN_PATH()} element={<Main />} />
-        
+
         <Route path={BOARD_PATH()}>
           <Route path={BOARD_WRITE_PATH()} element={<BoardWrite />} />
           <Route path={BOARD_DETAIL_PATH(':boardNumber')} element={<BoardDetail />} />
