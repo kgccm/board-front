@@ -193,7 +193,7 @@ export default function User() {
       setCurrentSection, setCurrentPage, setTotalList
     } = usePagination<BoardListItem | RecipeListItem | TradeListItem>(5);
     //          state: 게시물 개수 상태          //
-    const [count, setCount] = useState<number>(2);
+    const [count, setCount] = useState<number>(0);
 
     //          function: get User Board List Response 처리 함수          //
     const getUserBoardListResponse = (responseBody: GetUserBoardListResponseDto | ResponseDto | null) => {
@@ -228,14 +228,14 @@ export default function User() {
       if (code !== 'SU') return;
 
       console.log(responseBody);
-      const { userRecipeBoardList } = responseBody as GetUserRecipeListResponseDto;
-      console.log(userRecipeBoardList)
-      if (!userRecipeBoardList) {
+      const { userBoardList } = responseBody as GetUserRecipeListResponseDto;
+      console.log(userBoardList)
+      if (!userBoardList) {
         return;
       }
 
-      setTotalList(userRecipeBoardList);
-      setCount(userRecipeBoardList.length);
+      setTotalList(userBoardList);
+      setCount(userBoardList.length);
     }
 
     //          function: get User Trade List Response 처리 함수          //

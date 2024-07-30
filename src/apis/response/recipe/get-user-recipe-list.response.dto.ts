@@ -1,6 +1,6 @@
 import { RecipeListItem } from 'types/interface';
-import ResponseDto from '../response.dto';
+import ResponseDto from '../Response.dto';
 
 export default interface GetUserRecipeListResponseDto extends ResponseDto {
-    userRecipeBoardList: RecipeListItem[];
+    userBoardList: RecipeListItem[];
 }

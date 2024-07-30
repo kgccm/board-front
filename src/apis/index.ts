@@ -51,20 +51,20 @@ export const signUpRequest = async (requestBody: SignUpRequestDto) => {
     return result;
 }
 
-const GET_BOARD_URL = (boardNumber: number | string) => `${API_DOMAIN}/board/${boardNumber}`;
+const GET_BOARD_URL = (boardNumber: number | string) => `${API_DOMAIN}/community/board/${boardNumber}`;
 
-const GET_LATEST_BOARD_LIST_URL = () => `${API_DOMAIN}/board/latest-list`;
-const GET_TOP_3_BOARD_LIST_URL = () => `${API_DOMAIN}/board/top-3`;
-const GET_SEARCH_BOARD_LIST_URL = (searchWord: string, preSearchWord: string | null) => `${API_DOMAIN}/board/search-list/${searchWord}${preSearchWord ? '/' + preSearchWord : ''}`;
-const GET_USER_BOARD_LIST_URL = (email: string) => `${API_DOMAIN}/board/user-board-list/${email}`;
-const POST_BOARD_URL = () => `${API_DOMAIN}/board`;
-const INCREASE_VIEW_COUNT_URL = (boardNumber: number | string) => `${API_DOMAIN}/board/${boardNumber}/increase-view-count`;
-const GET_FAVORITE_LIST_URL = (boardNumber: number | string) => `${API_DOMAIN}/board/${boardNumber}/favorite-list`;
-const GET_COMMENT_LIST_URL = (boardNumber: number | string) => `${API_DOMAIN}/board/${boardNumber}/comment-list`;
-const POST_COMMENT_URL = (boardNumber: number | string) => `${API_DOMAIN}/board/${boardNumber}/comment`;
-const PATCH_BOARD_URL = (boardNumber: number | string) => `${API_DOMAIN}/board/${boardNumber}`;
-const PUT_FAVORITE_URL = (boardNumber: number | string) => `${API_DOMAIN}/board/${boardNumber}/favorite`;
-const DELETE_BOARD_URL = (boardNumber: number | string) => `${API_DOMAIN}/board/${boardNumber}`;
+const GET_LATEST_BOARD_LIST_URL = () => `${API_DOMAIN}/community/board/latest-list`;
+const GET_TOP_3_BOARD_LIST_URL = () => `${API_DOMAIN}/community/board/top-3`;
+const GET_SEARCH_BOARD_LIST_URL = (searchWord: string, preSearchWord: string | null) => `${API_DOMAIN}/community/board/search-list/${searchWord}${preSearchWord ? '/' + preSearchWord : ''}`;
+const GET_USER_BOARD_LIST_URL = (email: string) => `${API_DOMAIN}/community/board/user-board-list/${email}`;
+const POST_BOARD_URL = () => `${API_DOMAIN}/community/board`;
+const INCREASE_VIEW_COUNT_URL = (boardNumber: number | string) => `${API_DOMAIN}/community/board/${boardNumber}/increase-view-count`;
+const GET_FAVORITE_LIST_URL = (boardNumber: number | string) => `${API_DOMAIN}/community/board/${boardNumber}/favorite-list`;
+const GET_COMMENT_LIST_URL = (boardNumber: number | string) => `${API_DOMAIN}/community/board/${boardNumber}/comment-list`;
+const POST_COMMENT_URL = (boardNumber: number | string) => `${API_DOMAIN}/community/board/${boardNumber}/comment`;
+const PATCH_BOARD_URL = (boardNumber: number | string) => `${API_DOMAIN}/community/board/${boardNumber}`;
+const PUT_FAVORITE_URL = (boardNumber: number | string) => `${API_DOMAIN}/community/board/${boardNumber}/favorite`;
+const DELETE_BOARD_URL = (boardNumber: number | string) => `${API_DOMAIN}/community/board/${boardNumber}`;
 
 export const getBoardRequest = async (boardNumber: number | string) => {
     const result = await axios.get(GET_BOARD_URL(boardNumber))
