@@ -71,10 +71,21 @@
   align-items: center;
   justify-content: center;
   transition: transform 0.3s ease; /* 애니메이션 효과 추가 */
+  cursor: pointer;
 }
 
 .icon-and-title:hover {
   transform: scale(1.1); /* 요소 크기를 1.1배로 키움 */
+}
+
+.onboarding-logo-title-more-button {
+  width: 70px;
+  height: 70px;
+  background-image: url("assets/image/clickhere.png"); /* 화살표 이미지 추가 */
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin-top: 10px; /* 아이콘과의 간격 조절 */
+  margin-left: 10px;
 }
 
 .onboarding-image-box {
@@ -207,8 +218,8 @@
 
 .cursor {
   position: absolute;
-  width: 100px; /* 원의 크기 */
-  height: 100px;
+  width: 80px; /* 원의 크기 */
+  height: 80px;
   background-color: white; /* 원의 배경색을 흰색으로 설정 */
   border-radius: 50%;
   pointer-events: none;
@@ -218,15 +229,20 @@
   transition: width 0.3s ease, height 0.3s ease; /* 크기 변경 애니메이션 */
 }
 
+/* 마우스 올렸을때 확대되는 애니메이션  */
+.cursor.enlarge {
+  width: 150px;
+  height: 150px; /* 커서 크기 변경 */
+}
+
 /* 커서 안의 텍스트 */
 .cursor::before {
-  content: "Hello";
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 16px;
-  mix-blend-mode: difference; /* 반대 색상 효과 */
+  mix-blend-mode: difference;
 }
 
 .cursor:hover {

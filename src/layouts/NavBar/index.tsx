@@ -32,12 +32,12 @@ export default function Navbar() {
       <div className='navbar-container'>
         {/* 요모조모 페이지인 경우 클래스 추가 */}
         <div className={`community ${isCommunityPage || isBoardDetailPage ? 'active' : ''}`} onClick={handleCommunityClick}>
-          {'요모조모'}
+          {'👥요모조모💬'}
         </div>
         {/* 레시피 페이지인 경우 클래스 추가 */}
-        <div className={`recipe ${isRecipePage || isRecipeDetailPage ? 'active' : ''}`} onClick={handleRecipeClick}>{'레시피'}</div>
-        <div className={`recipe ${isTradePage || isTradeDetailPage ? 'active' : ''}`} onClick={handleTradeClick}>{'중고거래'}</div>
-        <div className='group-buy'>{'공동구매'}</div>
+        <div className={`recipe ${isRecipePage || isRecipeDetailPage ? 'active' : ''}`} onClick={handleRecipeClick}>{'🍳레시피📜'}</div>
+        <div className={`recipe ${isTradePage || isTradeDetailPage ? 'active' : ''}`} onClick={handleTradeClick}>{'📦중고거래💰'}</div>
+        <div className='group-buy'>{'🛒공동구매🤝'}</div>
       </div>
     </div>
   );

@@ -9,7 +9,7 @@
   .trade-top-container {
     width: 1200px;
     min-width: 1200px;
-  
+    min-height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -61,10 +61,11 @@
   .trade-bottom-container {
     width: 1200px;
     min-width: 1200px;
-  
+    min-height: 313px;
     display: flex;
     flex-direction: column;
     gap: 20px;
+    justify-content: space-between;
   }
   
   .trade-bottom-title {

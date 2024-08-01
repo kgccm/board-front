@@ -19,12 +19,13 @@ export default function Onboard() {
   const imageSequence: Array<'living-room' | 'kitchen' | 'tradeimage' | 'groupbuy'> = ['living-room', 'kitchen', 'tradeimage', 'groupbuy'];
 
   const textConfig: { [key in 'living-room' | 'kitchen' | 'tradeimage' | 'groupbuy']: { top: string; bottom: string } } = {
-    'living-room': { top: '요모조모', bottom: '다양한 팁을 나눠요' },
-    'kitchen': { top: '레시피', bottom: '서로의 레시피를 공유해요' },
-    'tradeimage': { top: '중고거래', bottom: '내 주변 자취러들과 함께해요' },
-    'groupbuy': { top: '공동구매', bottom: '내 주변 자취러들과 함께해요' }
+    'living-room': { top: '👥요모조모💬', bottom: '다양한 팁을 나눠요' },
+    'kitchen': { top: '🍳레시피📜', bottom: '서로의 레시피를 공유해요' },
+    'tradeimage': { top: '📦중고거래💰', bottom: 'HowSE에서 함께해요' },
+    'groupbuy': { top: '🛒공동구매🤝', bottom: '내 주변 자취러들과 함께해요' }
   };
 
+  //          effect: 이미지 이펙트          //
   useEffect(() => {
     const intervalId = setInterval(() => {
       setCurrentImage((prevImage) => {
@@ -36,19 +37,8 @@ export default function Onboard() {
 
     return () => clearInterval(intervalId);
   }, []);
-  //          effect: 이미지 이펙트          //
-  // useEffect(() => {
-  //   const intervalId = setInterval(() => {
-  //     setCurrentImage(prevImage => {
-  //       const currentIndex = imageSequence.indexOf(prevImage);
-  //       const nextIndex = (currentIndex + 1) % imageSequence.length;
-  //       return imageSequence[nextIndex];
-  //     });
-  //   }, 2000); // 2초마다 이미지 전환
 
-  //   return () => clearInterval(intervalId);
-  // }, []);
-
+  //          effect: 마우스 커서 이펙트          //
   useEffect(() => {
     const cursor = cursorRef.current;
 
@@ -83,16 +73,30 @@ export default function Onboard() {
     };
   }, []);
 
+  const enlargeCursor = () => {
+    if (cursorRef.current) {
+      cursorRef.current.classList.add('enlarge');
+    }
+  };
+
+  const shrinkCursor = () => {
+    if (cursorRef.current) {
+      cursorRef.current.classList.remove('enlarge');
+    }
+  };
+
   return (
     <div id="onboarding-wrapper" className={`bg-${currentImage}`}>
       <div className='onboarding-container'>
         <div className={`onboarding-left-box ${clicked ? 'clicked' : ''}`}>
           <div className='onboarding-left-title'>
-            <div className='icon-and-title' onClick={onIconAndTitleClickHandler}>
+            <div className='icon-and-title' onClick={onIconAndTitleClickHandler} onMouseEnter={enlargeCursor}
+              onMouseLeave={shrinkCursor}>
               <div className='icon-box-huge'>
                 <div className='icons'></div>
               </div>
               <div className='onboarding-logo-title'>{'How?se'}</div>
+              <div className='onboarding-logo-title-more-button'>{}</div>
             </div>
             <div className='intro'>{'What is How?se\n\nHowSe는 자취생들을 위한 \n 종합 플랫폼입니다.'}</div>
           </div>
@@ -108,7 +112,8 @@ export default function Onboard() {
         </div>
 
         <div className='onboarding-right-box'>
-          <div className='onboarding-start-button' onClick={onStartButtonClickHandler}>{'Start'}</div>
+          <div className='onboarding-start-button' onClick={onStartButtonClickHandler} onMouseEnter={enlargeCursor}
+            onMouseLeave={shrinkCursor}>{'Start'}</div>
         </div>
       </div>
       <div className='cursor' ref={cursorRef}></div>
