@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import './style.css';
-import RecipeTop3Item from 'components/RecipeTop3Item';
+import RecipeTop3Item from 'components/GeneralRecipeTop5Item';
 import { RecipeListItem } from 'types/interface';
 import RecipeItem from 'components/RecipeItem';
 import Pagination from 'components/Pagination';
 import { useNavigate } from 'react-router-dom';
 import { SEARCH_PATH } from 'constant';
-import { getLatestRecipeListRequest,  getTop3RecipeListRequest,  } from 'apis';
-import { GetLatestRecipeListResponseDto, GetTop3RecipeListResponseDto } from 'apis/response/recipe';
+import { getLatestRecipeListRequest, getTop5ConveinenceRecipeListRequest, getTop5GeneralRecipeListRequest } from 'apis';
+import { GetLatestRecipeListResponseDto, GetTop5ConveinenceRecipeListResponseDto, GetTop5GeneralRecipeListResponseDto } from 'apis/response/recipe';
 import { ResponseDto } from 'apis/response';
 import { usePagination } from 'hooks';
 import useRecipeTypeStore from 'stores/recipe-type.store';
+import GeneralRecipeTop5Item from 'components/GeneralRecipeTop5Item';
+import ConveinenceRecipeTop5Item from 'components/ConveinenceRecipeTop5Item';
 //          component: 레시피 화면 컴포넌트          //
 export default function Recipe() {
 
@@ -21,28 +23,42 @@ export default function Recipe() {
   const RecipeTop = () => {
 
     //          state: 주간 Top3 레시피 리스트 상태          //
-    const [top3recipeList, setTop3recipeList] = useState<RecipeListItem[]>([]);
-
-    //          function: get Top3 recipe List Response 처리 함수          //
-    const getTop3RecipeListResponse = (responseBody: GetTop3RecipeListResponseDto | ResponseDto | null) => {
+    const [generalTop5recipeList, setGeneralTop5recipeList] = useState<RecipeListItem[]>([]);
+    const [conveinenceTop5recipeList, setConveinenceTop5recipeList] = useState<RecipeListItem[]>([]);
+    //          function: get Top5 General recipe List Response 처리 함수          //
+    const getTop5GeneralRecipeListResponse = (responseBody: GetTop5GeneralRecipeListResponseDto | ResponseDto | null) => {
       if (!responseBody) return;
       const { code } = responseBody;
 
       if (code === 'DBE') alert('데이터베이스 오류입니다.');
       if (code !== 'SU') return;
 
-      const { recipetop3List } = responseBody as GetTop3RecipeListResponseDto;
-      setTop3recipeList(recipetop3List);
+      const { generalrecipetop5List } = responseBody as GetTop5GeneralRecipeListResponseDto;
+      console.log(generalrecipetop5List)
+      setGeneralTop5recipeList(generalrecipetop5List);
     }
 
+    //          function: get Top5 General recipe List Response 처리 함수          //
+    const getTop5ConveinenceRecipeListResponse = (responseBody: GetTop5ConveinenceRecipeListResponseDto | ResponseDto | null) => {
+      if (!responseBody) return;
+      const { code } = responseBody;
+
+      if (code === 'DBE') alert('데이터베이스 오류입니다.');
+      if (code !== 'SU') return;
+
+      const { conveniencerecipetop5List } = responseBody as GetTop5ConveinenceRecipeListResponseDto;
+      console.log(conveniencerecipetop5List)
+      setConveinenceTop5recipeList(conveniencerecipetop5List);
+    }
 
     //          effect: 첫 마운트 시 실행될 함수          //
     useEffect(() => {
-      getTop3RecipeListRequest().then(getTop3RecipeListResponse);
+      getTop5GeneralRecipeListRequest(0).then(getTop5GeneralRecipeListResponse);
+      getTop5ConveinenceRecipeListRequest(1).then(getTop5ConveinenceRecipeListResponse)
     }, []);
 
 
-    
+
     //          render: 메인 화면 상단 컴포넌트 렌더링          //
     return (
       <div id='recipe-top-wrapper'>
@@ -53,7 +69,8 @@ export default function Recipe() {
           <div className='recipe-top-content-box'>
             <div className='recipe-top-contents-title'>{'주간 Top 3 레시피📜'}</div>
             <div className='recipe-top-contents'>
-              {top3recipeList.map(recipetop3ListItem => <RecipeTop3Item recipetop3ListItem={recipetop3ListItem} />)}
+              {generalTop5recipeList.map(generalrecipetop5List => <GeneralRecipeTop5Item generalrecipetop5List={generalrecipetop5List} />)}
+              {conveinenceTop5recipeList.map(conveinencerecipetop5List => <ConveinenceRecipeTop5Item conveinencerecipetop5List={conveinencerecipetop5List} />)}
             </div>
           </div>
         </div>
