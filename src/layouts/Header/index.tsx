@@ -20,6 +20,7 @@ import { PatchTradeRequestDto, PostTradeRequestDto } from 'apis/request/trade';
 import { Recipe } from 'types/interface';
 import { PatchRecipeRequestDto, PostRecipeRequestDto } from 'apis/request/recipe';
 import path from 'path';
+import useRecipeTypeStore from 'stores/recipe-type.store';
 
 //          component: 헤더 레이아웃          //
 export default function Header() {
@@ -27,6 +28,7 @@ export default function Header() {
   const { boardNumber, recipeBoardNumber, tradeBoardNumber } = useParams();
   //          state: 로그인 유저 상태          //
   const { loginUser, setLoginUser, resetLoginUser } = useLoginUserStore();
+  const { recipeType, setRecipeType } = useRecipeTypeStore();
   //          state: path 상태          //
   const { pathname } = useLocation();
   //          state: cookie 상태          //
@@ -155,7 +157,7 @@ export default function Header() {
     //          event handler: 로그아웃 버튼 클릭 이벤트 처리 함수          //
     const onSignOutbuttonClickHandler = () => {
       resetLoginUser();
-       removeCookie('accessToken', { path: '/' });
+      removeCookie('accessToken', { path: '/' });
       navigate(MAIN_PATH());
     };
     //          event handler: 로그인 버튼 클릭 이벤트 처리 함수          //
@@ -301,9 +303,15 @@ export default function Header() {
         }
         else if (boardType === 'recipe') {
           console.log(boardType)
+          console.log("Preparing recipe request with type: ", recipeType); // Debugging log
           const requestBody: PostRecipeRequestDto = {
-            title, content, boardImageList, boardType
+            title,
+            content,
+            boardImageList,
+            boardType,
+            type: recipeType // Ensure this is included
           };
+          console.log("Post request type:", requestBody.type);
           postRecipeRequest(requestBody, accessToken).then(postRecipeBoardResponse);
         }
         else if (boardType === 'trade') {
@@ -344,7 +352,7 @@ export default function Header() {
         return <div className='disable-button'>{'업로드'}</div>;
     }
     if (title && content)
-    return <div className='black-button' onClick={onUploadButtonClickHandler}>{'업로드'}</div>;
+      return <div className='black-button' onClick={onUploadButtonClickHandler}>{'업로드'}</div>;
     //          render: 업로드 불가 버튼 컴포넌트 렌더링          //
     return <div className='disable-button'>{'업로드'}</div>;
 
@@ -412,7 +420,7 @@ export default function Header() {
           <div className='icon-box'>
             <div className='icon logo-house-icon'></div>
           </div>
-          <div className='header-logo'>{'How?se'}</div>
+          <div className='header-logo'>{'How?Se'}</div>
         </div>
         <div className='header-right-box'>
           {(isAuthPage || isMainPage || isSearchPage || isBoardDetailPage || isUserPage || isRecipePage || isTradePage) && !isOnboardPage && !isRecipeUpdatePage && !isTradeUpdatePage && <SearchButton />}

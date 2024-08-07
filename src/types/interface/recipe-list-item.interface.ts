@@ -9,4 +9,5 @@ export default interface RecipeListItem {
     writeDatetime : string;
     writerNickname : string;
     writerProfileImage : string | null;
+    type : number;
 }

@@ -35,11 +35,20 @@ export default function BoardWrite() {
   //          state: 로그인 유저 상태          //
   const { loginUser } = useLoginUserStore();
 
+  const [recipeType, setRecipeType] = useState<number>(0); // Explicitly typing as number
+
   //          state: 게시물 이미지 미리보기 URL 상태          //
   const [imageUrls, setImageUrls] = useState<string[]>([]);
 
   //          function: 네비게이트 함수          //
   const navigate = useNavigate();
+
+  // Handle changes to the recipe type select element
+  const handleRecipeTypeChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    const selectedType = Number(event.target.value); // Convert the value to a number
+    console.log("Selected Recipe Type: ", selectedType); // Debugging log for the selected type
+    setRecipeType(selectedType); // Set the state with the new type
+  };
 
   //          event handler: 제목 변경 이벤트 처리          //
   const onTitleChangeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
@@ -153,6 +162,15 @@ export default function BoardWrite() {
             <option value="trade">{'중고거래'}</option>
           </select>
         </div>
+        {boardType === 'recipe' && (
+          <div className="recipe-type-select-box">
+            <label htmlFor="recipeType">Recipe Type:</label>
+            <select id="recipeType" value={recipeType} onChange={handleRecipeTypeChange}>
+              <option value={0}>General Recipe</option>
+              <option value={1}>Convenience Store Recipe</option>
+            </select>
+          </div>
+        )}
         <div className='board-write-box'>
           <div className='board-write-title-box'>
             <textarea ref={titleRef} className='board-write-title-textarea' rows={1} placeholder='제목을 작성해주세요.' value={title} onChange={onTitleChangeHandler}
@@ -170,6 +188,7 @@ export default function BoardWrite() {
               </div>
             ))}
           </div>
+
           <div className='trade-price-and-location-container'>
             {boardType === 'trade' && (
               <div className='price-trade-location-wrapper'>

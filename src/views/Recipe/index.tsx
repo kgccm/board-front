@@ -10,6 +10,7 @@ import { getLatestRecipeListRequest,  getTop3RecipeListRequest,  } from 'apis';
 import { GetLatestRecipeListResponseDto, GetTop3RecipeListResponseDto } from 'apis/response/recipe';
 import { ResponseDto } from 'apis/response';
 import { usePagination } from 'hooks';
+import useRecipeTypeStore from 'stores/recipe-type.store';
 //          component: 레시피 화면 컴포넌트          //
 export default function Recipe() {
 
@@ -41,16 +42,16 @@ export default function Recipe() {
     }, []);
 
 
-
+    
     //          render: 메인 화면 상단 컴포넌트 렌더링          //
     return (
       <div id='recipe-top-wrapper'>
         <div className='recipe-top-container'>
           <div className='recipe-top-title'>
-            {'나만의 레시피를 \n How?se에서!'}
+            {'🍳나만의 레시피를 \n How?Se에서!'}
           </div>
           <div className='recipe-top-content-box'>
-            <div className='recipe-top-contents-title'>{'주간 Top 3 레시피'}</div>
+            <div className='recipe-top-contents-title'>{'주간 Top 3 레시피📜'}</div>
             <div className='recipe-top-contents'>
               {top3recipeList.map(recipetop3ListItem => <RecipeTop3Item recipetop3ListItem={recipetop3ListItem} />)}
             </div>
@@ -82,7 +83,8 @@ export default function Recipe() {
 
     //          effect: 첫 마운트 시 실행될 함수          //
     useEffect(() => {
-      getLatestRecipeListRequest().then(getLatestRecipeListResponse);
+      getLatestRecipeListRequest(0).then(getLatestRecipeListResponse);
+      // getLatestRecipeListRequest(1).then(getLatestRecipeListResponse);
     }, []);
 
     //          render: 메인 화면 하단 컴포넌트 렌더링          //

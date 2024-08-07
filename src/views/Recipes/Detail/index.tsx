@@ -284,7 +284,7 @@ export default function RecipeDetail() {
     //          event handler: 댓글 작성 버튼 클릭 이벤트 처리          //
     const onCommentSubmitButtonClickHandler = () => {
       if (!comment || !recipeBoardNumber || !loginUser || !cookies.accessToken) return;
-      const requestBody: PostRecipeCommentRequestDto = { content: comment };
+      const requestBody: PostRecipeCommentRequestDto = { content: comment};
       postRecipeCommentRequest(recipeBoardNumber, requestBody, cookies.accessToken).then(postRecipeCommentResponse);
     }
     //          event handler: 댓글 변경 이벤트 처리          //

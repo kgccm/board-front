@@ -95,10 +95,10 @@ export default function Onboard() {
               <div className='icon-box-huge'>
                 <div className='icons'></div>
               </div>
-              <div className='onboarding-logo-title'>{'How?se'}</div>
+              <div className='onboarding-logo-title'>{'How?Se'}</div>
               <div className='onboarding-logo-title-more-button'>{}</div>
             </div>
-            <div className='intro'>{'What is How?se\n\nHowSe는 자취생들을 위한 \n 종합 플랫폼입니다.'}</div>
+            <div className='intro'>{'What is How?Se\n\nHowSe는 자취생들을 위한 \n 종합 플랫폼입니다.'}</div>
           </div>
         </div>
 

@@ -3,4 +3,5 @@ export default interface PostRecipeRequestDto{
     content: string;
     boardImageList : string[];
     boardType: string; 
+    type: number;
 }

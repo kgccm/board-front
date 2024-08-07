@@ -9,7 +9,7 @@ import { GetPopularListResponseDto, GetRelationListResponseDto } from './respons
 import { PatchNicknameRequestDto, PatchProfileImageRequestDto } from './request/user';
 import { DeleteRecipeResponseDto, GetLatestRecipeListResponseDto, GetRecipeCommentListResponseDto, GetRecipeFavoriteListResponseDto, GetRecipeResponseDto, GetSearchRecipeListResponseDto, GetTop3RecipeListResponseDto, GetUserRecipeListResponseDto, IncreaseViewCountRecipeResponseDto, PatchRecipeResponseDto, PostRecipeCommentResponseDto, PostRecipeResponseDto, PutRecipeFavoriteResponseDto } from './response/recipe';
 import { DeleteTradeResponseDto, GetLatestTradeListResponseDto, GetSearchTradeListResponseDto, GetTop3TradeListResponseDto, GetTradeCommentListResponseDto, GetTradeFavoriteListResponseDto, GetTradeResponseDto, GetUserTradeListResponseDto, IncreaseViewCountTradeResponseDto, PatchTradeResponseDto, PostTradeCommentResponseDto, PostTradeResponseDto, PutTradeFavoriteResponseDto } from './response/trade';
-import { PatchRecipeRequestDto } from './request/recipe';
+import { PatchRecipeRequestDto, PostRecipeCommentRequestDto, PostRecipeRequestDto } from './request/recipe';
 import { PatchTradeRequestDto } from './request/trade';
 
 const DOMAIN = 'http://localhost:4000';
@@ -255,7 +255,7 @@ export const deleteBoardRequest = async (boardNumber: number | string, accessTok
 //          state: recipe end point          //
 const GET_RECIPE_URL = (recipeBoardNumber: number | string) => `${API_DOMAIN}/recipe/recipe-board/${recipeBoardNumber}`;
 const GET_SEARCH_RECIPE_BOARD_LIST_URL = (searchWord: string, preSearchWord: string | null) => `${API_DOMAIN}/recipe/recipe-board/search-list/${searchWord}${preSearchWord ? '/' + preSearchWord : ''}`;
-const GET_LATEST_RECIPE_LIST_URL = () => `${API_DOMAIN}/recipe/recipe-board/latest-list`;
+const GET_LATEST_RECIPE_LIST_URL = (type: number) => `${API_DOMAIN}/recipe/recipe-board/latest-list/${type}`;
 const GET_TOP_3_RECIPE_LIST_URL = () => `${API_DOMAIN}/recipe/recipe-board/top-3`;
 const GET_USER_RECIPE_LIST_URL = (email: string) => `${API_DOMAIN}/recipe/recipe-board/user-board-list/${email}`;
 const POST_RECIPE_URL = () => `${API_DOMAIN}/recipe/recipe-board`;
@@ -295,8 +295,9 @@ export const getRecipeRequest = async (recipeBoardNumber: number | string) => {
     return result;
 }
 
-export const getLatestRecipeListRequest = async () => {
-    const result = await axios.get(GET_LATEST_RECIPE_LIST_URL())
+// 최신 레시피 목록을 요청하는 함수, type 파라미터 추가
+export const getLatestRecipeListRequest = async (type: number) => {
+    const result = await axios.get(GET_LATEST_RECIPE_LIST_URL(type))
         .then(response => {
             const responseBody: GetLatestRecipeListResponseDto = response.data;
             return responseBody;
@@ -308,6 +309,7 @@ export const getLatestRecipeListRequest = async () => {
         })
     return result;
 }
+
 
 export const getTop3RecipeListRequest = async () => {
     const result = await axios.get(GET_TOP_3_RECIPE_LIST_URL())
@@ -382,7 +384,7 @@ export const getCommentRecipeListRequest = async (recipeBoardNumber: number | st
 }
 
 
-export const postRecipeRequest = async (requestBody: PostBoardRequestDto, accessToken: string) => {
+export const postRecipeRequest = async (requestBody: PostRecipeRequestDto, accessToken: string) => {
     const result = await axios.post(POST_RECIPE_URL(), requestBody, authorization(accessToken))
         .then(response => {
             const responseBody: PostRecipeResponseDto = response.data;
@@ -396,7 +398,7 @@ export const postRecipeRequest = async (requestBody: PostBoardRequestDto, access
     return result;
 }
 
-export const postRecipeCommentRequest = async (recipeBoardNumber: number | string, requestBody: PostCommentRequestDto, accessToken: string) => {
+export const postRecipeCommentRequest = async (recipeBoardNumber: number | string, requestBody: PostRecipeCommentRequestDto, accessToken: string) => {
     const result = await axios.post(POST_COMMENT_RECIPE_URL(recipeBoardNumber), requestBody, authorization(accessToken))
         .then(response => {
             const responseBody: PostRecipeCommentResponseDto = response.data;

@@ -6,7 +6,7 @@ import TradeItem from 'components/TradeItem';
 import Pagination from 'components/Pagination';
 import { useNavigate } from 'react-router-dom';
 import { SEARCH_PATH } from 'constant';
-import { getLatestTradeListRequest,  getTop3TradeListRequest,  } from 'apis';
+import { getLatestTradeListRequest, getTop3TradeListRequest, } from 'apis';
 import { GetLatestTradeListResponseDto, GetTop3TradeListResponseDto } from 'apis/response/trade';
 import { ResponseDto } from 'apis/response';
 import { usePagination } from 'hooks';
@@ -47,10 +47,10 @@ export default function Trade() {
       <div id='trade-top-wrapper'>
         <div className='trade-top-container'>
           <div className='trade-top-title'>
-            {'이웃간의 중고거래는 \n How?se에서!'}
+            {'💰이웃간의 중고거래는 \n How?Se에서!'}
           </div>
           <div className='trade-top-content-box'>
-            <div className='trade-top-contents-title'>{'주간 Top 3 물품'}</div>
+            <div className='trade-top-contents-title'>{'주간 Top 3 물품📦'}</div>
             <div className='trade-top-contents'>
               {top3tradeList.map(tradetop3ListItem => <TradeTop3Item tradeTop3ListItem={tradetop3ListItem} />)}
             </div>
@@ -76,7 +76,7 @@ export default function Trade() {
       if (code === 'DBE') alert('데이터베이스 오류입니다.');
       if (code !== 'SU') return;
 
-      const {  tradelatestList } = responseBody as GetLatestTradeListResponseDto;
+      const { tradelatestList } = responseBody as GetLatestTradeListResponseDto;
       setTotalList(tradelatestList);
     }
 
