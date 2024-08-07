@@ -256,8 +256,10 @@ export const deleteBoardRequest = async (boardNumber: number | string, accessTok
 const GET_RECIPE_URL = (recipeBoardNumber: number | string) => `${API_DOMAIN}/recipe/recipe-board/${recipeBoardNumber}`;
 const GET_SEARCH_RECIPE_BOARD_LIST_URL = (searchWord: string, preSearchWord: string | null) => `${API_DOMAIN}/recipe/recipe-board/search-list/${searchWord}${preSearchWord ? '/' + preSearchWord : ''}`;
 const GET_LATEST_RECIPE_LIST_URL = (type: number) => `${API_DOMAIN}/recipe/recipe-board/latest-list/${type}`;
+
 const GET_TOP_5_GENERAL_RECIPE_LIST_URL = (type: number) => `${API_DOMAIN}/recipe/recipe-board/${type}/top-3`;
 const GET_TOP_5_CONVEINENCE_RECIPE_LIST_URL = (type: number) => `${API_DOMAIN}/recipe/recipe-board/${type}/top3`
+
 const GET_USER_RECIPE_LIST_URL = (email: string) => `${API_DOMAIN}/recipe/recipe-board/user-board-list/${email}`;
 const POST_RECIPE_URL = () => `${API_DOMAIN}/recipe/recipe-board`;
 const INCREASE_VIEW_COUNT_RECIPE_URL = (recipeBoardNumber: number | string) => `${API_DOMAIN}/recipe/recipe-board/${recipeBoardNumber}/increase-view-count`;
