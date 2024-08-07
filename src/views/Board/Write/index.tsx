@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react'
 import './style.css';
-import { useBoardStore, useLoginUserStore, useBoardTypeStore } from 'stores';
+import { useBoardStore, useLoginUserStore, useBoardTypeStore, useRecipeTypeStore } from 'stores';
 import { useNavigate } from 'react-router-dom';
 import { MAIN_PATH } from 'constant';
 import { useCookies } from 'react-cookie';
@@ -35,7 +35,7 @@ export default function BoardWrite() {
   //          state: 로그인 유저 상태          //
   const { loginUser } = useLoginUserStore();
 
-  const [recipeType, setRecipeType] = useState<number>(0); // Explicitly typing as number
+  const { recipeType, setRecipeType } = useRecipeTypeStore();
 
   //          state: 게시물 이미지 미리보기 URL 상태          //
   const [imageUrls, setImageUrls] = useState<string[]>([]);

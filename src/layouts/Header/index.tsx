@@ -28,7 +28,6 @@ export default function Header() {
   const { boardNumber, recipeBoardNumber, tradeBoardNumber } = useParams();
   //          state: 로그인 유저 상태          //
   const { loginUser, setLoginUser, resetLoginUser } = useLoginUserStore();
-  const { recipeType, setRecipeType } = useRecipeTypeStore();
   //          state: path 상태          //
   const { pathname } = useLocation();
   //          state: cookie 상태          //
@@ -184,6 +183,7 @@ export default function Header() {
     //          state: 게시물 상태          //
     const { title, content, boardImageFileList, price, tradeLocation, resetBoard } = useBoardStore();
     const { boardType, setBoardType } = useBoardTypeStore();
+    const {recipeType, setRecipeType} = useRecipeTypeStore();
 
 
     //          function: post board response 처리 함수          //

@@ -7,4 +7,5 @@ export default interface Recipe {
     writerEmail : string
     writerNickname : string;
     writerProfileImage : string | null;
+    type : number;
 }
