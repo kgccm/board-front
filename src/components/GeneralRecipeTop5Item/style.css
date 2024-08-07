@@ -12,8 +12,8 @@
 
   transition: box-shadow 0.3s ease;
 
-  width: calc(384px - 24px - 24px);
-  height: calc(508px - 24px - 24px);
+  width: calc(384px - 30px - 30px);
+  height: calc(508px - 30px - 30px);
   padding: 24px;
 
   background-color: rgba(255, 255, 255, 1);
