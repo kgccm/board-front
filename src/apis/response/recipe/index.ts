@@ -10,8 +10,8 @@ import GetLatestRecipeListResponseDto from "./get-latest-recipe-list.response.dt
 import GetRecipeCommentListResponseDto from "./get-recipe-comment-list.response.dto"
 import GetRecipeFavoriteListResponseDto from "./get-recipe-favorite-list.response.dto"
 import IncreaseViewCountRecipeResponseDto from "./increase-view-count-recipe.response.dto"
-import GetTop5ConveinenceRecipeListResponseDto from "./get-top-5-convenience-recipe-list.response.dto"
-import GetTop5GeneralRecipeListResponseDto from "./get-top-5-general-recipe-list.response.dto"
+import GetTop3ConvenienceRecipeListResponseDto from "./get-top-3-convenience-recipe-list.response.dto"
+import GetTop3GeneralRecipeListResponseDto from "./get-top-3-general-recipe-list.response.dto"
 
 export type {
     GetRecipeResponseDto,
@@ -20,8 +20,8 @@ export type {
     DeleteRecipeResponseDto,
     PostRecipeCommentResponseDto,
     PutRecipeFavoriteResponseDto,
-    GetTop5ConveinenceRecipeListResponseDto,
-    GetTop5GeneralRecipeListResponseDto,
+    GetTop3ConvenienceRecipeListResponseDto,
+    GetTop3GeneralRecipeListResponseDto,
     GetUserRecipeListResponseDto,
     GetSearchRecipeListResponseDto,
     GetLatestRecipeListResponseDto,

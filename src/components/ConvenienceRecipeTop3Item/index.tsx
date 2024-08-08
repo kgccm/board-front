@@ -6,16 +6,16 @@ import { useNavigate } from 'react-router-dom';
 import grayimage from 'assets/image/gray-image.png';
 
 interface Props {
-    generalrecipetop5List: RecipeListItem
+    conveniencerecipetop3List: RecipeListItem
 }
 
 //          Component: Recipe Top 3 List Item 컴포넌트          //
-export default function GeneralRecipeTop5Item({ generalrecipetop5List }: Props) {
+export default function ConvenienceRecipeTop3Item({ conveniencerecipetop3List }: Props) {
 
     //          properties          //
-    const { boardNumber, title, content, boardTitleImage } = generalrecipetop5List;
-    const { favoriteCount, commentCount, viewCount } = generalrecipetop5List;
-    const { writeDatetime, writerNickname, writerProfileImage } = generalrecipetop5List;
+    const { boardNumber, title, content, boardTitleImage } = conveniencerecipetop3List;
+    const { favoriteCount, commentCount, viewCount } = conveniencerecipetop3List;
+    const { writeDatetime, writerNickname, writerProfileImage } = conveniencerecipetop3List;
 
     //          function : navigate 함수          //
     const navigate = useNavigate();

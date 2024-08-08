@@ -7,7 +7,7 @@ import { PatchBoardRequestDto, PostBoardRequestDto, PostCommentRequestDto } from
 import { PostBoardResponseDto, GetBoardResponseDto, IncreaseViewCountResponseDto, GetFavoriteListResponseDto, GetCommentListResponseDto, PutFavoriteResponseDto, PostCommentResponseDto, DeleteBoardResponseDto, PatchBoardResponseDto, GetLatestBoardListResponseDto, GetTop3BoardListResponseDto, GetSearchBoardListResponseDto, GetUserBoardListResponseDto } from './response/board';
 import { GetPopularListResponseDto, GetRelationListResponseDto } from './response/search';
 import { PatchNicknameRequestDto, PatchProfileImageRequestDto } from './request/user';
-import { DeleteRecipeResponseDto, GetLatestRecipeListResponseDto, GetRecipeCommentListResponseDto, GetRecipeFavoriteListResponseDto, GetRecipeResponseDto, GetSearchRecipeListResponseDto, GetTop5GeneralRecipeListResponseDto, GetTop5ConveinenceRecipeListResponseDto, GetUserRecipeListResponseDto, IncreaseViewCountRecipeResponseDto, PatchRecipeResponseDto, PostRecipeCommentResponseDto, PostRecipeResponseDto, PutRecipeFavoriteResponseDto } from './response/recipe';
+import { DeleteRecipeResponseDto, GetLatestRecipeListResponseDto, GetRecipeCommentListResponseDto, GetRecipeFavoriteListResponseDto, GetRecipeResponseDto, GetSearchRecipeListResponseDto, GetTop3GeneralRecipeListResponseDto, GetTop3ConvenienceRecipeListResponseDto, GetUserRecipeListResponseDto, IncreaseViewCountRecipeResponseDto, PatchRecipeResponseDto, PostRecipeCommentResponseDto, PostRecipeResponseDto, PutRecipeFavoriteResponseDto } from './response/recipe';
 import { DeleteTradeResponseDto, GetLatestTradeListResponseDto, GetSearchTradeListResponseDto, GetTop3TradeListResponseDto, GetTradeCommentListResponseDto, GetTradeFavoriteListResponseDto, GetTradeResponseDto, GetUserTradeListResponseDto, IncreaseViewCountTradeResponseDto, PatchTradeResponseDto, PostTradeCommentResponseDto, PostTradeResponseDto, PutTradeFavoriteResponseDto } from './response/trade';
 import { PatchRecipeRequestDto, PostRecipeCommentRequestDto, PostRecipeRequestDto } from './request/recipe';
 import { PatchTradeRequestDto } from './request/trade';
@@ -257,8 +257,8 @@ const GET_RECIPE_URL = (recipeBoardNumber: number | string) => `${API_DOMAIN}/re
 const GET_SEARCH_RECIPE_BOARD_LIST_URL = (searchWord: string, preSearchWord: string | null) => `${API_DOMAIN}/recipe/recipe-board/search-list/${searchWord}${preSearchWord ? '/' + preSearchWord : ''}`;
 const GET_LATEST_RECIPE_LIST_URL = (type: number) => `${API_DOMAIN}/recipe/recipe-board/latest-list/${type}`;
 
-const GET_TOP_5_GENERAL_RECIPE_LIST_URL = (type: number) => `${API_DOMAIN}/recipe/recipe-board/${type}/top-5`;
-const GET_TOP_5_CONVEINENCE_RECIPE_LIST_URL = (type: number) => `${API_DOMAIN}/recipe/recipe-board/${type}/top-5`
+const GET_TOP_3_GENERAL_RECIPE_LIST_URL = (type: number) => `${API_DOMAIN}/recipe/recipe-board/${type}/top-3`;
+const GET_TOP_3_CONVENIENCE_RECIPE_LIST_URL = (type: number) => `${API_DOMAIN}/recipe/recipe-board/${type}/top-3`
 
 const GET_USER_RECIPE_LIST_URL = (email: string) => `${API_DOMAIN}/recipe/recipe-board/user-board-list/${email}`;
 const POST_RECIPE_URL = () => `${API_DOMAIN}/recipe/recipe-board`;
@@ -314,10 +314,10 @@ export const getLatestRecipeListRequest = async (type: number) => {
 }
 
 
-export const getTop5GeneralRecipeListRequest = async (type: number) => {
-    const result = await axios.get(GET_TOP_5_GENERAL_RECIPE_LIST_URL(0))
+export const getTop3GeneralRecipeListRequest = async (type: number) => {
+    const result = await axios.get(GET_TOP_3_GENERAL_RECIPE_LIST_URL(0))
         .then(response => {
-            const responseBody: GetTop5GeneralRecipeListResponseDto = response.data;
+            const responseBody: GetTop3GeneralRecipeListResponseDto = response.data;
             return responseBody;
         })
         .catch(error => {
@@ -328,10 +328,10 @@ export const getTop5GeneralRecipeListRequest = async (type: number) => {
     return result;
 }
 
-export const getTop5ConveinenceRecipeListRequest = async (type: number) => {
-    const result = await axios.get(GET_TOP_5_CONVEINENCE_RECIPE_LIST_URL(1))
+export const getTop3ConvenienceRecipeListRequest = async (type: number) => {
+    const result = await axios.get(GET_TOP_3_CONVENIENCE_RECIPE_LIST_URL(1))
         .then(response => {
-            const responseBody: GetTop5ConveinenceRecipeListResponseDto = response.data;
+            const responseBody: GetTop3ConvenienceRecipeListResponseDto = response.data;
             return responseBody;
         })
         .catch(error => {
