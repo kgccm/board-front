@@ -106,11 +106,13 @@ export default function Recipe() {
       getLatestRecipeListRequest(recipeType).then(getLatestRecipeListResponse);
     }, [recipeType]);
 
+    const titleText = recipeType === 0 ? '최신 일반 레시피' : '최신 편의점 레시피';
+
     //          render: 메인 화면 하단 컴포넌트 렌더링          //
     return (
       <div id='recipe-bottom-wrapper'>
         <div className='recipe-bottom-container'>
-          <div className='recipe-bottom-title'>{'최신 레시피'}</div>
+          <div className='recipe-bottom-title'>{titleText}</div>
           <div className="recipe-bottom-selector">
             <button className={recipeType === 0 ? 'selected' : ''} onClick={() => setRecipeType(0)}>{'일반레시피'}</button>
             <button className={recipeType === 1 ? 'selected' : ''} onClick={() => setRecipeType(1)}>{'편의점레시피'}</button>
