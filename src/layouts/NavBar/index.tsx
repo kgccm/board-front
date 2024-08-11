@@ -36,8 +36,9 @@ export default function Navbar() {
         </div>
         {/* 레시피 페이지인 경우 클래스 추가 */}
         <div className={`recipe ${isRecipePage || isRecipeDetailPage ? 'active' : ''}`} onClick={handleRecipeClick}>{'🍳레시피📜'}</div>
-        <div className={`recipe ${isTradePage || isTradeDetailPage ? 'active' : ''}`} onClick={handleTradeClick}>{'📦중고거래💰'}</div>
-        <div className='group-buy'>{'🛒공동구매🤝'}</div>
+        {/* 중고거래 페이지인 경우 클래스 추가 */}
+        <div className={`trade ${isTradePage || isTradeDetailPage ? 'active' : ''}`} onClick={handleTradeClick}>{'📦중고거래💰'}</div>
+        <div className=''>{'🛒내주변 맛집🤝'}</div>
       </div>
     </div>
   );

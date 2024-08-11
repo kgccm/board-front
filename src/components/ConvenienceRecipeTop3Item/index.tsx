@@ -30,33 +30,33 @@ export default function ConvenienceRecipeTop3Item({ conveniencerecipetop3List }:
     //          render: Top 3 List Item 컴포넌트 렌더링          //
     return (
         <div>
-            <div className='recipe-top-3-list-item' onClick={onClickHandler}>
-                <div className='recipe-top-3-list-item-image-box'>
+            <div className='convenience-recipe-top-3-list-item' onClick={onClickHandler}>
+                <div className='convenience-recipe-top-3-list-item-image-box'>
                     {boardTitleImage ? (
-                        <img className='recipe-top-3-list-item-image' src={`${boardTitleImage}`} alt={'none-image'} />
+                        <img className='convenience-recipe-top-3-list-item-image' src={`${boardTitleImage}`} alt={'none-image'} />
                     ) :
                         (
-                            <div className='recipe-top-3-list-item-none-image' style={{ backgroundImage: `url(${grayimage})` }}>
-                                <div className='recipe-top-3-list-item-none-image-description'>{'이미지가 등록되지 않은 게시물입니다.'}</div>
+                            <div className='convenience-recipe-top-3-list-item-none-image' style={{ backgroundImage: `url(${grayimage})` }}>
+                                <div className='convenience-recipe-top-3-list-item-none-image-description'>{'이미지가 등록되지 않은 게시물입니다.'}</div>
                             </div>
                         )}
                 </div>
-                <div className='recipe-top-3-list-item-main-box'>
-                    <div className='recipe-top-3-list-item-top'>
-                        <div className='recipe-top-3-list-item-profile-box'>
-                            <div className='recipe-top-3-list-item-profile-image' style={{ backgroundImage: `url(${writerProfileImage ? writerProfileImage : defaultProfileImage})` }}></div>
+                <div className='convenience-recipe-top-3-list-item-main-box'>
+                    <div className='convenience-recipe-top-3-list-item-top'>
+                        <div className='convenience-recipe-top-3-list-item-profile-box'>
+                            <div className='convenience-recipe-top-3-list-item-profile-image' style={{ backgroundImage: `url(${writerProfileImage ? writerProfileImage : defaultProfileImage})` }}></div>
                         </div>
-                        <div className='recipe-top-3-list-item-write-box'>
-                            <div className='recipe-top-3-list-item-nickname'>{writerNickname}</div>
-                            <div className='recipe-top-3-list-item-write-date'>{writeDatetime}</div>
+                        <div className='convenience-recipe-top-3-list-item-write-box'>
+                            <div className='convenience-recipe-top-3-list-item-nickname'>{writerNickname}</div>
+                            <div className='convenience-recipe-top-3-list-item-write-date'>{writeDatetime}</div>
                         </div>
                     </div>
-                    <div className='recipe-top-3-list-item-info'>
-                        <div className='recipe-top-3-list-item-title'>{title}</div>
-                        <div className='recipe-top-3-list-item-content'>{content}</div>
+                    <div className='convenience-recipe-top-3-list-item-info'>
+                        <div className='convenience-recipe-top-3-list-item-title'>{title}</div>
+                        <div className='convenience-recipe-top-3-list-item-content'>{content}</div>
                     </div>
-                    <div className='recipe-top-3-list-item-bottom'>
-                        <div className='recipe-top-3-list-item-counts'>
+                    <div className='convenience-recipe-top-3-list-item-bottom'>
+                        <div className='convenience-recipe-top-3-list-item-counts'>
                             {`댓글 ${commentCount} ∙ 좋아요 ${favoriteCount} ∙ 조회수 ${viewCount}`}
                         </div>
                     </div>

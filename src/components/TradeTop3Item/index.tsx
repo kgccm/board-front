@@ -48,20 +48,22 @@ export default function TradeTop3Item({ tradeTop3ListItem }: Props) {
                         <div className='trade-top-3-list-item-write-date'>{writeDatetime}</div>
                     </div>
                 </div>
-                <div className='trade-list-item-price'>
-                    {'가격 :'}{formatPrice(price)}
-                </div>
-                <div className='trade-list-item-location-box'>
-                    <div className='trade-item-location'>{'거래장소 : '}{tradeLocation}</div>
-                </div>
-                <div className='trade-top-3-list-item-info'>
-                    <div className='trade-top-3-list-item-title'>{title}</div>
-                    <div className='trade-top-3-list-item-content'>{content}</div>
-                </div>
-                <div className='trade-top-3-list-item-bottom'>
-                    <div className='trade-top-3-list-item-counts'>
-                        {`댓글 ${commentCount} ∙ 좋아요 ${favoriteCount} ∙ 조회수 ${viewCount}`}
+                <div className='trade-list-item-price-and-location-box'>
+                    <div className='trade-list-item-price'>
+                        {'가격 :'}{formatPrice(price)}
                     </div>
+                    <div className='trade-item-location'>
+                        {'거래장소 : '}{tradeLocation}
+                    </div>
+                </div>
+            </div>
+            <div className='trade-top-3-list-item-info'>
+                <div className='trade-top-3-list-item-title'>{title}</div>
+                <div className='trade-top-3-list-item-content'>{content}</div>
+            </div>
+            <div className='trade-top-3-list-item-bottom'>
+                <div className='trade-top-3-list-item-counts'>
+                    {`댓글 ${commentCount} ∙ 좋아요 ${favoriteCount} ∙ 조회수 ${viewCount}`}
                 </div>
             </div>
         </div>

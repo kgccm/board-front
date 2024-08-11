@@ -43,15 +43,15 @@ export default function TradeItem({ tradeListItem }: Props) {
                     </div>
                 </div>
                 <div className='trade-list-item-location-box'>
-                    <div className='trade-item-location'>{tradeLocation}</div>
+                    <div className='trade-item-location'>{'거래장소 : '}{tradeLocation}</div>
+                </div>
+                <div className='trade-list-item-price'>
+                    {'가격 :'}{formatPrice(price)}
                 </div>
                 <div className='trade-list-item-middle'>
                     <div className='trade-list-item-title'>{title}</div>
                     <div className='trade-list-item-content'>
                         {content}
-                    </div>
-                    <div className='trade-list-item-price'>
-                        {'가격 :'}{formatPrice(price)}
                     </div>
                 </div>
 

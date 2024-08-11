@@ -12,7 +12,7 @@
   transition: box-shadow 0.3s ease;
 
   width: calc(384px - 24px - 24px);
-  height: calc(508px - 24px - 24px);;
+  height: calc(508px - 24px - 24px);
   padding: 24px;
 
   background-color: rgba(255, 255, 255, 1);
@@ -71,7 +71,6 @@
   display: flex;
   flex-direction: column;
   gap: 2px;
-  
 }
 
 .trade-top-3-list-item-nickname {
@@ -133,9 +132,22 @@
   font-weight: 400;
   line-height: 140%;
 }
+.trade-list-item-price-and-location-box {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin: 8px 0px;
+}
+
 .trade-list-item-price {
   color: rgba(0, 0, 0, 0.7);
-  font-size: 12px;
-  font-weight: 400;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 140%;
+}
+.trade-item-location {
+  color: rgba(0, 0, 0, 0.7);
+  font-size: 14px;
+  font-weight: 500;
   line-height: 140%;
 }
