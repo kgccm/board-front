@@ -93,26 +93,36 @@ export default function NEARBY() {
     };
 
     return (
-        <div>
-            <div style={{ marginBottom: '10px' }}>
-                <input
-                    type="text"
-                    value={keyword}
-                    onChange={handleKeywordChange}
-                    onKeyDown={handleKeyPress}
-                    placeholder="장소를 입력하세요"
-                />
-                <button onClick={searchPlaces}>검색</button>
-            </div>
-            <div id="map" style={{ width: "500px", height: "500px" }} />
-            <div id="result-list" style={{ width: "500px", height: "500px", overflowY: "scroll" }}>
-                <ul>
-                    {places.map((place) => (
-                        <li key={place.id} onClick={() => displayMarkers([place])}>
-                            {place.place_name}
-                        </li>
-                    ))}
-                </ul>
+        <div id='nearby-wrapper'>
+            <div className='nearby-container'>
+                <div className="map-container">
+                    <div id="map" style={{ width: "500px", height: "100%" }} />
+                </div>
+                <div className="search-container">
+                    <div className='nearby-title'>
+                        {'🛒내주변 맛집을 \n How?Se에서!'}
+                    </div>
+
+                    <div style={{ marginBottom: '10px' }}>
+                        <input
+                            type="text"
+                            value={keyword}
+                            onChange={handleKeywordChange}
+                            onKeyDown={handleKeyPress}
+                            placeholder="장소를 입력하세요"
+                        />
+                        <button onClick={searchPlaces}>검색</button>
+                    </div>
+                    <div id="result-list" className="result-list">
+                        <ul>
+                            {places.map((place) => (
+                                <li key={place.id} onClick={() => displayMarkers([place])}>
+                                    {place.place_name}
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     );
