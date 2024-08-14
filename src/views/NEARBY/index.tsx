@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import './style.css';
+import Pagination from 'components/Pagination';
+import { usePagination } from 'hooks'; // 페이지네이션 훅을 사용합니다.
 
 export default function NEARBY() {
     const [map, setMap] = useState<any>(null);
     const [keyword, setKeyword] = useState('');
     const [places, setPlaces] = useState<any[]>([]);
+    const [pagination, setPagination] = useState<any>(null); // 페이지네이션 객체 저장
+    const { currentPage, viewList, setTotalList, setCurrentPage } = usePagination<any>(8);
 
     useEffect(() => {
         if (navigator.geolocation) {
@@ -32,26 +36,18 @@ export default function NEARBY() {
 
         const mapInstance = new window.kakao.maps.Map(container, options);
         setMap(mapInstance);
-        // 현재 위치에 마커 생성 및 InfoWindow 열기
+
         const markerPosition = new window.kakao.maps.LatLng(lat, lng);
         const marker = new window.kakao.maps.Marker({
             position: markerPosition,
             map: mapInstance,
         });
 
-        const infowindowContent = `
-            <div style="padding:10px;z-index:1;border-radius:10px;box-shadow: 0px 2px 10px rgba(0,0,0,0.3);background-color:rgba(255, 255, 255, 0.9);border:none; text-align: center; position: relative;">
-                <div style="font-weight: bold; color: #555; font-size: 14px; margin-bottom: 5px;">📍 현재 위치</div>
-                <div style="color: #888; font-size: 12px;">지금 이곳에 계세요!</div>
-            </div>
-        `;
-
-         
         const infowindow = new window.kakao.maps.InfoWindow({
-            content: infowindowContent,
-            removable: true, // x 버튼으로 제거 가능하게 설정
-            disableAutoPan: true // 인포윈도우가 열릴 때 지도가 자동으로 이동하지 않도록 설정
+            content: createInfoWindowContent('📍 현재 위치', '지금 이곳에 계세요!'),
+            removable: true, // 닫기 버튼 추가
         });
+
         infowindow.open(mapInstance, marker);
     };
 
@@ -65,7 +61,7 @@ export default function NEARBY() {
         }
     };
 
-    const searchPlaces = () => {
+    const searchPlaces = (page = 1) => {
         if (!map) return;
 
         const ps = new window.kakao.maps.services.Places();
@@ -73,29 +69,38 @@ export default function NEARBY() {
         ps.keywordSearch(keyword, (data: any[], status: string, pagination: any) => {
             if (status === window.kakao.maps.services.Status.OK) {
                 setPlaces(data);
+                setTotalList(data); // 전체 목록을 페이지네이션 훅에 설정합니다.
+                setPagination(pagination); // 페이지네이션 객체를 저장합니다.
                 displayMarkers(data);
             }
+        }, {
+            page
         });
     };
 
     const displayMarkers = (places: any[]) => {
-        // 기존 마커 제거
-        map.markers && map.markers.forEach((marker: any) => marker.setMap(null));
-        map.markers = [];
+        // 기존 마커 및 인포윈도우 제거
+        if (map.markers) {
+            map.markers.forEach((marker: any) => marker.setMap(null));
+        }
 
         const bounds = new window.kakao.maps.LatLngBounds();
 
         places.forEach((place: any) => {
             const position = new window.kakao.maps.LatLng(place.y, place.x);
             const marker = new window.kakao.maps.Marker({
-                map: map,
                 position: position,
+                map: map,
             });
 
-            map.markers.push(marker);
+            const roadAddress = place.road_address_name || place.address_name; // 도로명 주소가 없으면 지번 주소를 사용
+            const infowindow = new window.kakao.maps.InfoWindow({
+                content: createInfoWindowContent(place.place_name, roadAddress),
+                removable: true,
+            });
 
             window.kakao.maps.event.addListener(marker, 'click', () => {
-                displayInfowindow(marker, place.place_name);
+                infowindow.open(map, marker);
             });
 
             bounds.extend(position);
@@ -104,18 +109,25 @@ export default function NEARBY() {
         map.setBounds(bounds);
     };
 
-    const displayInfowindow = (marker: any, title: string) => {
-        const infowindowContent = `
-            <div style="padding:10px;z-index:1;border-radius:10px;box-shadow: 0px 2px 10px rgba(0,0,0,0.3);background-color:rgba(255, 255, 255, 0.9);border:none;">
-                <div style="font-weight: bold; color: #555; font-size: 14px;">${title}</div>
+    const createInfoWindowContent = (title: string, address: string) => {
+        return `
+            <div class="infowindow-content">
+                <div class="infowindow-title">${title}</div>
+                <div class="infowindow-subtitle">${address}</div>
             </div>
         `;
-        const infowindow = new window.kakao.maps.InfoWindow({
-            content: infowindowContent,
-            removable: true,
-            disableAutoPan: true
-        });
-        infowindow.open(map, marker);
+    };
+
+    const goToNextPage = () => {
+        if (pagination && pagination.hasNextPage) {
+            pagination.nextPage();
+        }
+    };
+
+    const goToPrevPage = () => {
+        if (pagination && pagination.hasPrevPage) {
+            pagination.prevPage();
+        }
     };
 
     return (
@@ -137,16 +149,20 @@ export default function NEARBY() {
                             onKeyDown={handleKeyPress}
                             placeholder="장소를 입력하세요"
                         />
-                        <button onClick={searchPlaces}>검색</button>
+                        <button onClick={() => searchPlaces(1)}>검색</button>
                     </div>
                     <div id="result-list" className="result-list">
                         <ul>
-                            {places.map((place) => (
-                                <li key={place.id} onClick={() => displayMarkers([place])}>
+                            {viewList.map((place, index) => (
+                                <li key={index} onClick={() => displayMarkers([place])}>
                                     {place.place_name}
                                 </li>
                             ))}
                         </ul>
+                    </div>
+                    <div className="pagination">
+                        <button onClick={goToPrevPage} disabled={!pagination?.hasPrevPage}>이전</button>
+                        <button onClick={goToNextPage} disabled={!pagination?.hasNextPage}>다음</button>
                     </div>
                 </div>
             </div>
