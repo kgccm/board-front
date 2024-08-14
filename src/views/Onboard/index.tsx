@@ -22,7 +22,7 @@ export default function Onboard() {
     'living-room': { top: '👥요모조모💬', bottom: '다양한 팁을 나눠요' },
     'kitchen': { top: '🍳레시피📜', bottom: '서로의 레시피를 공유해요' },
     'tradeimage': { top: '📦중고거래💰', bottom: 'HowSE에서 함께해요' },
-    'groupbuy': { top: '🛒공동구매🤝', bottom: '내 주변 자취러들과 함께해요' }
+    'groupbuy': { top: '내주변 맛집', bottom: '찾아보고 찜해봐요' }
   };
 
   //          effect: 이미지 이펙트          //
