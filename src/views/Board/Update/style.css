@@ -22,6 +22,16 @@
 
 .board-update-title-box {
   width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Space between label and textarea */
+}
+.board-update-title-label {
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 140%;
+  color: rgba(0, 0, 0, 0.7); 
+  white-space: nowrap; 
 }
 
 .board-update-title-textarea {
@@ -31,7 +41,7 @@
   outline: none;
   background: none;
   resize: none;
-
+  flex-grow: 1;
   color: rgba(0, 0, 0, 1);
 
   font-size: 32px;

@@ -139,6 +139,7 @@ export default function BoardUpdate() {
       <div className='board-update-container'>
         <div className='board-update-box'>
           <div className='board-update-title-box'>
+          <label htmlFor='board-update-title-textarea' className='board-update-title-label'>{'제목:'}</label>
             <textarea ref={titleRef} className='board-update-title-textarea' rows={1} placeholder='제목을 작성해주세요.' value={title} onChange={onTitleChangeHandler} onDragOver={(event) => event.preventDefault()} // 드래그 오버 이벤트 막기
               onDrop={(event) => event.preventDefault()} />
           </div>
@@ -155,7 +156,7 @@ export default function BoardUpdate() {
           </div>
 
           <div className='board-update-content-box'>
-            <textarea ref={contentRef} className='board-update-content-textarea' placeholder='게시글 내용을 작성해주세요&#13;&#10;신뢰할 수 있는 거래를 위해 자세히 적어주세요.'
+            <textarea ref={contentRef} className='board-update-content-textarea' placeholder='내 주변 자취러들과 꿀팁을 공유해요.&#13;&#10;게시글 내용을 작성해주세요'
               value={content} onChange={onContentChangeHandler}
               onDragOver={(event) => event.preventDefault()} // 드래그 오버 이벤트 막기
               onDrop={(event) => event.preventDefault()} />

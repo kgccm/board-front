@@ -6,7 +6,8 @@ import {
   USER_PATH, RECIPE_PATH, RECIPE_BOARD_DETAIL_PATH, RECIPE_BOARD_PATH,
   TRADE_PATH, TRADE_BOARD_PATH, TRADE_BOARD_DETAIL_PATH, RECIPE_UPDATE_PATH,
   TRADE_UPDATE_PATH,
-  ONBOARD_PATH
+  ONBOARD_PATH,
+  NEARBY_PATH
 } from 'constant';
 import { useCookies } from 'react-cookie';
 import { useBoardStore, useLoginUserStore, useBoardTypeStore } from 'stores';
@@ -62,6 +63,8 @@ export default function Header() {
   const [isUserPage, setUserPage] = useState<boolean>(false);
   //          state: 온보딩 페이지 상태          //
   const [isOnboardPage, setOnBoardPage] = useState<boolean>(false);
+  //          state: 내주변 페이지 상태          //
+  const [isNearbypage, setIsNearByPage] =  useState<boolean>(false);
 
   //          function: 네비게이트 함수          //
   const navigate = useNavigate();
@@ -400,6 +403,8 @@ export default function Header() {
     const isSearchPage = pathname.startsWith(SEARCH_PATH(''));
     setSearchPage(isSearchPage);
 
+    const isNearbypage = pathname.startsWith(NEARBY_PATH());
+    setIsNearByPage(isNearbypage);
 
     const isUserPage = pathname.startsWith(USER_PATH(''));
     setUserPage(isUserPage);
@@ -423,8 +428,8 @@ export default function Header() {
           <div className='header-logo'>{'How?Se'}</div>
         </div>
         <div className='header-right-box'>
-          {(isAuthPage || isMainPage || isSearchPage || isBoardDetailPage || isUserPage || isRecipePage || isTradePage) && !isOnboardPage && !isRecipeUpdatePage && !isTradeUpdatePage && <SearchButton />}
-          {(isMainPage || isRecipePage || isSearchPage || isTradePage || isBoardDetailPage || isUserPage || isRecipeDetailPage || isTradeDetailPage) && !isOnboardPage && !isTradeUpdatePage && !isRecipeUpdatePage && <MyPageButton />}
+          {(isAuthPage || isMainPage || isSearchPage || isBoardDetailPage || isUserPage || isRecipePage || isTradePage || isNearbypage) && !isOnboardPage && !isRecipeUpdatePage && !isTradeUpdatePage && <SearchButton />}
+          {(isMainPage || isRecipePage || isSearchPage || isTradePage || isBoardDetailPage || isUserPage || isRecipeDetailPage || isTradeDetailPage || isNearbypage) && !isOnboardPage && !isTradeUpdatePage && !isRecipeUpdatePage && <MyPageButton />}
           {(isBoardWritePage || isBoardUpdatePage || isRecipeUpdatePage || isTradeUpdatePage) && !isOnboardPage && <UploadButton />}
 
         </div>

@@ -4,7 +4,6 @@ import Header from 'layouts/Header'
 import Navbar from 'layouts/NavBar';
 import path from 'path';
 import { Outlet, useLocation } from 'react-router-dom'
-import MapContainer from 'utils/MapContainer';
 
 //          component: 레이아웃          //
 export default function Container() {

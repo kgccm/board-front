@@ -7,6 +7,8 @@ export const MAIN_PATH = () => '/community';
 export const RECIPE_PATH = () => '/recipe';
 // 중고거래 페이지
 export const TRADE_PATH = () => `/trade`;
+// 내주변 맛집 페이지
+export const NEARBY_PATH = () => `/nearby`;
 //인증 페이지
 export const AUTH_PATH = () => '/auth';
 //검색
@@ -32,3 +34,5 @@ export const TRADE_BOARD_PATH = () => '/trade/trade-board';
 export const TRADE_BOARD_DETAIL_PATH =  (tradeBoardNumber: string | number) => `detail/${tradeBoardNumber}`;
 export const TRADE_UPDATE_PATH = (tradeBoardNumber: string | number) => `update/${tradeBoardNumber}`;
 export const TRADE_WRITE_PATH = () => 'write';
+
+// 내주변 맛집 페이지 관련 //

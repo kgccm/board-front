@@ -18,7 +18,7 @@
 .community,
 .recipe,
 .trade,
-.group-buy {
+.nearby {
     cursor: pointer;
     border-radius: 25px; /* 약간 둥글게 */
     padding: 10px 20px;
@@ -29,7 +29,7 @@
 .community:hover,
 .recipe:hover,
 .trade:hover,
-.group-buy:hover {
+.nearby:hover {
     background-color: beige;
     color: rgba(0, 0, 0, 1);
     transition: transform 0.3s ease-in-out; /* 애니메이션 추가 */
@@ -40,7 +40,7 @@
 .community.active,
 .recipe.active,
 .trade.active,
-.group-buy.active {
+.nearby.active {
     color: rgba(25, 219, 138, 0.95);
     /* 기타 스타일 */
 }

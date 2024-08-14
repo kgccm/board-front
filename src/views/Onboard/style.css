@@ -13,7 +13,7 @@
   background-color: #dddee3;
 }
 #onboarding-wrapper.bg-kitchen {
-  background-color: #79c4ad;
+  background-color: blanchedalmond;
 }
 #onboarding-wrapper.bg-tradeimage {
   background-color: white;
@@ -120,7 +120,7 @@
   background-position: center;
   overflow: hidden;
   transition: background-color 1s ease;
-  background-color: #79c4ad;
+  background-color: blanchedalmond;
 }
 .onboarding-image-box.tradeimage {
   border: none;
