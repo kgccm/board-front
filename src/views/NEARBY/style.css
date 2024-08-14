@@ -1,80 +1,85 @@
 #nearby-wrapper {
-    padding: 40px 0px 40px;
-  
-    display: flex;
-    justify-content: center;
-    font-family: "NPSfontBold";
-  }
-  
-  .nearby-container {
-    display: flex;
-    width: 1200px;
-    min-width: 1200px;
-    min-height: 100%;
-    gap: 20px; /* 지도와 검색 패널 사이의 간격 */
-  }
-  
-  .map-container {
-    flex: 2; /* 지도 영역의 너비를 더 넓게 설정 */
-    height: 500px; /* 지도 높이 설정 */
-  }
-  
-  .search-container {
-    flex: 1; /* 검색 패널 영역 */
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-  
-  .search-container input {
-    padding: 10px;
-    font-size: 18px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  .search-container button {
-    padding: 10px;
-    font-size: 18px;
-    cursor: pointer;
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    border-radius: 4px;
-  }
-  
-  .search-container button:hover {
-    background-color: #0056b3;
-  }
-  
-  .result-list {
-    flex: 1;
-    overflow-y: auto;
-    border-top: 1px solid #ccc;
-    padding-top: 20px;
-  }
-  
-  .result-list ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .result-list li {
-    padding: 10px;
-    border-bottom: 1px solid #e0e0e0;
-    cursor: pointer;
-  }
-  
-  .result-list li:hover {
-    background-color: #f0f0f0;
-  }
-  
-  .nearby-title {
-    color: rgba(0, 0, 0, 1);
-    font-size: 40px;
-    font-weight: 400;
-    line-height: 140%;
-    letter-spacing: -0.8px;
-    margin-bottom: 20px;
-  }
-  
+  padding: 40px 0px 40px;
+  min-height: 471px;
+  display: flex;
+  justify-content: center;
+  font-family: "NPSfontBold";
+  overflow: hidden;
+}
+
+.nearby-container {
+  display: flex;
+  width: 1200px;
+  min-width: 1200px;
+  min-height: 100%;
+  gap: 20px; /* 지도와 검색 패널 사이의 간격 */
+}
+
+.map-container {
+  flex: 1; /* 지도 영역의 너비를 더 넓게 설정 */
+  width: 500px;
+  height: 100px; /* 지도 높이 설정 */
+}
+#map {
+  width: 500px;
+  height: 500px;
+}
+
+.search-container {
+  flex: 1; /* 검색 패널 영역 */
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.search-container input {
+  padding: 10px;
+  font-size: 18px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.search-container button {
+  padding: 10px;
+  font-size: 18px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+}
+
+.search-container button:hover {
+  background-color: #0056b3;
+}
+
+.result-list {
+  flex: 1;
+  overflow-y: auto;
+  border-top: 1px solid #ccc;
+  padding-top: 20px;
+}
+
+.result-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.result-list li {
+  padding: 10px;
+  border-bottom: 1px solid #e0e0e0;
+  cursor: pointer;
+}
+
+.result-list li:hover {
+  background-color: #f0f0f0;
+}
+
+.nearby-title {
+  color: rgba(0, 0, 0, 1);
+  font-size: 40px;
+  font-weight: 400;
+  line-height: 140%;
+  letter-spacing: -0.8px;
+  margin-bottom: 20px;
+}

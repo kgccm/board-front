@@ -32,6 +32,27 @@ export default function NEARBY() {
 
         const mapInstance = new window.kakao.maps.Map(container, options);
         setMap(mapInstance);
+        // 현재 위치에 마커 생성 및 InfoWindow 열기
+        const markerPosition = new window.kakao.maps.LatLng(lat, lng);
+        const marker = new window.kakao.maps.Marker({
+            position: markerPosition,
+            map: mapInstance,
+        });
+
+        const infowindowContent = `
+            <div style="padding:10px;z-index:1;border-radius:10px;box-shadow: 0px 2px 10px rgba(0,0,0,0.3);background-color:rgba(255, 255, 255, 0.9);border:none; text-align: center; position: relative;">
+                <div style="font-weight: bold; color: #555; font-size: 14px; margin-bottom: 5px;">📍 현재 위치</div>
+                <div style="color: #888; font-size: 12px;">지금 이곳에 계세요!</div>
+            </div>
+        `;
+
+         
+        const infowindow = new window.kakao.maps.InfoWindow({
+            content: infowindowContent,
+            removable: true, // x 버튼으로 제거 가능하게 설정
+            disableAutoPan: true // 인포윈도우가 열릴 때 지도가 자동으로 이동하지 않도록 설정
+        });
+        infowindow.open(mapInstance, marker);
     };
 
     const handleKeywordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -53,8 +74,6 @@ export default function NEARBY() {
             if (status === window.kakao.maps.services.Status.OK) {
                 setPlaces(data);
                 displayMarkers(data);
-            } else {
-                alert('검색 결과가 없습니다.');
             }
         });
     };
@@ -86,8 +105,15 @@ export default function NEARBY() {
     };
 
     const displayInfowindow = (marker: any, title: string) => {
+        const infowindowContent = `
+            <div style="padding:10px;z-index:1;border-radius:10px;box-shadow: 0px 2px 10px rgba(0,0,0,0.3);background-color:rgba(255, 255, 255, 0.9);border:none;">
+                <div style="font-weight: bold; color: #555; font-size: 14px;">${title}</div>
+            </div>
+        `;
         const infowindow = new window.kakao.maps.InfoWindow({
-            content: `<div style="padding:5px;z-index:1;">${title}</div>`,
+            content: infowindowContent,
+            removable: true,
+            disableAutoPan: true
         });
         infowindow.open(map, marker);
     };
@@ -96,7 +122,7 @@ export default function NEARBY() {
         <div id='nearby-wrapper'>
             <div className='nearby-container'>
                 <div className="map-container">
-                    <div id="map" style={{ width: "500px", height: "100%" }} />
+                    <div id="map" />
                 </div>
                 <div className="search-container">
                     <div className='nearby-title'>
