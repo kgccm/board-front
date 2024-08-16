@@ -120,7 +120,7 @@ export default function NEARBY() {
 
         ps.categorySearch(categoryGroupCode, callback, {
             location: new window.kakao.maps.LatLng(lat, lng),
-            radius: 1000, // 1km 반경 내 검색
+            radius: 500, //500m 반경 내 검색
         });
     };
 
