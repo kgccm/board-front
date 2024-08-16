@@ -49,7 +49,7 @@ export default function Main() {
       <div id='main-top-wrapper'>
         <div className='main-top-container'>
           <div className='main-top-title'>
-            {'👥자취러들의 노하우를 \n How?Se에서!'}
+            {'👥 자취러들의 노하우를 \n How?Se에서!'}
           </div>
           <div className='main-top-content-box'>
             <div className='main-top-contents-title'>{'주간 Top 3 게시물💬'}</div>

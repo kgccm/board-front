@@ -47,7 +47,7 @@ export default function Trade() {
       <div id='trade-top-wrapper'>
         <div className='trade-top-container'>
           <div className='trade-top-title'>
-            {'💰이웃간의 중고거래는 \n How?Se에서!'}
+            {'💰 이웃간의 중고거래는 \n How?Se에서!'}
           </div>
           <div className='trade-top-content-box'>
             <div className='trade-top-contents-title'>{'주간 Top 3 물품📦'}</div>

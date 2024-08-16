@@ -61,7 +61,7 @@ export default function Recipe() {
       <div id='recipe-top-wrapper'>
         <div className='recipe-top-container'>
           <div className='recipe-top-title'>
-            {'🍳나만의 레시피를 \n How?Se에서!'}
+            {'🍳 나만의 레시피를 \n How?Se에서!'}
           </div>
           <div className='recipe-section-general'>
             <div className='recipe-section-title'>{'주간 Top 3 일반 레시피📜'}</div>
