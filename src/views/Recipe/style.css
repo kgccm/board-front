@@ -34,7 +34,7 @@
   align-items: center;
   gap: 24px;
 
-  background-color: rgba(255,248,241,255);
+  background-color: rgba(255, 248, 241, 255);
 }
 
 .recipe-section-conveinence {
@@ -43,7 +43,7 @@
   flex-direction: column;
   align-items: center;
   gap: 24px;
-  background-color: rgba(255,250,224,255);
+  background-color: rgba(255, 250, 224, 255);
 }
 
 .recipe-section-title {
@@ -121,10 +121,12 @@
   background-color: transparent;
   cursor: pointer;
   transition: all 0.3s ease; /* 부드러운 전환 효과 */
+
+  color: black; /* 선택된 버튼의 글자색 */
 }
 
 .recipe-bottom-selector button.selected {
-  color: white; /* 선택된 버튼의 글자색 */
+  color: black; /* 선택된 버튼의 글자색 */
   background-color: rgba(0, 123, 255, 1); /* 선택된 버튼의 배경색 */
 }
 
