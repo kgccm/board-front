@@ -164,13 +164,21 @@ export default function BoardWrite() {
         </div>
         {boardType === 'recipe' && (
           <div className="recipe-type-select-box">
-            <label htmlFor="recipeType">Recipe Type:</label>
-            <select id="recipeType" value={recipeType} onChange={handleRecipeTypeChange}>
-              <option value={0}>General Recipe</option>
-              <option value={1}>Convenience Store Recipe</option>
+            <label htmlFor="recipeType" className="recipe-type-label">
+              {recipeType === 0 ? "일반레시피" : "편의점 레시피"}
+            </label>
+            <select
+              id="recipeType"
+              value={recipeType}
+              onChange={handleRecipeTypeChange}
+              className="recipe-type-select"
+            >
+              <option value={0}>일반레시피</option>
+              <option value={1}>편의점 레시피</option>
             </select>
           </div>
         )}
+
         <div className='board-write-box'>
           <div className='board-write-title-box'>
             <textarea ref={titleRef} className='board-write-title-textarea' rows={1} placeholder='제목을 작성해주세요.' value={title} onChange={onTitleChangeHandler}
