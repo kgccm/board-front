@@ -227,7 +227,7 @@ input[type="number"]::-webkit-inner-spin-button {
 
 .recipe-type-label {
   font-weight: bold;
-  margin-right: 10px;
+  margin-right: 20px;
   font-size: 16px;
   color: #333; /* 레이블 텍스트 색상 */
 }
@@ -240,6 +240,7 @@ input[type="number"]::-webkit-inner-spin-button {
   color: #333;
   background-color: #f9f9f9;
   transition: border-color 0.3s ease;
+  width: 140px; 
 
   /* 화살표 꾸미기 */
   appearance: none;
