@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './style.css';
 import { usePagination } from 'hooks';
+
 interface Place {
     id: string;
     place_name: string;
@@ -14,10 +15,11 @@ interface Place {
 export default function NEARBY() {
     const [map, setMap] = useState<any>(null);
     const [places, setPlaces] = useState<any[]>([]);
-    const [activeInfowindow, setActiveInfowindow] = useState<any>(null);
+    const [activeInfowindows, setActiveInfowindows] = useState<any[]>([]); // 모든 활성화된 인포윈도우들을 관리
     const [currentLatLng, setCurrentLatLng] = useState<{ lat: number, lng: number } | null>(null);
     const [keyword, setKeyword] = useState<string>(''); // 검색 키워드
     const [categoryCode, setCategoryCode] = useState<string>(''); // 현재 선택된 카테고리 코드
+    const [markers, setMarkers] = useState<any[]>([]); // 모든 마커들을 관리
 
     const {
         currentPage,
@@ -73,7 +75,8 @@ export default function NEARBY() {
         });
 
         infowindow.open(mapInstance, marker);
-        setActiveInfowindow(infowindow);
+        setActiveInfowindows([infowindow]); // 현재 위치 인포윈도우를 상태로 관리
+        setMarkers([marker]); // 현재 위치 마커를 상태로 관리
     };
 
     const handleKeywordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -95,6 +98,8 @@ export default function NEARBY() {
             if (status === window.kakao.maps.services.Status.OK) {
                 setPlaces(data);
                 setTotalList(data);
+                closeAllInfowindows(); // 모든 인포윈도우를 닫음
+                removeAllMarkers(); // 기존 마커들을 제거
                 displayMarkers(data.slice(0, 8)); // 처음 8개의 장소만 표시
             }
         }, {
@@ -114,26 +119,26 @@ export default function NEARBY() {
             if (status === window.kakao.maps.services.Status.OK) {
                 setPlaces(data);
                 setTotalList(data);
+                closeAllInfowindows(); // 모든 인포윈도우를 닫음
+                removeAllMarkers(); // 기존 마커들을 제거
                 displayMarkers(data.slice(0, 8)); // 처음 8개의 장소만 표시
             }
         };
 
         ps.categorySearch(categoryGroupCode, callback, {
             location: new window.kakao.maps.LatLng(lat, lng),
-            radius: 500, //500m 반경 내 검색
+            radius: 500, // 500m 반경 내 검색
         });
     };
 
     const displayMarkers = (places: any[]) => {
-        // 기존 마커 및 인포윈도우 제거
-        if (map.markers) {
-            map.markers.forEach((marker: any) => marker.setMap(null));
-        }
-        if (activeInfowindow) {
-            activeInfowindow.close();
-        }
+        // 기존 마커 제거
+        removeAllMarkers();
+        closeAllInfowindows(); // 모든 인포윈도우를 닫음
 
         const bounds = new window.kakao.maps.LatLngBounds();
+        const newMarkers: any[] = []; // 새로운 마커들을 담을 배열
+        const newInfowindows: any[] = []; // 새로운 인포윈도우들을 담을 배열
 
         places.forEach((place: any) => {
             const position = new window.kakao.maps.LatLng(place.y, place.x);
@@ -148,17 +153,19 @@ export default function NEARBY() {
             });
 
             window.kakao.maps.event.addListener(marker, 'click', () => {
-                if (activeInfowindow) {
-                    activeInfowindow.close();
-                }
+                closeAllInfowindows(); // 클릭할 때마다 모든 인포윈도우를 닫음
                 infowindow.open(map, marker);
-                setActiveInfowindow(infowindow);
+                setActiveInfowindows([infowindow]); // 클릭한 인포윈도우만 상태로 관리
             });
 
+            newMarkers.push(marker); // 새 마커 추가
+            newInfowindows.push(infowindow); // 새 인포윈도우 추가
             bounds.extend(position);
         });
 
         map.setBounds(bounds);
+        setMarkers(prevMarkers => [...prevMarkers, ...newMarkers]); // 새로운 마커들을 상태로 관리
+        setActiveInfowindows(newInfowindows); // 새로운 인포윈도우들을 상태로 관리
     };
 
     const createInfoWindowContent = (title: string, subtitle: string) => {
@@ -197,6 +204,16 @@ export default function NEARBY() {
             setCurrentPage(newPage);
             displayMarkers(viewList);
         }
+    };
+
+    const closeAllInfowindows = () => {
+        activeInfowindows.forEach(infowindow => infowindow.close());
+        setActiveInfowindows([]); // 모든 인포윈도우를 닫고 상태를 초기화
+    };
+
+    const removeAllMarkers = () => {
+        markers.forEach(marker => marker.setMap(null));
+        setMarkers([]); // 모든 마커들을 제거하고 상태를 초기화
     };
 
     return (
