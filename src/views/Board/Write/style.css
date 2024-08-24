@@ -47,7 +47,11 @@
   display: flex;
   gap: 16px;
 }
-
+.recipe-layout {
+  flex-direction: column;
+  gap: 20px;
+  width: 100%; /* 레이아웃을 벗어나지 않도록 전체 너비를 설정 */
+}
 .board-write-content-textarea {
   flex: 1;
 
@@ -240,7 +244,7 @@ input[type="number"]::-webkit-inner-spin-button {
   color: #333;
   background-color: #f9f9f9;
   transition: border-color 0.3s ease;
-  width: 140px; 
+  width: 140px;
 
   /* 화살표 꾸미기 */
   appearance: none;
@@ -259,4 +263,128 @@ input[type="number"]::-webkit-inner-spin-button {
 .recipe-type-select:focus {
   border-color: #555; /* 포커스 시 테두리 색상 */
   outline: none; /* 포커스 시 기본 아웃라인 제거 */
+}
+
+
+
+.recipe-layout {
+  flex-direction: column;
+  gap: 20px;
+}
+.recipe-step-container {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  width: 100%; /* 스텝 컨테이너가 레이아웃을 벗어나지 않도록 전체 너비를 사용 */
+  box-sizing: border-box; /* 패딩과 보더를 포함한 너비 계산 */
+}
+
+
+.recipe-content-container {
+  padding: 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  display: flex;
+  box-sizing: border-box;
+  align-items: center; /* 컨텐츠를 수직으로 정렬 */
+  width: 100%;
+}
+
+.recipe-content-textarea {
+  height: 100px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: none;
+  font-size: 16px;
+  flex: 1;
+}
+
+
+.recipe-step {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.recipe-step textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: none;
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.recipe-step input[type="file"] {
+  margin-bottom: 10px;
+}
+
+.recipe-step-image-preview {
+  max-width: 100%;
+  border-radius: 8px;
+  margin-top: 10px;
+}
+
+.recipe-step-image-preview img {
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.recipe-step button {
+  align-self: flex-end;
+  background-color: #ff6b6b;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.recipe-step button:hover {
+  background-color: #fa5252;
+}
+
+.recipe-steps-container button {
+  align-self: flex-end;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.recipe-steps-container button:hover {
+  background-color: #0056b3;
+}
+.cooking-time-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px; /* 요리 시간 입력 필드와 설명 텍스트 영역 사이의 간격 추가 */
+}
+
+.cooking-time-input {
+  width: 100px;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-right: 8px; /* "분" 텍스트와의 간격 */
+}
+
+.cooking-time-unit {
+  font-size: 16px;
+  color: #333;
 }

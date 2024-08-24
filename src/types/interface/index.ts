@@ -12,6 +12,8 @@ import TradeCommentListItem from './trade-comment-list-item.interface';
 import TradeFavoriteListItem from './trade-favorite-list-item.interface';
 import NearbyFavoriteListItem from './nearby-favorite-list-item.interface';
 import User from './user.interface';
+import Step from './step.interface';
+
 export type {
     Board,
     BoardListItem,
@@ -26,5 +28,6 @@ export type {
     TradeCommentListItem,
     TradeFavoriteListItem,
     User,
-    NearbyFavoriteListItem
+    NearbyFavoriteListItem,
+    Step
 }

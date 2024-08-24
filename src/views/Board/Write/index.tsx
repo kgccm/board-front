@@ -16,7 +16,7 @@ export default function BoardWrite() {
   const imageInputRef = useRef<HTMLInputElement | null>(null);
   const priceRef = useRef<HTMLInputElement | null>(null);
   const tradeLocationRef = useRef<HTMLTextAreaElement | null>(null);
-
+  const cookingTimeRef = useRef<HTMLInputElement | null>(null);
 
   //          state: 게시물 상태          //
   const { title, setTitle } = useBoardStore();
@@ -40,10 +40,47 @@ export default function BoardWrite() {
   //          state: 게시물 이미지 미리보기 URL 상태          //
   const [imageUrls, setImageUrls] = useState<string[]>([]);
 
+  //          state: 레시피 요리 시간 상태          //
+  const { cookingTime, setCookingTime } = useBoardStore();
+
+  //          state: 레시피 Step 카운트 상태          //
+  const [stepCount, setStepCount] = useState<number>(1);
+
+  //          state: 레시피 Step 상태          //
+  const {
+    step1_content, setStep1Content,
+    step1_image, setStep1Image,
+    step2_content, setStep2Content,
+    step2_image, setStep2Image,
+    step3_content, setStep3Content,
+    step3_image, setStep3Image,
+    step4_content, setStep4Content,
+    step4_image, setStep4Image,
+    step5_content, setStep5Content,
+    step5_image, setStep5Image,
+    step6_content, setStep6Content,
+    step6_image, setStep6Image,
+    step7_content, setStep7Content,
+    step7_image, setStep7Image,
+    step8_content, setStep8Content,
+    step8_image, setStep8Image
+  } = useBoardStore();
+
+  const stepContentList = [
+    { content: step1_content, setContent: setStep1Content, image: step1_image, setImage: setStep1Image },
+    { content: step2_content, setContent: setStep2Content, image: step2_image, setImage: setStep2Image },
+    { content: step3_content, setContent: setStep3Content, image: step3_image, setImage: setStep3Image },
+    { content: step4_content, setContent: setStep4Content, image: step4_image, setImage: setStep4Image },
+    { content: step5_content, setContent: setStep5Content, image: step5_image, setImage: setStep5Image },
+    { content: step6_content, setContent: setStep6Content, image: step6_image, setImage: setStep6Image },
+    { content: step7_content, setContent: setStep7Content, image: step7_image, setImage: setStep7Image },
+    { content: step8_content, setContent: setStep8Content, image: step8_image, setImage: setStep8Image },
+  ];
+
   //          function: 네비게이트 함수          //
   const navigate = useNavigate();
 
-  // Handle changes to the recipe type select element
+  //          event handler: 레시피 타입 변경 이벤트 처리          //
   const handleRecipeTypeChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const selectedType = Number(event.target.value); // Convert the value to a number
     console.log("Selected Recipe Type: ", selectedType); // Debugging log for the selected type
@@ -69,6 +106,16 @@ export default function BoardWrite() {
     contentRef.current.style.height = 'auto';
     contentRef.current.style.height = `${contentRef.current.scrollHeight}px`;
   }
+  //          event handler: 요리 시간 변경 이벤트 처리          //
+  const onCookingTimeChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target;
+    const numericValue = value === '' ? 0 : Number(value);
+    if (!isNaN(numericValue)) {
+      console.log('Cooking time:', numericValue); // 디버깅용 로그 추가
+      setCookingTime(numericValue);
+    }
+  };
+
   //          event handler: 가격 변경 이벤트 처리          //
   const onPriceChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
@@ -140,6 +187,35 @@ export default function BoardWrite() {
     }
   };
 
+  // Event handler: 스텝 내용 변경 이벤트 처리
+  const onStepContentChange = (index: number, event: ChangeEvent<HTMLTextAreaElement>) => {
+    const content = event.target.value;
+    stepContentList[index].setContent(content);
+  };
+
+  // Event handler: 스텝 이미지 변경 이벤트 처리
+  const onStepImageChange = (index: number, event: ChangeEvent<HTMLInputElement>) => {
+    if (!event.target.files || !event.target.files.length) return;
+    const file = event.target.files[0];
+    const imageUrl = URL.createObjectURL(file);
+
+    stepContentList[index].setImage(imageUrl);
+  };
+
+  // Event handler: 스텝 추가 버튼 클릭 이벤트 처리
+  const onAddStepHandler = () => {
+    setStepCount((prevCount) => Math.min(prevCount + 1, 8));
+  };
+
+  // Event handler: 스텝 삭제 버튼 클릭 이벤트 처리
+  const onRemoveStepHandler = (index: number) => {
+    if (stepCount > 1) {
+      stepContentList[index].setContent('');
+      stepContentList[index].setImage('');
+      setStepCount((prevCount) => prevCount - 1);
+    }
+  };
+
   //          effect: 마운트 시 실행할 함수          //
   useEffect(() => {
     const accessToken = cookies.accessToken;
@@ -148,6 +224,7 @@ export default function BoardWrite() {
       return;
     }
     resetBoard();
+
   }, [])
 
   //          render: 게시물 작성 화면 컴포넌트 렌더링          //
@@ -224,7 +301,7 @@ export default function BoardWrite() {
               </div>
             )}
           </div>
-          <div className='board-write-content-box'>
+          {/* <div className='board-write-content-box'>
             <textarea
               ref={contentRef}
               className='board-write-content-textarea'
@@ -245,6 +322,103 @@ export default function BoardWrite() {
               <div className='icon image-box-light-icon'></div>
             </div>
             <input ref={imageInputRef} type='file' accept='image/*' style={{ display: 'none' }} multiple onChange={onImageChangeHandler} />
+          </div> */}
+          <div className={`board-write-content-box ${boardType === 'recipe' ? 'recipe-layout' : ''}`}>
+            {boardType === 'recipe' ? (
+              <>
+                <div className='recipe-content-container'>
+                  <div className="cooking-time-container">
+                    <input
+                    ref={cookingTimeRef}
+                      type="number"
+                      className="cooking-time-input"
+                      placeholder="요리 시간을 입력하세요"
+                      value={cookingTime}
+                      onChange={onCookingTimeChangeHandler}
+                      min={0}  // 0 이상의 값만 입력 가능
+                      onDragOver={(event) => event.preventDefault()}
+                      onDrop={(event) => event.preventDefault()}
+                    />
+                    <span className="cooking-time-unit">분</span>
+                  </div>
+                  <textarea
+                    ref={contentRef}
+                    className='recipe-content-textarea'
+                    placeholder='요리 설명을 작성해주세요'
+                    value={content}
+                    onChange={onContentChangeHandler}
+                    onDragOver={(event) => event.preventDefault()}
+                    onDrop={(event) => event.preventDefault()}
+                  />
+                  <div className='icon-button' onClick={onImageUploadButtonClickHandler}>
+                    <div className='icon image-box-light-icon'></div>
+                  </div>
+                  <input ref={imageInputRef} type='file' accept='image/*' style={{ display: 'none' }} multiple onChange={onImageChangeHandler} />
+                </div>
+                <div className='recipe-steps-container'>
+                  {[...Array(stepCount)].map((_, index) => (
+                    <div key={index} className='recipe-step'>
+                      <textarea
+                        placeholder={`Step ${index + 1} 내용을 입력하세요`}
+                        value={stepContentList[index].content || ''}
+                        onChange={(e) => onStepContentChange(index, e)}
+                        onDragOver={(event) => event.preventDefault()}
+                        onDrop={(event) => event.preventDefault()}
+                      />
+                      <input
+                        type='file'
+                        accept='image/*'
+                        onChange={(e) => onStepImageChange(index, e)}
+                      />
+                      {stepContentList[index].image && (
+                        <div className='recipe-step-image-preview'>
+                          <img src={stepContentList[index].image || ''} alt={`Step ${index + 1}`} />
+                        </div>
+                      )}
+                      <button
+                        className='remove-step-button'
+                        onClick={() => onRemoveStepHandler(index)}
+                        disabled={stepCount <= 1}
+                      >
+                        스텝 삭제
+                      </button>
+                    </div>
+                  ))}
+                  {stepCount < 8 && (
+                    <button className='add-step-button' onClick={onAddStepHandler}>
+                      스텝 추가
+                    </button>
+                  )}
+                </div>
+              </>
+            ) : (
+              <div className='board-write-content-box'>
+                <textarea
+                  ref={contentRef}
+                  className='board-write-content-textarea'
+                  placeholder={
+                    boardType === 'trade'
+                      ? '- 상품명(브랜드)\n- 구매 시기\n- 사용 기간\n- 하자 여부\n\n* 실제 촬영한 사진과 함께 상세 정보를 입력해주세요\n\n* 카카오톡 아이디 첨부 시 게시물 삭제 및 이용제재 처리될 수 있어요.\n안전하고 건전한 거래환경을 위해 과학기술정보통신부, 한국인터넷진흥원, HowSe가 함께합니다.'
+                      : '게시글 내용을 작성해주세요.'
+                  }
+                  value={content}
+                  onChange={onContentChangeHandler}
+                  onDragOver={(event) => event.preventDefault()}
+                  onDrop={(event) => event.preventDefault()}
+                />
+                <div className='icon-button' onClick={onImageUploadButtonClickHandler}>
+                  <div className='icon image-box-light-icon'></div>
+                </div>
+                <input
+                  ref={imageInputRef}
+                  type='file'
+                  accept='image/*'
+                  style={{ display: 'none' }}
+                  multiple
+                  onChange={onImageChangeHandler}
+                />
+              </div>
+            )}
           </div>
         </div>
       </div>

@@ -401,6 +401,7 @@ export const getCommentRecipeListRequest = async (recipeBoardNumber: number | st
 
 
 export const postRecipeRequest = async (requestBody: PostRecipeRequestDto, accessToken: string) => {
+    console.log('Sending request body:', requestBody);  // 추가된 디버그 로그
     const result = await axios.post(POST_RECIPE_URL(), requestBody, authorization(accessToken))
         .then(response => {
             const responseBody: PostRecipeResponseDto = response.data;

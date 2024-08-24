@@ -64,7 +64,7 @@ export default function Header() {
   //          state: 온보딩 페이지 상태          //
   const [isOnboardPage, setOnBoardPage] = useState<boolean>(false);
   //          state: 내주변 페이지 상태          //
-  const [isNearbypage, setIsNearByPage] =  useState<boolean>(false);
+  const [isNearbypage, setIsNearByPage] = useState<boolean>(false);
 
   //          function: 네비게이트 함수          //
   const navigate = useNavigate();
@@ -186,9 +186,19 @@ export default function Header() {
     //          state: 게시물 상태          //
     const { title, content, boardImageFileList, price, tradeLocation, resetBoard } = useBoardStore();
     const { boardType, setBoardType } = useBoardTypeStore();
-    const {recipeType, setRecipeType} = useRecipeTypeStore();
+    const { recipeType, setRecipeType } = useRecipeTypeStore();
 
-
+    const {cookingTime, setCookingTime} = useBoardStore();
+    const {
+      step1_content, step1_image,
+      step2_content, step2_image,
+      step3_content, step3_image,
+      step4_content, step4_image,
+      step5_content, step5_image,
+      step6_content, step6_image,
+      step7_content, step7_image,
+      step8_content, step8_image,
+    } = useBoardStore();
     //          function: post board response 처리 함수          //
     const postBoardResponse = (responseBody: PostBoardResponseDto | ResponseDto | null) => {
       if (!responseBody) return;
@@ -277,7 +287,6 @@ export default function Header() {
     const onUploadButtonClickHandler = async () => {
       const accessToken = cookies.accessToken;
       if (!accessToken) return;
-
       const boardImageList: string[] = [];
 
       // Upload files and get URLs
@@ -304,19 +313,36 @@ export default function Header() {
           };
           postBoardRequest(requestBody, accessToken).then(postBoardResponse);
         }
+
         else if (boardType === 'recipe') {
-          console.log(boardType)
-          console.log("Preparing recipe request with type: ", recipeType); // Debugging log
           const requestBody: PostRecipeRequestDto = {
             title,
             content,
             boardImageList,
             boardType,
-            type: recipeType // Ensure this is included
+            type: recipeType,
+            cookingTime,
+            step1_content,
+            step1_image,
+            step2_content,
+            step2_image,
+            step3_content,
+            step3_image,
+            step4_content,
+            step4_image,
+            step5_content,
+            step5_image,
+            step6_content,
+            step6_image,
+            step7_content,
+            step7_image,
+            step8_content,
+            step8_image
           };
-          console.log("Post request type:", requestBody.type);
+          console.log("Final Request Body with Steps:", requestBody);
           postRecipeRequest(requestBody, accessToken).then(postRecipeBoardResponse);
         }
+
         else if (boardType === 'trade') {
           console.log(boardType)
           const requestBody: PostTradeRequestDto = {

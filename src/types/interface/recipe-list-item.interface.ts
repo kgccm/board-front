@@ -10,4 +10,5 @@ export default interface RecipeListItem {
     writerNickname : string;
     writerProfileImage : string | null;
     type : number;
+    cookingTime: number; // 요리 시간 추가
 }
