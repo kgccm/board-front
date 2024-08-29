@@ -8,21 +8,21 @@ export default interface Recipe {
     writerNickname: string;
     writerProfileImage: string | null;
     type: number;
-    cookingTime: number; // 요리 시간 추가
-    step1Content: string | null; // 스텝 1 내용 추가
-    step1Image: string | null;   // 스텝 1 이미지 추가
-    step2Content: string | null; // 스텝 2 내용 추가
-    step2Image: string | null;   // 스텝 2 이미지 추가
-    step3Content: string | null;
-    step3Image: string | null;
-    step4Content: string | null;
-    step4Image: string | null;
-    step5Content: string | null;
-    step5Image: string | null;
-    step6Content: string | null;
-    step6Image: string | null;
-    step7Content: string | null;
-    step7Image: string | null;
-    step8Content: string | null;
-    step8Image: string | null;
+    cookingTime: number; 
+    step1_content: string | null;
+    step1_image: string | null;
+    step2_content: string | null;
+    step2_image: string | null;
+    step3_content: string | null;
+    step3_image: string | null;
+    step4_content: string | null;
+    step4_image: string | null;
+    step5_content: string | null;
+    step5_image: string | null;
+    step6_content: string | null;
+    step6_image: string | null;
+    step7_content: string | null;
+    step7_image: string | null;
+    step8_content: string | null;
+    step8_image: string | null;
 }

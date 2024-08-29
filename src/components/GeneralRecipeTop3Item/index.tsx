@@ -16,6 +16,7 @@ export default function GeneralRecipeTop3Item({ generalrecipetop3List }: Props) 
     const { boardNumber, title, content, boardTitleImage } = generalrecipetop3List;
     const { favoriteCount, commentCount, viewCount } = generalrecipetop3List;
     const { writeDatetime, writerNickname, writerProfileImage } = generalrecipetop3List;
+    const { cookingTime } = generalrecipetop3List;
 
     //          function : navigate 함수          //
     const navigate = useNavigate();
@@ -52,8 +53,9 @@ export default function GeneralRecipeTop3Item({ generalrecipetop3List }: Props) 
                         </div>
                     </div>
                     <div className='general-recipe-top-3-list-item-info'>
-                        <div className='general-recipe-top-3-list-item-title'>{title}</div>
-                        <div className='general-recipe-top-3-list-item-content'>{content}</div>
+                        <div className='general-recipe-top-3-list-item-title'>{'제목: '}{title}</div>
+                        <div className='general-recipe-top-3-list-item-content'>{'요리설명: '}{content}</div>
+                        <div className='general-recipe-top-3-list-item-cooking-time'>{'소요시간: '}{cookingTime}{'분'}</div>
                     </div>
                     <div className='general-recipe-top-3-list-item-bottom'>
                         <div className='general-recipe-top-3-list-item-counts'>

@@ -5,7 +5,7 @@ import { RecipeCommentListItem, RecipeFavoriteListItem } from 'types/interface';
 import RecipeCommentItem from 'components/RecipeCommentItem';
 import Pagination from 'components/Pagination';
 import defaultProfileImage from 'assets/image/default-profile-image.png';
-import { useBoardTypeStore, useLoginUserStore } from 'stores';
+import { useBoardStore, useBoardTypeStore, useLoginUserStore } from 'stores';
 import { useNavigate, useParams } from 'react-router-dom';
 import { RECIPE_PATH, RECIPE_UPDATE_PATH, USER_PATH } from 'constant';
 import Recipe from 'types/interface/recipe.interface';
@@ -47,7 +47,6 @@ export default function RecipeDetail() {
 
   //          component: 게시물 상세 상단 컴포넌트          //
   const RecipeDetailTop = () => {
-    const [hasImages, setHasImages] = useState<boolean>(false);
 
     //          state: 작성자 여부 상태          //
     const [isWriter, setWriter] = useState<Boolean>(false);
@@ -172,6 +171,26 @@ export default function RecipeDetail() {
               </div>
             </>
           }
+          <div className='board-detail-top-main-step'>
+            {[...Array(8)].map((_, index) => {
+              const stepContent = recipe[`step${index + 1}_content` as keyof Recipe];
+              const stepImage = recipe[`step${index + 1}_image` as keyof Recipe];
+
+              if (stepContent || stepImage) {
+                return (
+                  <div key={index} className='recipe-detail-step'>
+                    <div className='recipe-detail-step-number'>{'Step'}{index + 1}</div>
+                    <div className='recipe-detail-step-content'>
+                      {stepContent && <p>{stepContent}</p>}
+                    </div>
+                    {stepImage && <img src={stepImage as string} alt={`Step ${index + 1}`} className='recipe-detail-step-image' />}
+                  </div>
+                );
+              }
+              return null;
+            })}
+
+          </div>
         </div>
       </div>
     )
@@ -284,7 +303,7 @@ export default function RecipeDetail() {
     //          event handler: 댓글 작성 버튼 클릭 이벤트 처리          //
     const onCommentSubmitButtonClickHandler = () => {
       if (!comment || !recipeBoardNumber || !loginUser || !cookies.accessToken) return;
-      const requestBody: PostRecipeCommentRequestDto = { content: comment};
+      const requestBody: PostRecipeCommentRequestDto = { content: comment };
       postRecipeCommentRequest(recipeBoardNumber, requestBody, cookies.accessToken).then(postRecipeCommentResponse);
     }
     //          event handler: 댓글 변경 이벤트 처리          //

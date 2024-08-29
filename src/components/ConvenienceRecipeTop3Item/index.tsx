@@ -16,6 +16,7 @@ export default function ConvenienceRecipeTop3Item({ conveniencerecipetop3List }:
     const { boardNumber, title, content, boardTitleImage } = conveniencerecipetop3List;
     const { favoriteCount, commentCount, viewCount } = conveniencerecipetop3List;
     const { writeDatetime, writerNickname, writerProfileImage } = conveniencerecipetop3List;
+    const {cookingTime} = conveniencerecipetop3List;
 
     //          function : navigate 함수          //
     const navigate = useNavigate();
@@ -52,8 +53,9 @@ export default function ConvenienceRecipeTop3Item({ conveniencerecipetop3List }:
                         </div>
                     </div>
                     <div className='convenience-recipe-top-3-list-item-info'>
-                        <div className='convenience-recipe-top-3-list-item-title'>{title}</div>
-                        <div className='convenience-recipe-top-3-list-item-content'>{content}</div>
+                        <div className='convenience-recipe-top-3-list-item-title'>{'제목: '}{title}</div>
+                        <div className='convenience-recipe-top-3-list-item-content'>{'요리 설명: '}{content}</div>
+                        <div className='convenience-recipe-top-3-list-item-cooking-time'>{'소요시간: '}{cookingTime}{'분'}</div>
                     </div>
                     <div className='convenience-recipe-top-3-list-item-bottom'>
                         <div className='convenience-recipe-top-3-list-item-counts'>
