@@ -99,6 +99,7 @@ export default function Recipe() {
 
       const { recipelatestList } = responseBody as GetLatestRecipeListResponseDto;
       setTotalList(recipelatestList);
+      console.log(recipelatestList);
     }
 
     //          effect: 첫 마운트 시 실행될 함수          //
