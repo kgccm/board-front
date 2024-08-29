@@ -316,3 +316,9 @@
   border-radius: 8px; /* 모서리 둥글게 처리 */
   flex-shrink: 0; /* 이미지가 작아지지 않도록 고정 */
 }
+.board-detail-cooking-time {
+  font-size: 18px;
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.78);
+  margin-bottom: 20px; /* 텍스트와 다음 요소 간의 간격 */
+}

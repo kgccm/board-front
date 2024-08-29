@@ -167,6 +167,9 @@ export default function RecipeDetail() {
             :
             <>
               <div className='board-detail-top-main full-screen'>
+                <div className='board-detail-cooking-time'>
+                  <strong>총 조리 시간: </strong>{recipe.cookingTime}분
+                </div>
                 <div className='board-detail-main-text'>{recipe.content}</div>
               </div>
             </>
