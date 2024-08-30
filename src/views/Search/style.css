@@ -10,7 +10,7 @@
 }
 
 .search-container {
-  width: 1200px;
+  width: 100%; /* 고정된 너비를 100%로 변경 */
   min-width: 1200px;
 
   display: flex;

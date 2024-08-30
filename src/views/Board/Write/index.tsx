@@ -4,6 +4,7 @@ import { useBoardStore, useLoginUserStore, useBoardTypeStore, useRecipeTypeStore
 import { useNavigate } from 'react-router-dom';
 import { MAIN_PATH } from 'constant';
 import { useCookies } from 'react-cookie';
+import { fileUploadRequest } from 'apis';
 
 //          component: 게시물 작성 화면 컴포넌트          //
 export default function BoardWrite() {
@@ -194,12 +195,28 @@ export default function BoardWrite() {
   };
 
   // Event handler: 스텝 이미지 변경 이벤트 처리
-  const onStepImageChange = (index: number, event: ChangeEvent<HTMLInputElement>) => {
+  // const onStepImageChange = (index: number, event: ChangeEvent<HTMLInputElement>) => {
+  //   if (!event.target.files || !event.target.files.length) return;
+  //   const file = event.target.files[0];
+  //   const imageUrl = URL.createObjectURL(file);
+
+  //   stepContentList[index].setImage(imageUrl);
+  // };
+
+  const onStepImageChange = async (index: number, event: ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files || !event.target.files.length) return;
     const file = event.target.files[0];
-    const imageUrl = URL.createObjectURL(file);
 
-    stepContentList[index].setImage(imageUrl);
+    // 파일을 서버로 업로드
+    const formData = new FormData();
+    formData.append('file', file);
+
+    const uploadedImageUrl = await fileUploadRequest(formData);
+
+    if (uploadedImageUrl) {
+      // 서버에서 받은 URL로 스텝 이미지 상태를 업데이트
+      stepContentList[index].setImage(uploadedImageUrl);
+    }
   };
 
   // Event handler: 스텝 추가 버튼 클릭 이벤트 처리
@@ -329,7 +346,7 @@ export default function BoardWrite() {
                 <div className='recipe-content-container'>
                   <div className="cooking-time-container">
                     <input
-                    ref={cookingTimeRef}
+                      ref={cookingTimeRef}
                       type="number"
                       className="cooking-time-input"
                       placeholder="요리 시간을 입력하세요"
