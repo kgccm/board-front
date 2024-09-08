@@ -1,11 +1,11 @@
-#board-detail-wrapper {
+#trade-detail-wrapper {
   padding: 100px 0;
 
   display: flex;
   justify-content: center;
 }
 
-.board-detail-top-container {
+.trade-detail-top-container {
   width: 996px;
 
   display: grid;
@@ -13,7 +13,7 @@
   gap: 150px;
 }
 
-#board-detail-left {
+#trade-detail-left {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -21,19 +21,19 @@
   gap: 40px;
 }
 
-.board-detail-top-right {
+.trade-detail-top-right {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
-.board-detail-title {
+.trade-detail-title {
   color: rgba(0, 0, 0, 1);
 
   font-size: 32px;
   font-weight: 500;
   line-height: 140%;
 }
-.board-detail-main-price-large {
+.trade-detail-main-price-large {
   color: rgba(0, 0, 0, 1);
 
   font-size: 50px;
@@ -41,20 +41,20 @@
   line-height: 140%;
 }
 
-.board-detail-top-right-sub-box {
+.trade-detail-top-right-sub-box {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.board-detail-write-info-box {
+.trade-detail-write-info-box {
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-.board-detail-writer-profile-image {
+.trade-detail-writer-profile-image {
   border-radius: 50% 50%;
   width: 32px;
   height: 32px;
@@ -63,11 +63,11 @@
   background-size: 100% 100%;
 }
 
-.board-detail-writer-profile-image:hover {
+.trade-detail-writer-profile-image:hover {
   cursor: pointer;
 }
 
-.board-detail-writer-nickname {
+.trade-detail-writer-nickname {
   color: rgba(0, 0, 0, 0.7);
 
   font-size: 16px;
@@ -75,12 +75,12 @@
   line-height: 140%;
 }
 
-.board-detail-writer-nickname:hover {
+.trade-detail-writer-nickname:hover {
   cursor: pointer;
 }
 
-.board-detail-info-divider,
-.board-detail-write-date {
+.trade-detail-info-divider,
+.trade-detail-write-date {
   color: rgba(0, 0, 0, 0.4);
 
   font-size: 16px;
@@ -88,7 +88,7 @@
   line-height: 140%;
 }
 
-.board-detail-more-box {
+.trade-detail-more-box {
   position: absolute;
   top: -81px;
   right: 0px;
@@ -98,7 +98,7 @@
   box-shadow: 0px 4px 16px 0 rgba(0, 0, 0, 0.25);
 }
 
-.board-detail-update-button {
+.trade-detail-update-button {
   width: 143px;
   height: 40px;
 
@@ -113,13 +113,13 @@
   line-height: 140%;
 }
 
-.board-detail-update-button:hover {
+.trade-detail-update-button:hover {
   cursor: pointer;
   background-color: rgba(0, 0, 0, 0.03);
   color: rgba(0, 0, 0, 1);
 }
 
-.board-detail-delete-button {
+.trade-detail-delete-button {
   width: 143px;
   height: 40px;
 
@@ -134,20 +134,20 @@
   line-height: 140%;
 }
 
-.board-detail-delete-button:hover {
+.trade-detail-delete-button:hover {
   cursor: pointer;
   background-color: rgba(0, 0, 0, 0.03);
   color: rgba(255, 0, 0, 1);
 }
 
-.board-detail-top-main {
+.trade-detail-top-main {
   display: flex;
   flex-direction: column;
   gap: 20px;
   align-items: center;
 }
 
-.board-detail-main-text {
+.trade-detail-main-text {
   color: rgba(0, 0, 0, 0.78);
 
   font-size: 18px;
@@ -157,51 +157,51 @@
   white-space: pre-wrap;
 }
 
-.board-detail-main-image {
+.trade-detail-main-image {
   border-radius: 15px;
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.board-detail-bottom {
+.trade-detail-bottom {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-.board-detail-bottom-button-box {
+.trade-detail-bottom-button-box {
   display: flex;
   gap: 12px;
 }
 
-.board-detail-bottom-button-group {
+.trade-detail-bottom-button-group {
   display: flex;
   align-items: center;
   gap: 6px;
 }
 
-.board-detail-bottom-button-text {
+.trade-detail-bottom-button-text {
   color: rgba(0, 0, 0, 0.7);
   font-size: 16px;
   font-weight: 500;
   line-height: 140%;
 }
 
-.board-detail-bottom-favorite-box {
+.trade-detail-bottom-favorite-box {
   border: 1px solid rgba(0, 0, 0, 0.2);
 
   padding: 20px 20px 40px;
 }
 
-.board-detail-bottom-favorite-container {
+.trade-detail-bottom-favorite-container {
   display: flex;
   flex-direction: column;
 
   gap: 20px;
 }
 
-.board-detail-bottom-favorite-title {
+.trade-detail-bottom-favorite-title {
   color: rgba(0, 0, 0, 1);
 
   font-size: 16px;
@@ -209,7 +209,7 @@
   line-height: 140%;
 }
 
-.board-detail-bottom-favorite-content {
+.trade-detail-bottom-favorite-content {
   display: flex;
   flex-wrap: wrap;
 
@@ -217,20 +217,20 @@
   column-gap: 30px;
 }
 
-.board-detail-bottom-comment-box {
+.trade-detail-bottom-comment-box {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-.board-detail-bottom-comment-container {
+.trade-detail-bottom-comment-container {
   display: flex;
   flex-direction: column;
   gap: 20px;
   padding: 20px 20px;
 }
 
-.board-detail-bottom-comment-title {
+.trade-detail-bottom-comment-title {
   color: rgba(0, 0, 0, 1);
 
   font-size: 16px;
@@ -238,29 +238,29 @@
   line-height: 140%;
 }
 
-.board-detail-bottom-comment-list-container {
+.trade-detail-bottom-comment-list-container {
   display: flex;
   flex-direction: column;
   gap: 30px;
 }
 
-.board-detail-bottom-comment-pagination-box {
+.trade-detail-bottom-comment-pagination-box {
   display: flex;
   justify-content: center;
 }
 
-.board-detail-bottom-comment-input-box {
+.trade-detail-bottom-comment-input-box {
   border: 1px solid rgba(0, 0, 0, 0.2);
   padding: 20px;
 }
 
-.board-detail-bottom-comment-input-container {
+.trade-detail-bottom-comment-input-container {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-.board-detail-bottom-comment-textarea {
+.trade-detail-bottom-comment-textarea {
   outline: none;
   border: none;
   background: none;
@@ -275,12 +275,12 @@
   overflow: hidden;
 }
 
-.board-detail-bottom-comment-button-box {
+.trade-detail-bottom-comment-button-box {
   display: flex;
   justify-content: flex-end;
 }
 
-.board-detail-top-main.full-screen {
+.trade-detail-top-main.full-screen {
   height: 317px;
   display: flex;
   align-items: center;
@@ -293,6 +293,7 @@
   position: relative;
   width: 100%;
   height: 100%; /* 원하는 높이로 조정 */
+  min-height: 413px; /* 이미지 컨테이너의 최소 높이 */
   overflow: hidden; /* 이미지가 슬라이더 박스를 벗어나지 않도록 함 */
 }
 

@@ -195,14 +195,6 @@ export default function BoardWrite() {
   };
 
   // Event handler: 스텝 이미지 변경 이벤트 처리
-  // const onStepImageChange = (index: number, event: ChangeEvent<HTMLInputElement>) => {
-  //   if (!event.target.files || !event.target.files.length) return;
-  //   const file = event.target.files[0];
-  //   const imageUrl = URL.createObjectURL(file);
-
-  //   stepContentList[index].setImage(imageUrl);
-  // };
-
   const onStepImageChange = async (index: number, event: ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files || !event.target.files.length) return;
     const file = event.target.files[0];
@@ -318,28 +310,6 @@ export default function BoardWrite() {
               </div>
             )}
           </div>
-          {/* <div className='board-write-content-box'>
-            <textarea
-              ref={contentRef}
-              className='board-write-content-textarea'
-              placeholder={
-                boardType === 'trade'
-                  ? '- 상품명(브랜드)\n- 구매 시기\n- 사용 기간\n- 하자 여부\n\n* 실제 촬영한 사진과 함께 상세 정보를 입력해주세요\n\n* 카카오톡 아이디 첨부 시 게시물 삭제 및 이용제재 처리될 수 있어요.\n안전하고 건전한 거래환경을 위해 과학기술정보통신부, 한국인터넷진흥원, HowSe가 함께합니다.'
-                  : boardType === 'community'
-                    ? '내 주변 자취러들과 꿀팁을 공유해요.\n\n게시글 내용을 작성해주세요\n'
-                    : '레시피 게시글 내용을 작성해주세요.'
-              }
-              value={content}
-              onChange={onContentChangeHandler}
-              onDragOver={(event) => event.preventDefault()} // 드래그 오버 이벤트 막기
-              onDrop={(event) => event.preventDefault()} // 드롭 이벤트 막기
-            />
-
-            <div className='icon-button' onClick={onImageUploadButtonClickHandler}>
-              <div className='icon image-box-light-icon'></div>
-            </div>
-            <input ref={imageInputRef} type='file' accept='image/*' style={{ display: 'none' }} multiple onChange={onImageChangeHandler} />
-          </div> */}
           <div className={`board-write-content-box ${boardType === 'recipe' ? 'recipe-layout' : ''}`}>
             {boardType === 'recipe' ? (
               <>
@@ -382,10 +352,15 @@ export default function BoardWrite() {
                         onDragOver={(event) => event.preventDefault()}
                         onDrop={(event) => event.preventDefault()}
                       />
+                      <div className='icon-button' onClick={() => document.getElementById(`file-input-${index}`)?.click()}>
+                        <div className='icon image-box-light-icon'></div>
+                      </div>
                       <input
+                        id={`file-input-${index}`} // 고유한 ID 설정
                         type='file'
                         accept='image/*'
                         onChange={(e) => onStepImageChange(index, e)}
+                        style={{ display: 'none' }} // 실제 파일 입력 요소는 숨기기
                       />
                       {stepContentList[index].image && (
                         <div className='recipe-step-image-preview'>

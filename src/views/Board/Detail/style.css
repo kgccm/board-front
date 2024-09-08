@@ -152,8 +152,10 @@
 }
 
 .board-detail-main-image {
-  width: 75%;
+  width: auto;
   height: auto;
+  max-width: 65%;
+  max-height: 65%;
   object-fit: cover;
 }
 

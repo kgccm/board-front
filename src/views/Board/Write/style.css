@@ -265,8 +265,6 @@ input[type="number"]::-webkit-inner-spin-button {
   outline: none; /* 포커스 시 기본 아웃라인 제거 */
 }
 
-
-
 .recipe-layout {
   flex-direction: column;
   gap: 20px;
@@ -282,7 +280,6 @@ input[type="number"]::-webkit-inner-spin-button {
   box-sizing: border-box; /* 패딩과 보더를 포함한 너비 계산 */
 }
 
-
 .recipe-content-container {
   padding: 16px;
   border: 1px solid #ddd;
@@ -292,6 +289,7 @@ input[type="number"]::-webkit-inner-spin-button {
   box-sizing: border-box;
   align-items: center; /* 컨텐츠를 수직으로 정렬 */
   width: 100%;
+  gap: 10px; /* 아이콘 버튼과 텍스트 영역 사이 간격 */
 }
 
 .recipe-content-textarea {
@@ -304,18 +302,20 @@ input[type="number"]::-webkit-inner-spin-button {
   flex: 1;
 }
 
-
 .recipe-step {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  gap: 10px; /* 텍스트 영역과 이미지 버튼 사이의 간격 */
   padding: 16px;
   border: 1px solid #ddd;
   border-radius: 8px;
   background-color: #f9f9f9;
+  margin-bottom: 20px; /* 각 스텝 사이에 간격 추가 */
+  /* position: relative; */
 }
 
 .recipe-step textarea {
-  width: 100%;
+  flex: 1; /* 텍스트 영역이 가능한 최대 너비를 차지하도록 */
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -323,15 +323,34 @@ input[type="number"]::-webkit-inner-spin-button {
   font-size: 16px;
   margin-bottom: 8px;
 }
+.recipe-step .icon-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #f9f9f9;
+  flex-shrink: 0; /* 버튼이 축소되지 않도록 설정 */
+}
+
+.recipe-step .icon {
+  font-size: 24px; /* 아이콘 크기를 조정 */
+}
 
 .recipe-step input[type="file"] {
   margin-bottom: 10px;
 }
 
 .recipe-step-image-preview {
-  max-width: 100%;
+  max-width: 150px; /* 이미지 미리보기의 최대 너비 설정 */
+  max-height: 150px;
   border-radius: 8px;
-  margin-top: 10px;
+  margin-left: 10px; /* 이미지와 삭제 버튼 사이 간격 */
+  object-fit: cover;
+  position: relative;
 }
 
 .recipe-step-image-preview img {
@@ -342,13 +361,27 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 .recipe-step button {
-  align-self: flex-end;
+
   background-color: #ff6b6b;
   color: white;
   border: none;
   padding: 8px 12px;
   border-radius: 4px;
   cursor: pointer;
+}
+.recipe-step .remove-step-button {
+  bottom: 10px;
+  right: 10px;
+  background-color: #ff6b6b;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.recipe-step .remove-step-button:hover {
+  background-color: #fa5252;
 }
 
 .recipe-step button:hover {

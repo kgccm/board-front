@@ -188,7 +188,7 @@ export default function Header() {
     const { boardType, setBoardType } = useBoardTypeStore();
     const { recipeType, setRecipeType } = useRecipeTypeStore();
 
-    const {cookingTime, setCookingTime} = useBoardStore();
+    const { cookingTime, setCookingTime } = useBoardStore();
     const {
       step1_content, step1_image,
       step2_content, step2_image,
@@ -313,7 +313,6 @@ export default function Header() {
           };
           postBoardRequest(requestBody, accessToken).then(postBoardResponse);
         }
-
         else if (boardType === 'recipe') {
           const requestBody: PostRecipeRequestDto = {
             title,
@@ -359,7 +358,29 @@ export default function Header() {
       }
       else if (isRecipeUpdatePage) {
         if (!recipeBoardNumber) return;
-        const requestBody: PatchRecipeRequestDto = { title, content, boardImageList };
+        const requestBody: PatchRecipeRequestDto = {
+          title,
+          content,
+          boardImageList,
+          type: recipeType,
+          cookingTime,
+          step1_content,
+          step1_image,
+          step2_content,
+          step2_image,
+          step3_content,
+          step3_image,
+          step4_content,
+          step4_image,
+          step5_content,
+          step5_image,
+          step6_content,
+          step6_image,
+          step7_content,
+          step7_image,
+          step8_content,
+          step8_image
+        };
         patchRecipeRequest(recipeBoardNumber, requestBody, accessToken).then(patchRecipeBoardResponse);
         console.log(recipeBoardNumber)
       }
@@ -374,7 +395,6 @@ export default function Header() {
 
     //          render: 업로드 버튼 컴포넌트 렌더링          //
     if (boardType === 'trade') {
-
       if (title && content && boardImageFileList.length > 0)
         return <div className='black-button' onClick={onUploadButtonClickHandler}>{'업로드'}</div>;
       else

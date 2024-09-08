@@ -155,9 +155,9 @@ export default function TradeDetail() {
     //          render: 게시물 상세 상단 컴포넌트 렌더링          //
     if (!trade) return <></>
     return (
-      <div id='board-detail-top'>
-        <div className='board-detail-top-container'>
-          <div className='board-detail-top-left'>
+      <div id='trade-detail-top'>
+        <div className='trade-detail-top-container'>
+          <div className='trade-detail-top-left'>
             <div className='image-slider'>
               <button className='slider-button left' onClick={goToPreviousImage}>
                 <svg width="26" height="28" viewBox="0 0 26 28" fill="none" xmlns="http://www.w3.org/2000/svg" className="rotate-0deg">
@@ -176,7 +176,7 @@ export default function TradeDetail() {
                       in="SourceGraphic" in2="effect1_dropShadow_19461_8348" result="shape"></feBlend></filter></defs>
                 </svg>
               </button>
-              <img className='board-detail-main-image' src={trade.boardImageList[currentImageIndex]} alt='Trade Item' />
+              <img className='trade-detail-main-image' src={trade.boardImageList[currentImageIndex]} alt='Trade Item' />
               <button className='slider-button right' onClick={goToNextImage}>
               <svg width="26" height="28" viewBox="0 0 26 28" fill="none" xmlns="http://www.w3.org/2000/svg" className="rotate-180deg"><g filter="url(#filter0_d_19461_8348)"><path fill-rule="evenodd" clip-rule="evenodd" d="M15.8122 5.34218C16.4517 6.0669 16.3825 7.17278 15.6578 7.81224L8.645 14L15.6578 20.1878C16.3825 20.8273 16.4517 21.9331 15.8122 22.6579C15.1727 23.3826 14.0669 23.4517 13.3421 22.8122L5.26706 15.6872C4.25192 14.7914 4.25192 13.2086 5.26706 12.3129L13.3421 5.1878C14.0669 4.54835 15.1727 4.61747 15.8122 5.34218Z" fill="white"></path></g><defs><filter id="filter0_d_19461_8348" x="0.505707" y="0.75" width="19.7443" height="26.5" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood><feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"></feColorMatrix><feOffset></feOffset><feGaussianBlur stdDeviation="2"></feGaussianBlur><feComposite in2="hardAlpha" operator="out"></feComposite><feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.35 0"></feColorMatrix><feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_19461_8348"></feBlend><feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_19461_8348" result="shape"></feBlend></filter></defs></svg>
               </button>
@@ -191,14 +191,14 @@ export default function TradeDetail() {
               </div>
             </div>
           </div>
-          <div className='board-detail-top-right'>
-            <div className='board-detail-title'>{trade.title}</div>
-            <div className='board-detail-top-right-sub-box'>
-              <div className='board-detail-write-info-box'>
-                <div className='board-detail-writer-profile-image' style={{ backgroundImage: `url(${trade.writerProfileImage ? trade.writerProfileImage : defaultProfileImage})` }}></div>
-                <div className='board-detail-writer-nickname' onClick={onNicknameClickHandler}>{trade.writerNickname}</div>
-                <div className='board-detail-info-divider'>{'\|'}</div>
-                <div className='board-detail-write-date'>{getWriteDateTimeFormat()}</div>
+          <div className='trade-detail-top-right'>
+            <div className='trade-detail-title'>{trade.title}</div>
+            <div className='trade-detail-top-right-sub-box'>
+              <div className='trade-detail-write-info-box'>
+                <div className='trade-detail-writer-profile-image' style={{ backgroundImage: `url(${trade.writerProfileImage ? trade.writerProfileImage : defaultProfileImage})` }}></div>
+                <div className='trade-detail-writer-nickname' onClick={onNicknameClickHandler}>{trade.writerNickname}</div>
+                <div className='trade-detail-info-divider'>{'\|'}</div>
+                <div className='trade-detail-write-date'>{getWriteDateTimeFormat()}</div>
               </div>
               {isWriter &&
                 <div className='icon-button' onClick={onMoreButtonClickHandler}>
@@ -206,16 +206,16 @@ export default function TradeDetail() {
                 </div>
               }
               {showMore &&
-                <div className='board-detail-more-box'>
-                  <div className='board-detail-update-button' onClick={onUpdateButtonClickHandler}>{'수정'}</div>
+                <div className='trade-detail-more-box'>
+                  <div className='trade-detail-update-button' onClick={onUpdateButtonClickHandler}>{'수정'}</div>
                   <div className='divider'></div>
-                  <div className='board-detail-delete-button' onClick={onDeleteButtonClickHandler}>{'삭제'}</div>
+                  <div className='trade-detail-delete-button' onClick={onDeleteButtonClickHandler}>{'삭제'}</div>
                 </div>}
             </div>
             <div className='divider'></div>
-            <div className='board-detail-main-price'> {'가격 : '}{formatPrice(trade.price)}</div>
-            <div className='board-detail-main-trade-location'>{'거래장소 : '}{trade.tradeLocation}</div>
-            <div className='board-detail-main-text'>{'\n\n상품 설명 : '}{trade.content}</div>
+            <div className='trade-detail-main-price'> {'가격 : '}{formatPrice(trade.price)}</div>
+            <div className='trade-detail-main-trade-location'>{'거래장소 : '}{trade.tradeLocation}</div>
+            <div className='trade-detail-main-text'>{'\n\n상품 설명 : '}{trade.content}</div>
           </div>
         </div>
       </div>
@@ -349,16 +349,16 @@ export default function TradeDetail() {
 
     //          render: 게시물 상세 하단 컴포넌트 렌더링          //
     return (
-      <div id='board-detail-bottom'>
-        <div className='board-detail-bottom-button-box'>
-          <div className='board-detail-bottom-button-group'>
+      <div id='trade-detail-bottom'>
+        <div className='trade-detail-bottom-button-box'>
+          <div className='trade-detail-bottom-button-group'>
             <div className='icon-button' onClick={onFavoriteClickHandler}>
               {isFavorite ?
                 <div className='icon favorite-fill-icon'></div> :
                 <div className='icon favorite-light-icon'></div>
               }
             </div>
-            <div className='board-detail-bottom-button-text'>{`좋아요 ${favoriteList.length}`}</div>
+            <div className='trade-detail-bottom-button-text'>{`좋아요 ${favoriteList.length}`}</div>
             <div className='icon-button' onClick={onShowFavoriteBoxClickHandler}>
               {showFavorite ?
                 <div className='icon up-light-icon'></div> :
@@ -366,11 +366,11 @@ export default function TradeDetail() {
               }
             </div>
           </div>
-          <div className='board-detail-bottom-button-group'>
+          <div className='trade-detail-bottom-button-group'>
             <div className='icon-button'>
               <div className='icon comment-icon'></div>
             </div>
-            <div className='board-detail-bottom-button-text'>{`댓글 ${totalCommentCount}`}</div>
+            <div className='trade-detail-bottom-button-text'>{`댓글 ${totalCommentCount}`}</div>
             <div className='icon-button' onClick={onShowCommentBoxClickHandler}>
               {showComment ?
                 <div className='icon up-light-icon'></div> :
@@ -380,32 +380,32 @@ export default function TradeDetail() {
           </div>
         </div>
         {showFavorite &&
-          <div className='board-detail-bottom-favorite-box'>
-            <div className='board-detail-bottom-favorite-container'>
-              <div className='board-detail-bottom-favorite-title'>{'좋아요 '}<span className='emphasis'>{favoriteList.length}</span></div>
-              <div className='board-detail-bottom-favorite-content'>
+          <div className='trade-detail-bottom-favorite-box'>
+            <div className='trade-detail-bottom-favorite-container'>
+              <div className='trade-detail-bottom-favorite-title'>{'좋아요 '}<span className='emphasis'>{favoriteList.length}</span></div>
+              <div className='trade-detail-bottom-favorite-content'>
                 {favoriteList.map(item => <TradeFavoriteItem tradefavoriteListItem={item} />)}
               </div>
             </div>
           </div>
         }
         {showComment &&
-          <div className='board-detail-bottom-comment-box'>
-            <div className='board-detail-bottom-comment-container'>
-              <div className='board-detail-bottom-comment-title'>{'댓글 '}<span className='emphasis'>{totalCommentCount}</span></div>
-              <div className='board-detail-bottom-comment-list-container'>
+          <div className='trade-detail-bottom-comment-box'>
+            <div className='trade-detail-bottom-comment-container'>
+              <div className='trade-detail-bottom-comment-title'>{'댓글 '}<span className='emphasis'>{totalCommentCount}</span></div>
+              <div className='trade-detail-bottom-comment-list-container'>
                 {viewList.map(item => <TradeCommentItem tradecommentListItem={item} />)}
               </div>
             </div>
             <div className='divider'></div>
-            <div className='board-detail-bottom-comment-pagination-box'>
+            <div className='trade-detail-bottom-comment-pagination-box'>
               <Pagination currentPage={currentPage} currentSection={currentSection} setCurrentPage={setCurrentPage} setCurrentSection={setCurrentSection} viewPageList={viewPageList} totalSection={totalSection} />
             </div>
             {loginUser !== null &&
-              <div className='board-detail-bottom-comment-input-box'>
-                <div className='board-detail-bottom-comment-input-container'>
-                  <textarea ref={TradecommentRef} className='board-detail-bottom-comment-textarea' placeholder='댓글을 작성해주세요.' value={comment} onChange={onCommentChangeHandler} />
-                  <div className='board-detail-bottom-comment-button-box'>
+              <div className='trade-detail-bottom-comment-input-box'>
+                <div className='trade-detail-bottom-comment-input-container'>
+                  <textarea ref={TradecommentRef} className='trade-detail-bottom-comment-textarea' placeholder='댓글을 작성해주세요.' value={comment} onChange={onCommentChangeHandler} />
+                  <div className='trade-detail-bottom-comment-button-box'>
                     <div className={comment === '' ? 'disable-button' : 'black-button'} onClick={onCommentSubmitButtonClickHandler}>{'댓글달기'}</div>
                   </div>
                 </div>
@@ -429,8 +429,8 @@ export default function TradeDetail() {
 
   //          render: 게시물 상세 화면 컴포넌트 렌더링          //
   return (
-    <div id='board-detail-wrapper'>
-      <div className='board-detail-container'>
+    <div id='trade-detail-wrapper'>
+      <div className='trade-detail-container'>
         <TradeDetailTop />
         <TradeDetailBottom />
       </div>

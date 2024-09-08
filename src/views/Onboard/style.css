@@ -20,7 +20,7 @@
 }
 
 #onboarding-wrapper.bg-groupbuy {
-  background-color: blanchedalmond;
+  background-color: #dddee3;
 }
 
 .onboarding-container {
@@ -154,7 +154,7 @@
   background-position: center;
   overflow: hidden;
   transition: background-color 1s ease;
-  background-color: blanchedalmond;
+  background-color: #dddee3;
 }
 .onboarding-image {
   position: absolute;
@@ -178,7 +178,7 @@
 }
 
 #groupbuy-image {
-  background-image: url("assets/image/groupbuy.png");
+  background-image: url("assets/image/nearby.png");
 }
 
 .onboarding-image.fade-in {
@@ -283,4 +283,3 @@
   padding: 10px 20px;
   background-color: transparent; /* 배경 색상 제거 */
 }
-

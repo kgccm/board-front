@@ -134,15 +134,15 @@ export default function RecipeDetail() {
     //          render: 게시물 상세 상단 컴포넌트 렌더링          //
     if (!recipe) return <></>
     return (
-      <div id='board-detail-top'>
-        <div className='board-detail-top-header'>
-          <div className='board-detail-title'>{recipe.title}</div>
-          <div className='board-detail-top-sub-box'>
-            <div className='board-detail-write-info-box'>
-              <div className='board-detail-writer-profile-image' style={{ backgroundImage: `url(${recipe.writerProfileImage ? recipe.writerProfileImage : defaultProfileImage})` }}></div>
-              <div className='board-detail-writer-nickname' onClick={onNicknameClickHandler}>{recipe.writerNickname}</div>
-              <div className='board-detail-info-divider'>{'\|'}</div>
-              <div className='board-detail-write-date'>{getWriteDateTimeFormat()}</div>
+      <div id='recipe-detail-top'>
+        <div className='recipe-detail-top-header'>
+          <div className='recipe-detail-title'>{recipe.title}</div>
+          <div className='recipe-detail-top-sub-box'>
+            <div className='recipe-detail-write-info-box'>
+              <div className='recipe-detail-writer-profile-image' style={{ backgroundImage: `url(${recipe.writerProfileImage ? recipe.writerProfileImage : defaultProfileImage})` }}></div>
+              <div className='recipe-detail-writer-nickname' onClick={onNicknameClickHandler}>{recipe.writerNickname}</div>
+              <div className='recipe-detail-info-divider'>{'\|'}</div>
+              <div className='recipe-detail-write-date'>{getWriteDateTimeFormat()}</div>
             </div>
             {isWriter &&
               <div className='icon-button' onClick={onMoreButtonClickHandler}>
@@ -150,31 +150,47 @@ export default function RecipeDetail() {
               </div>
             }
             {showMore &&
-              <div className='board-detail-more-box'>
-                <div className='board-detail-update-button' onClick={onUpdateButtonClickHandler}>{'수정'}</div>
+              <div className='recipe-detail-more-box'>
+                <div className='recipe-detail-update-button' onClick={onUpdateButtonClickHandler}>{'수정'}</div>
                 <div className='divider'></div>
-                <div className='board-detail-delete-button' onClick={onDeleteButtonClickHandler}>{'삭제'}</div>
+                <div className='recipe-detail-delete-button' onClick={onDeleteButtonClickHandler}>{'삭제'}</div>
               </div>}
           </div>
         </div>
         <div className='divider'></div>
-        <div className='board-detail-top-main'>
+        <div className='recipe-detail-top-main'>
+          <div className='recipe-detail-top-intro'>
+            {'▼ 요리 완성 사진 ▼'}
+          </div>
           {recipe.boardImageList.length ?
             <>
-              {recipe.boardImageList.map(image => <img className='board-detail-main-image' src={image} />)}
-              <div className='board-detail-main-text'>{recipe.content}</div>
+              <div className='recipe-detail-top-main-images'>
+                {recipe.boardImageList.map((image, index) => (
+                  <img key={index} className='recipe-detail-main-image' src={image} />
+                ))}
+              </div>
+              <div className='recipe-detail-cooking-time'>
+                <strong>총 조리 시간: </strong>{recipe.cookingTime}분
+              </div>
+              <div className='recipe-detail-main-text'>{'요리설명: '}{recipe.content}</div>
+              <div className='recipe-detail-top-intro'>
+                {'▼ 순서별 설명 ▼'}
+              </div>
             </>
             :
             <>
-              <div className='board-detail-top-main full-screen'>
-                <div className='board-detail-cooking-time'>
+              <div className='recipe-detail-top-main full-screen'>
+                <div className='recipe-detail-cooking-time'>
                   <strong>총 조리 시간: </strong>{recipe.cookingTime}분
                 </div>
-                <div className='board-detail-main-text'>{recipe.content}</div>
+                <div className='recipe-detail-main-text'>{recipe.content}</div>
+              </div>
+              <div className='recipe-detail-top-intro'>
+                {'▼ 순서별 설명 ▼'}
               </div>
             </>
           }
-          <div className='board-detail-top-main-step'>
+          <div className='recipe-detail-top-main-step'>
             {[...Array(8)].map((_, index) => {
               const stepContent = recipe[`step${index + 1}_content` as keyof Recipe];
               const stepImage = recipe[`step${index + 1}_image` as keyof Recipe];
@@ -326,16 +342,16 @@ export default function RecipeDetail() {
 
     //          render: 게시물 상세 하단 컴포넌트 렌더링          //
     return (
-      <div id='board-detail-bottom'>
-        <div className='board-detail-bottom-button-box'>
-          <div className='board-detail-bottom-button-group'>
+      <div id='recipe-detail-bottom'>
+        <div className='recipe-detail-bottom-button-box'>
+          <div className='recipe-detail-bottom-button-group'>
             <div className='icon-button' onClick={onFavoriteClickHandler}>
               {isFavorite ?
                 <div className='icon favorite-fill-icon'></div> :
                 <div className='icon favorite-light-icon'></div>
               }
             </div>
-            <div className='board-detail-bottom-button-text'>{`좋아요 ${favoriteList.length}`}</div>
+            <div className='recipe-detail-bottom-button-text'>{`좋아요 ${favoriteList.length}`}</div>
             <div className='icon-button' onClick={onShowFavoriteBoxClickHandler}>
               {showFavorite ?
                 <div className='icon up-light-icon'></div> :
@@ -343,11 +359,11 @@ export default function RecipeDetail() {
               }
             </div>
           </div>
-          <div className='board-detail-bottom-button-group'>
+          <div className='recipe-detail-bottom-button-group'>
             <div className='icon-button'>
               <div className='icon comment-icon'></div>
             </div>
-            <div className='board-detail-bottom-button-text'>{`댓글 ${totalCommentCount}`}</div>
+            <div className='recipe-detail-bottom-button-text'>{`댓글 ${totalCommentCount}`}</div>
             <div className='icon-button' onClick={onShowCommentBoxClickHandler}>
               {showComment ?
                 <div className='icon up-light-icon'></div> :
@@ -357,32 +373,32 @@ export default function RecipeDetail() {
           </div>
         </div>
         {showFavorite &&
-          <div className='board-detail-bottom-favorite-box'>
-            <div className='board-detail-bottom-favorite-container'>
-              <div className='board-detail-bottom-favorite-title'>{'좋아요 '}<span className='emphasis'>{favoriteList.length}</span></div>
-              <div className='board-detail-bottom-favorite-content'>
+          <div className='recipe-detail-bottom-favorite-box'>
+            <div className='recipe-detail-bottom-favorite-container'>
+              <div className='recipe-detail-bottom-favorite-title'>{'좋아요 '}<span className='emphasis'>{favoriteList.length}</span></div>
+              <div className='recipe-detail-bottom-favorite-content'>
                 {favoriteList.map(item => <RecipeFavoriteItem recipefavoriteListItem={item} />)}
               </div>
             </div>
           </div>
         }
         {showComment &&
-          <div className='board-detail-bottom-comment-box'>
-            <div className='board-detail-bottom-comment-container'>
-              <div className='board-detail-bottom-comment-title'>{'댓글 '}<span className='emphasis'>{totalCommentCount}</span></div>
-              <div className='board-detail-bottom-comment-list-container'>
+          <div className='recipe-detail-bottom-comment-box'>
+            <div className='recipe-detail-bottom-comment-container'>
+              <div className='recipe-detail-bottom-comment-title'>{'댓글 '}<span className='emphasis'>{totalCommentCount}</span></div>
+              <div className='recipe-detail-bottom-comment-list-container'>
                 {viewList.map(item => <RecipeCommentItem recipecommentListItem={item} />)}
               </div>
             </div>
             <div className='divider'></div>
-            <div className='board-detail-bottom-comment-pagination-box'>
+            <div className='recipe-detail-bottom-comment-pagination-box'>
               <Pagination currentPage={currentPage} currentSection={currentSection} setCurrentPage={setCurrentPage} setCurrentSection={setCurrentSection} viewPageList={viewPageList} totalSection={totalSection} />
             </div>
             {loginUser !== null &&
-              <div className='board-detail-bottom-comment-input-box'>
-                <div className='board-detail-bottom-comment-input-container'>
-                  <textarea ref={recipecommentRef} className='board-detail-bottom-comment-textarea' placeholder='댓글을 작성해주세요.' value={comment} onChange={onCommentChangeHandler} />
-                  <div className='board-detail-bottom-comment-button-box'>
+              <div className='recipe-detail-bottom-comment-input-box'>
+                <div className='recipe-detail-bottom-comment-input-container'>
+                  <textarea ref={recipecommentRef} className='recipe-detail-bottom-comment-textarea' placeholder='댓글을 작성해주세요.' value={comment} onChange={onCommentChangeHandler} />
+                  <div className='recipe-detail-bottom-comment-button-box'>
                     <div className={comment === '' ? 'disable-button' : 'black-button'} onClick={onCommentSubmitButtonClickHandler}>{'댓글달기'}</div>
                   </div>
                 </div>
@@ -409,8 +425,8 @@ export default function RecipeDetail() {
 
   //          render: 게시물 상세 화면 컴포넌트 렌더링          //
   return (
-    <div id='board-detail-wrapper'>
-      <div className='board-detail-container'>
+    <div id='recipe-detail-wrapper'>
+      <div className='recipe-detail-container'>
         <RecipeDetailTop />
         <RecipeDetailBottom />
       </div>
