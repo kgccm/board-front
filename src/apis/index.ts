@@ -12,7 +12,7 @@ import { DeleteTradeResponseDto, GetLatestTradeListResponseDto, GetSearchTradeLi
 import { PatchRecipeRequestDto, PostRecipeCommentRequestDto, PostRecipeRequestDto } from './request/recipe';
 import { PatchTradeRequestDto } from './request/trade';
 
-const DOMAIN = 'http://localhost:4000';
+const DOMAIN = 'http://3.35.230.225:4000';
 
 const API_DOMAIN = `${DOMAIN}/api/v1`;
 
