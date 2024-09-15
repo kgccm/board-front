@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/static/css/main.7b9b9d6f.css",
+    "main.js": "/static/js/main.32ddba3b.js",
+    "static/media/nearby.png": "/static/media/nearby.ed438459aaf43b36764d.png",
+    "static/media/Kitchen.png": "/static/media/Kitchen.6b0dfd61c13b2d39c707.png",
+    "static/media/trade.png": "/static/media/trade.3c7a659181ee1aaacbb5.png",
+    "static/media/clickhere.png": "/static/media/clickhere.b8dd711220854083a283.png",
+    "static/media/LivingRoom.jpg": "/static/media/LivingRoom.3afb54dfc062f6b26995.jpg",
+    "static/media/cap-icon.png": "/static/media/cap-icon.127875aa182a73d667c7.png",
+    "static/media/house-icon2.png": "/static/media/house-icon2.c0820aa1ac923933f2b0.png",
+    "static/media/cap-white-icon.png": "/static/media/cap-white-icon.629b4a94cda7ff036bb9.png",
+    "static/media/kakao-talk-icon.png": "/static/media/kakao-talk-icon.a89f1e7635f78bb5fe38.png",
+    "index.html": "/index.html",
+    "main.7b9b9d6f.css.map": "/static/css/main.7b9b9d6f.css.map",
+    "main.32ddba3b.js.map": "/static/js/main.32ddba3b.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.7b9b9d6f.css",
+    "static/js/main.32ddba3b.js"
+  ]
+}
