@@ -138,6 +138,7 @@ export const getUserBoardListRequest = async (email: string) => {
 
 
 export const increaseViewCountRequest = async (boardNumber: number | string) => {
+    console.log('increase view count request');
     const result = await axios.get(INCREASE_VIEW_COUNT_URL(boardNumber))
         .then(response => {
             const responseBody: IncreaseViewCountResponseDto = response.data;
@@ -148,6 +149,7 @@ export const increaseViewCountRequest = async (boardNumber: number | string) => 
             const responseBody: ResponseDto = error.response.data;
             return responseBody;
         })
+        console.log('increase view count result :',result);
     return result;
 }
 
@@ -436,6 +438,7 @@ export const patchRecipeRequest = async (recipeBoardNumber: number | string, req
             const responseBody: PatchRecipeResponseDto = response.data;
             return responseBody;
         })
+        
         .catch(error => {
             if (!error.response) return null;
             const responseBody: ResponseDto = error.response.data;
