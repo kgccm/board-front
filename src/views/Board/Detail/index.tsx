@@ -365,14 +365,11 @@ export default function BoardDetail() {
   }
 
   //          effect: 게시물 번호 path variable이 바뀔때마다 게시물 조회수 증가          //
-  let effectFlag = true;
   useEffect(() => {
     if (!boardNumber) return;
-    if (effectFlag) {
-      effectFlag = false;
-      return;
-    }
+   
     increaseViewCountRequest(boardNumber).then(increaseViewCountResponse);
+    console.log('Calling increaseViewCountRequest');
   }, [boardNumber])
 
   //          render: 게시물 상세 화면 컴포넌트 렌더링          //
