@@ -156,7 +156,7 @@ export default function BoardDetail() {
         <div className='board-detail-top-main'>
           {board.boardImageList.length ?
             <>
-              {board.boardImageList.map(image => <img className='board-detail-main-image' src={image} />)}
+              {board.boardImageList.map(image => <img className='board-detail-main-image' src={image} onError={(e) => console.error('Image load failed: ', image)}/>)}
               <div className='board-detail-main-text'>{board.content}</div>
             </>
             :
