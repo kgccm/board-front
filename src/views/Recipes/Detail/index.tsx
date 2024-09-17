@@ -411,14 +411,9 @@ export default function RecipeDetail() {
   }
 
   //          effect: 게시물 번호 path variable이 바뀔때마다 게시물 조회수 증가          //
-  let effectFlag = true;
   useEffect(() => {
     if (!recipeBoardNumber) return;
 
-    if (effectFlag) {
-      effectFlag = false;
-      return;
-    }
     increaseViewCountRecipeRequest(recipeBoardNumber).then(increaseViewCountRecipeResponse);
     console.log('RECIPE PATH', RECIPE_PATH())
   }, [recipeBoardNumber])
