@@ -6,7 +6,7 @@ export default interface TradeListItem {
     favoriteCount : number;
     commentCount : number;
     viewCount : number;
-    writeDatetime : string;
+    writeDatetime : Date;
     tradeLocation : string | null;
     price : number;
     writerNickname : string;

@@ -5,6 +5,7 @@ import { BoardListItem } from 'types/interface';
 import { useNavigate } from 'react-router-dom';
 import { BOARD_DETAIL_PATH, BOARD_PATH } from 'constant';
 import grayimage from 'assets/image/gray-image.png';
+import dayjs from 'dayjs';
 interface Props {
     top3ListItem: BoardListItem
 }
@@ -24,7 +25,7 @@ export default function Top3Item({ top3ListItem }: Props) {
     const onClickHandler = () => {
         navigate(BOARD_PATH() + '/' + BOARD_DETAIL_PATH(boardNumber));
     }
-
+    const formattedWriteDatetime = dayjs(writeDatetime).format('YYYY-MM-DD HH:mm');
     //          render: Top 3 List Item 컴포넌트 렌더링          //
     return (
         <div>
@@ -46,7 +47,7 @@ export default function Top3Item({ top3ListItem }: Props) {
                         </div>
                         <div className='top-3-list-item-write-box'>
                             <div className='top-3-list-item-nickname'>{writerNickname}</div>
-                            <div className='top-3-list-item-write-date'>{writeDatetime}</div>
+                            <div className='top-3-list-item-write-date'>{formattedWriteDatetime}</div>
                         </div>
                     </div>
                     <div className='top-3-list-item-info'>

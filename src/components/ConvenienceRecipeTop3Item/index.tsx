@@ -4,6 +4,7 @@ import defaultProfileImage from 'assets/image/default-profile-image.png';
 import { RecipeListItem } from 'types/interface';
 import { useNavigate } from 'react-router-dom';
 import grayimage from 'assets/image/gray-image.png';
+import dayjs from 'dayjs';
 
 interface Props {
     conveniencerecipetop3List: RecipeListItem
@@ -16,7 +17,7 @@ export default function ConvenienceRecipeTop3Item({ conveniencerecipetop3List }:
     const { boardNumber, title, content, boardTitleImage } = conveniencerecipetop3List;
     const { favoriteCount, commentCount, viewCount } = conveniencerecipetop3List;
     const { writeDatetime, writerNickname, writerProfileImage } = conveniencerecipetop3List;
-    const {cookingTime} = conveniencerecipetop3List;
+    const { cookingTime } = conveniencerecipetop3List;
 
     //          function : navigate 함수          //
     const navigate = useNavigate();
@@ -27,7 +28,7 @@ export default function ConvenienceRecipeTop3Item({ conveniencerecipetop3List }:
         // navigate(`/recipe/recipe-board/detail/${recipetop3ListItem.boardNumber}`);
         navigate(`/recipe/recipe-board/detail/${boardNumber}`);
     }
-
+    const formattedWriteDatetime = dayjs(writeDatetime).format('YYYY-MM-DD HH:mm');
     //          render: Top 3 List Item 컴포넌트 렌더링          //
     return (
         <div>
@@ -49,7 +50,7 @@ export default function ConvenienceRecipeTop3Item({ conveniencerecipetop3List }:
                         </div>
                         <div className='convenience-recipe-top-3-list-item-write-box'>
                             <div className='convenience-recipe-top-3-list-item-nickname'>{writerNickname}</div>
-                            <div className='convenience-recipe-top-3-list-item-write-date'>{writeDatetime}</div>
+                            <div className='convenience-recipe-top-3-list-item-write-date'>{formattedWriteDatetime}</div>
                         </div>
                     </div>
                     <div className='convenience-recipe-top-3-list-item-info'>

@@ -4,6 +4,7 @@ import { BoardListItem } from 'types/interface';
 import { useNavigate } from 'react-router-dom';
 import defaultProfileImage from 'assets/image/default-profile-image.png';
 import { BOARD_DETAIL_PATH, BOARD_PATH } from 'constant';
+import dayjs from 'dayjs';
 
 interface Props {
     boardListItem: BoardListItem
@@ -23,6 +24,7 @@ export default function BoardItem({ boardListItem }: Props) {
     const onClickHandler = () => {
         navigate(BOARD_PATH() + '/' + BOARD_DETAIL_PATH(boardNumber));
     }
+    const formattedWriteDatetime = dayjs(writeDatetime).format('YYYY-MM-DD HH:mm');
 
     //          render : Board List Item 컴포넌트 렌더링         //
     return (
@@ -34,7 +36,7 @@ export default function BoardItem({ boardListItem }: Props) {
                     </div>
                     <div className='board-list-item-write-box'>
                         <div className='board-list-item-nickname'>{writerNickname}</div>
-                        <div className='board-list-item-write-date'>{writeDatetime}</div>
+                        <div className='board-list-item-write-date'>{formattedWriteDatetime}</div>
                     </div>
                 </div>
                 <div className='board-list-item-middle'>

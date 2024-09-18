@@ -15,10 +15,10 @@ export default function CommentItem({ commentListItem }: Props) {
 
     //          function: 작성일 경과시간 함수          //
     const getElapsedTime = () => {
-        const now = dayjs().add(9, 'hour');
-        const writeTime = dayjs(writeDatetime);
+        const now = dayjs();  // 현재 시간을 기준으로 계산
+        const writeTime = dayjs(writeDatetime);  // 작성 시간을 기준으로 계산
 
-        const gap = now.diff(writeTime, 's');
+        const gap = now.diff(writeTime, 's');  // 초 단위 차이 계산
         if (gap < 60) return `${gap}초 전`;
         if (gap < 3600) return `${Math.floor(gap / 60)}분 전`;
         if (gap < 86400) return `${Math.floor(gap / 3600)}시간 전`;

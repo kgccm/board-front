@@ -15,7 +15,7 @@ export default function RecipeCommentItem({ recipecommentListItem }: Props) {
 
     //          function: 작성일 경과시간 함수          //
     const getElapsedTime = () => {
-        const now = dayjs().add(9, 'hour');
+        const now = dayjs();
         const writeTime = dayjs(writeDatetime);
 
         const gap = now.diff(writeTime, 's');

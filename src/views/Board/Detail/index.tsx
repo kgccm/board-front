@@ -17,6 +17,10 @@ import dayjs from 'dayjs';
 import { useCookies } from 'react-cookie';
 import { PostCommentRequestDto } from 'apis/request/board';
 import { usePagination } from 'hooks';
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 //          component: 게시물 상세 화면 컴포넌트          //
 export default function BoardDetail() {
@@ -53,7 +57,8 @@ export default function BoardDetail() {
     //          function: 작성일 포멧 변경 함수          //
     const getWriteDateTimeFormat = () => {
       if (!board) return null;
-      const date = dayjs(board.writeDatetime);
+      const date = dayjs(board.writeDatetime).tz("Asia/Seoul");
+
       return date.format('YYYY. MM. DD.');
     }
     //          function: get Board Response 처리 함수          //
@@ -156,7 +161,7 @@ export default function BoardDetail() {
         <div className='board-detail-top-main'>
           {board.boardImageList.length ?
             <>
-              {board.boardImageList.map(image => <img className='board-detail-main-image' src={image} onError={(e) => console.error('Image load failed: ', image)}/>)}
+              {board.boardImageList.map(image => <img className='board-detail-main-image' src={image} onError={(e) => console.error('Image load failed: ', image)} />)}
               <div className='board-detail-main-text'>{board.content}</div>
             </>
             :
@@ -367,7 +372,7 @@ export default function BoardDetail() {
   //          effect: 게시물 번호 path variable이 바뀔때마다 게시물 조회수 증가          //
   useEffect(() => {
     if (!boardNumber) return;
-   
+
     increaseViewCountRequest(boardNumber).then(increaseViewCountResponse);
     console.log('Calling increaseViewCountRequest');
   }, [boardNumber])

@@ -4,6 +4,7 @@ import { RecipeListItem } from 'types/interface';
 import { useNavigate } from 'react-router-dom';
 import defaultProfileImage from 'assets/image/default-profile-image.png';
 import { RECIPE_BOARD_DETAIL_PATH, RECIPE_BOARD_PATH, RECIPE_PATH } from 'constant';
+import dayjs from 'dayjs';
 
 interface Props {
     recipeListItem: RecipeListItem
@@ -25,7 +26,7 @@ export default function RecipeItem({ recipeListItem }: Props) {
         navigate(`/recipe/recipe-board/detail/${boardNumber}`);
     };
 
-
+    const formattedWriteDatetime = dayjs(writeDatetime).format('YYYY-MM-DD HH:mm');
     //          render : recipe List Item 컴포넌트 렌더링         //
     return (
         <div className='recipe-list-item' onClick={onClickHandler}>
@@ -36,7 +37,7 @@ export default function RecipeItem({ recipeListItem }: Props) {
                     </div>
                     <div className='recipe-list-item-write-box'>
                         <div className='recipe-list-item-nickname'>{writerNickname}</div>
-                        <div className='recipe-list-item-write-date'>{writeDatetime}</div>
+                        <div className='recipe-list-item-write-date'>{formattedWriteDatetime}</div>
                     </div>
                 </div>
                 <div className='recipe-list-item-middle'>

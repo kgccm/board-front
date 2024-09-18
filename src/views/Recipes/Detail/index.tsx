@@ -20,6 +20,11 @@ import dayjs from 'dayjs';
 import { useCookies } from 'react-cookie';
 import { PostRecipeCommentRequestDto } from 'apis/request/recipe';
 import { usePagination } from 'hooks';
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
+dayjs.extend(utc);
+dayjs.extend(timezone);
+
 //          component: 게시물 상세 화면 컴포넌트          //
 export default function RecipeDetail() {
 
@@ -58,7 +63,7 @@ export default function RecipeDetail() {
     //          function: 작성일 포멧 변경 함수          //
     const getWriteDateTimeFormat = () => {
       if (!recipe) return null;
-      const date = dayjs(recipe.writeDatetime);
+      const date = dayjs(recipe.writeDatetime).tz('Asia/Seoul');
       return date.format('YYYY. MM. DD.');
     }
     //          function: get Recipe Response 처리 함수          //
@@ -200,7 +205,11 @@ export default function RecipeDetail() {
                   <div key={index} className='recipe-detail-step'>
                     <div className='recipe-detail-step-number'>{'Step'}{index + 1}</div>
                     <div className='recipe-detail-step-content'>
-                      {stepContent && <p>{stepContent}</p>}
+                      {stepContent && <p>
+                        {typeof stepContent === 'string' || typeof stepContent === 'number' || Array.isArray(stepContent)
+                          ? stepContent
+                          : stepContent?.toString()}
+                      </p>}
                     </div>
                     {stepImage && <img src={stepImage as string} alt={`Step ${index + 1}`} className='recipe-detail-step-image' />}
                   </div>

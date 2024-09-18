@@ -3,7 +3,7 @@ export default interface Recipe {
     title: string;
     content: string;
     boardImageList: string[];
-    writeDatetime: string;
+    writeDatetime: Date;
     writerEmail: string
     writerNickname: string;
     writerProfileImage: string | null;

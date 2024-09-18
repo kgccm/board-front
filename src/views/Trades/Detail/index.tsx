@@ -20,7 +20,10 @@ import dayjs from 'dayjs';
 import { useCookies } from 'react-cookie';
 import { PostTradeCommentRequestDto } from 'apis/request/trade';
 import { usePagination } from 'hooks';
-
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
+dayjs.extend(utc);
+dayjs.extend(timezone);
 //          component: 게시물 상세 화면 컴포넌트          //
 export default function TradeDetail() {
 
@@ -65,7 +68,7 @@ export default function TradeDetail() {
     //          function: 작성일 포멧 변경 함수          //
     const getWriteDateTimeFormat = () => {
       if (!trade) return null;
-      const date = dayjs(trade.writeDatetime);
+      const date = dayjs(trade.writeDatetime).tz('Asia/Seoul');
       return date.format('YYYY. MM. DD.');
     }
 

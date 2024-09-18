@@ -5,7 +5,7 @@ export default interface Trade {
     boardImageList : string[];
     tradeLocation : string | null;
     price : number;
-    writeDatetime : string;
+    writeDatetime : Date;
     writerEmail : string;
     writerNickname : string;
     writerProfileImage : string | null;
