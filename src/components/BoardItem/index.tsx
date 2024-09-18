@@ -5,6 +5,11 @@ import { useNavigate } from 'react-router-dom';
 import defaultProfileImage from 'assets/image/default-profile-image.png';
 import { BOARD_DETAIL_PATH, BOARD_PATH } from 'constant';
 import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 interface Props {
     boardListItem: BoardListItem
@@ -24,7 +29,7 @@ export default function BoardItem({ boardListItem }: Props) {
     const onClickHandler = () => {
         navigate(BOARD_PATH() + '/' + BOARD_DETAIL_PATH(boardNumber));
     }
-    const formattedWriteDatetime = dayjs(writeDatetime).format('YYYY-MM-DD HH:mm');
+    const formattedWriteDatetime = dayjs(writeDatetime).tz('Asia/Seoul').format('YYYY-MM-DD HH:mm');
 
     //          render : Board List Item 컴포넌트 렌더링         //
     return (

@@ -5,7 +5,12 @@ import { useNavigate } from 'react-router-dom';
 import defaultProfileImage from 'assets/image/default-profile-image.png';
 import { TRADE_BOARD_DETAIL_PATH, TRADE_BOARD_PATH, TRADE_PATH } from 'constant';
 import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
 
+// Day.js에 플러그인 추가
+dayjs.extend(utc);
+dayjs.extend(timezone);
 interface Props {
     tradeListItem: TradeListItem
 }
@@ -25,7 +30,7 @@ export default function TradeItem({ tradeListItem }: Props) {
     const onClickHandler = () => {
         navigate(`/trade/trade-board/detail/${boardNumber}`);
     };
-    const formattedWriteDatetime = dayjs(writeDatetime).format('YYYY-MM-DD HH:mm');
+    const formattedWriteDatetime = dayjs(writeDatetime).tz('Asia/Seoul').format('YYYY-MM-DD HH:mm');
     //          function: 가격을 한국식으로 포맷팅하는 함수          //
     const formatPrice = (price: number) => {
         return new Intl.NumberFormat('ko-KR').format(price) + '원';

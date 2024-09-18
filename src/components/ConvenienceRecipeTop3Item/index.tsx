@@ -5,7 +5,12 @@ import { RecipeListItem } from 'types/interface';
 import { useNavigate } from 'react-router-dom';
 import grayimage from 'assets/image/gray-image.png';
 import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
 
+// Day.js에 플러그인 추가
+dayjs.extend(utc);
+dayjs.extend(timezone);
 interface Props {
     conveniencerecipetop3List: RecipeListItem
 }
@@ -28,7 +33,7 @@ export default function ConvenienceRecipeTop3Item({ conveniencerecipetop3List }:
         // navigate(`/recipe/recipe-board/detail/${recipetop3ListItem.boardNumber}`);
         navigate(`/recipe/recipe-board/detail/${boardNumber}`);
     }
-    const formattedWriteDatetime = dayjs(writeDatetime).format('YYYY-MM-DD HH:mm');
+    const formattedWriteDatetime = dayjs(writeDatetime).tz('Asia/Seoul').format('YYYY-MM-DD HH:mm');
     //          render: Top 3 List Item 컴포넌트 렌더링          //
     return (
         <div>

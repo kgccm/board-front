@@ -5,7 +5,12 @@ import { useNavigate } from 'react-router-dom';
 import defaultProfileImage from 'assets/image/default-profile-image.png';
 import { RECIPE_BOARD_DETAIL_PATH, RECIPE_BOARD_PATH, RECIPE_PATH } from 'constant';
 import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
 
+// Day.js에 플러그인 추가
+dayjs.extend(utc);
+dayjs.extend(timezone);
 interface Props {
     recipeListItem: RecipeListItem
 }
@@ -26,7 +31,7 @@ export default function RecipeItem({ recipeListItem }: Props) {
         navigate(`/recipe/recipe-board/detail/${boardNumber}`);
     };
 
-    const formattedWriteDatetime = dayjs(writeDatetime).format('YYYY-MM-DD HH:mm');
+    const formattedWriteDatetime = dayjs(writeDatetime).tz('Asia/Seoul').format('YYYY-MM-DD HH:mm');
     //          render : recipe List Item 컴포넌트 렌더링         //
     return (
         <div className='recipe-list-item' onClick={onClickHandler}>
