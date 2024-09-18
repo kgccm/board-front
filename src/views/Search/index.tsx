@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import './style.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import { BoardListItem, RecipeListItem, TradeListItem } from 'types/interface';
-import { latestBoardListMock } from 'mocks';
 import BoardItem from 'components/BoardItem';
 import { SEARCH_PATH } from 'constant';
 import Pagination from 'components/Pagination';
