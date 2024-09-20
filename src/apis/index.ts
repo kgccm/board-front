@@ -12,7 +12,7 @@ import { DeleteTradeResponseDto, GetLatestTradeListResponseDto, GetSearchTradeLi
 import { PatchRecipeRequestDto, PostRecipeCommentRequestDto, PostRecipeRequestDto } from './request/recipe';
 import { PatchTradeRequestDto } from './request/trade';
 
-const DOMAIN = 'http://15.164.227.45:4000';
+const DOMAIN = 'http://3.35.220.58:4000';
 
 const API_DOMAIN = `${DOMAIN}/api/v1`;
 
