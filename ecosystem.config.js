@@ -1,8 +1,9 @@
 module.exports = {
   apps : [{
     name: 'howse-react',
-    script: 'index.js',
-    watch: '.'
+    script: 'http-server',
+    args: 'build -p 3000 --proxy http://localhost:3000? --spa',
+    cwd: '/home/ubuntu/board-front'  // 현재 프론트엔드 프로젝트 경로
   }, {
     script: './service-worker/',
     watch: ['./service-worker']
