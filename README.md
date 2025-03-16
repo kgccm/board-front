@@ -44,6 +44,25 @@ Design : Figma, PPT
 - **HOWSE 중고거래** : 1인가구를 위한 **중고거래 플랫폼**, 신뢰할 수 있는 거래 환경 제공
 - **HOWSE 레시피** : 간단하면서도 실용적인 **1인가구 맞춤형 레시피 공유 커뮤니티**
 
+### S/W Architecture
+WEB
+
+![image](https://github.com/user-attachments/assets/041f2277-a605-4645-9aae-2efe5db49498)
+
+APP
+
+![image](https://github.com/user-attachments/assets/c23b3328-025a-4d85-8580-cb7499466fbf)
+
+
+### Flow Chart
+
+![image](https://github.com/user-attachments/assets/e3dfebbf-30ce-4479-aae9-8f124ba1d7ba)
+
+![image](https://github.com/user-attachments/assets/7ab2d15f-b79a-4409-aa8e-ea017cb6f1f8)
+
+![image](https://github.com/user-attachments/assets/0f25eb03-d270-4a4d-9098-38f4c801fd4d)
+
+
 
 
 ### 시연 GIF
