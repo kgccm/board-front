@@ -11,47 +11,31 @@ Design : Figma, PPT
 
 ### 'npm run start' 를 터미널에 입력해 구동합니다.
 #### !! 비용 문제로 인해 배포 중단 !!
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
 
-In the project directory, you can run:
+### 프로젝트 소개
+#### 프로젝트명 : HOWSE
 
-### `npm start`
+나날이 증가하는 1인가구를 위한 종합 커뮤니티 플랫폼 HOWSE 입니다.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+통계청 자료에 따르면 **2017년 561만 가구에서 2022년 750만 가구로** 1인가구의 수가 빠르게 증가하고 있으며, 이는 **사회 구조의 변화와 생활 방식의 다양화**를 반영합니다.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+그러나 1인가구를 위한 **특화된 플랫폼은 부족**한 상황이며, 이들이 가장 자주 이용하는 서비스는 개별적으로 운영되어 있어 **분산된 정보로 인해 불편함을 초래**하고 있습니다.
 
-### `npm test`
+이에 HOWSE는 **1인가구가 자주 이용하는 주요 기능**을 하나의 플랫폼으로 통합하려 합니다.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+![통계](https://github.com/user-attachments/assets/46987694-7a10-441c-bac3-13d50ccb1737)
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### HOWSE 의 의미
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+**HOWSE**는 집과 주거 공간을 의미하는 "**HOUSE**"와 "어떻게?"를 의미하는 "**HOW**"를 결합하여 탄생한 서비스명입니다.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+이는 **1인가구들이 더욱 합리적인 소비와 생활을 할 수 있도록 돕겠다는 목표**를 담고 있습니다.
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### HOWSE에서 제공하는 기능
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- **HOWSE 중고거래** : 1인가구를 위한 **중고거래 플랫폼**, 신뢰할 수 있는 거래 환경 제공
+- **HOWSE 레시피** : 간단하면서도 실용적인 **1인가구 맞춤형 레시피 공유 커뮤니티**
