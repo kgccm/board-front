@@ -43,3 +43,20 @@ Design : Figma, PPT
 
 - **HOWSE 중고거래** : 1인가구를 위한 **중고거래 플랫폼**, 신뢰할 수 있는 거래 환경 제공
 - **HOWSE 레시피** : 간단하면서도 실용적인 **1인가구 맞춤형 레시피 공유 커뮤니티**
+
+
+
+### 시연 GIF
+#### Onboarding Page
+![onboard-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/63ddb79a-e995-41a8-a1dd-831670cd1e6b)
+
+
+#### Main Page
+![main-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/ab328599-978c-4e04-827b-ad4152f98ada)
+
+
+#### SignIn Page
+![login-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/c421b4a2-19dc-4342-bb0e-5b1107e67386)
+
+
+
