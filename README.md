@@ -2,7 +2,15 @@
 ## 팀명 : 모자들(모여라 자취생들!)
 ### 팀원 : 김지훈(FE), 박진형(BE), 김현수(App), 강재훈(Design)
 
+#### 사용 스택 : 
+FrontEnd : React, TypeScript, Axios, Zustand
+BackEnd : Java, Spring Boot
+DB : MySQL, Redis
+App : Flutter
+Design : Figma, PPT
 
+### 'npm run start' 를 터미널에 입력해 구동합니다.
+#### !! 비용 문제로 인해 배포 중단 !!
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
