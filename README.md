@@ -1,4 +1,7 @@
-# Getting Started with Create React App
+# 성결대학교 정보통신공학과 2024학년도 졸업작품
+## 팀명 : 모자들(모여라 자취생들!)
+### 팀원 : 김지훈(FE), 박진형(BE), 김현수(App), 강재훈(Design)
+
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
