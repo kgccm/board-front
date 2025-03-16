@@ -6,8 +6,11 @@
 FrontEnd : React, TypeScript, Axios, Zustand
 
 BackEnd : Java, Spring Boot
+
 DB : MySQL, Redis
+
 App : Flutter
+
 Design : Figma, PPT
 
 ### 'npm run start' 를 터미널에 입력해 구동합니다.
