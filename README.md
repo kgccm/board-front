@@ -4,6 +4,7 @@
 
 #### 사용 스택 : 
 FrontEnd : React, TypeScript, Axios, Zustand
+
 BackEnd : Java, Spring Boot
 DB : MySQL, Redis
 App : Flutter
