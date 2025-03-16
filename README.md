@@ -59,4 +59,19 @@ Design : Figma, PPT
 ![login-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/c421b4a2-19dc-4342-bb0e-5b1107e67386)
 
 
+#### Recipe Page
+![recipe-ezgif com-video-to-gif-converter (1)](https://github.com/user-attachments/assets/b94f60cf-ad55-42fd-af82-42552bdf3018)
+
+
+#### Trade Page
+![trade-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/c1a92da9-7ef5-4662-a330-455b5ada77d3)
+
+
+#### MyPage
+![my-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/b5f3775d-5daa-4cdd-8a2e-e9d21393d4fb)
+
+
+
+
+
 
